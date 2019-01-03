@@ -24,13 +24,6 @@ public class Appliance {
 		System.out.println("UNIMPLEMENTED");
 	}
 	
-	public void typeField(String xpath, String text) 
-	{		
-		WebElement elem = d.findByXPath(xpath, BUTTON_WAIT);
-		elem.clear();
-		elem.sendKeys(text);
-	}
-	
 	public void typePassword(String password) 
 	{
 		d.tapByXPath(MyXPath.passField, BUTTON_WAIT);
@@ -42,7 +35,7 @@ public class Appliance {
 	public void signIn(String email, String password) 
 	{
 		//TODO move the email.clear into here
-		typeField(MyXPath.emailField, email);
+		d.typeField(MyXPath.emailField, email);
 		typePassword(password);
 		d.tapByXPath(MyXPath.signInTwo);	
 		System.out.println("Signed into " + email);
@@ -54,7 +47,10 @@ public class Appliance {
 		d.tapByXPath(MyXPath.backButton, BUTTON_WAIT);
 		openSettings();
 		System.out.println("native scroll");
+		WebElement element = d.findByXPaths(MyXPath.phoneLabels, 2, BUTTON_WAIT);
 		d.useNativeContext();
+//		WebElement element = d.findByXPaths(MyXPath.phoneLabels, 2, BUTTON_WAIT);
+		System.out.println("Phone Label Element: " + element);
 		d.scrollDown();
 		d.useWebContext();
 		d.tapByXPath(MyXPath.signOutButton, BUTTON_WAIT);

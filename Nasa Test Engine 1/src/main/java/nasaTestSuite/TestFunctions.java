@@ -436,19 +436,21 @@ public class TestFunctions
 	{
 		boolean passing = true;
 		printStartTest("Forgot Password");
-		//problem: need to actually check if each button is displayed and use boolean for passing expectations
+		//Change offset for the top half of the screen
 		d.offset = d.offset - 50;
 		passing = passing && d.xPathIsDisplayed(MyXPath.forgotPasswordButton);
 		d.tapByXPath(MyXPath.forgotPasswordButton, BUTTON_WAIT);
+		//Change offset for the bottom half of the screen
 		d.offset = d.offset + 100;
 		passing = passing && d.xPathIsDisplayed(MyXPath.forgotPasswordEmailField);
-		d.findByXPath(MyXPath.forgotPasswordEmailField, BUTTON_WAIT).sendKeys(email);
+		d.typeField(MyXPath.forgotPasswordEmailField, email);
 		passing = passing && d.xPathIsDisplayed(MyXPath.resetPasswordButton);
 		d.tapByXPath(MyXPath.resetPasswordButton, BUTTON_WAIT);
 		passing = passing && d.xPathIsDisplayed(MyXPath.sendAgainButton);
 		d.tapByXPath(MyXPath.sendAgainButton, BUTTON_WAIT);
 		passing = passing && d.xPathIsDisplayed(MyXPath.signInFromResetButton);
 		d.tapByXPath(MyXPath.signInFromResetButton, BUTTON_WAIT);
+		//Reseting offset to original offset
 		d.offset = d.offset - 50;
 		if(passing) {
 			System.out.println("PASS");

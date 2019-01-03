@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 
 import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.PhoneConfig;
 import main.java.nasaTestSuite.Stromboli;
 import main.java.nasaTestSuite.TestCapabilities;
 import main.java.nasaTestSuite.TestFunctions;
@@ -28,39 +29,12 @@ import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.MyXPath;
 
 //@Ignore
-public class SignInTest 
-{
-	static int oneMinute = 60;
-
-	public static FrigiDriver frigi = null;
-	public static Stromboli strombo = null;
-	public static Appliance app = null;
-	public static TestFunctions test = null;
-	
-	boolean testing = false;
-	
+public class SignInTest extends Base
+{	
 	@BeforeClass
-	public static void setup()
+	public static void beforeClass()
 	{
-		//Starting the app and pressing the first button
-		try {		
-
-			frigi = new FrigiDriver(TestServers.LocalServer(), new TestCapabilities().AssignAppiumCapabilities(), 150); //was from 540-890
-			System.out.println("temporarily removed update");
-			frigi.useWebContext();	
-			boolean calculatingOffset = false;
-			app = new Appliance(frigi);
-			test = new TestFunctions(frigi, app);	
-			if(calculatingOffset) {
-				frigi.tapByXPath(MyXPath.signInOne, frigi.BUTTON_WAIT);
-				frigi.calculateOffset();				
-			} else {	
-				frigi.tapByXPath(MyXPath.signInOne);
-			}
-			System.out.println("OFFSET: " + frigi.offset); //change offset back to protected later
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		setupApp(165);
 		System.out.println("SignIn Functionality Testing Start.");	
 	}
 
@@ -69,6 +43,7 @@ public class SignInTest
 	 */
 	@Before
 	public void resetErrors() {
+		//Tried to change to click backbutton, try again with more specific xpath. 
 		frigi.tapByXPath(MyXPath.backButton, frigi.BUTTON_WAIT);
 		frigi.tapByXPath(MyXPath.signInOne, frigi.BUTTON_WAIT);
 	}

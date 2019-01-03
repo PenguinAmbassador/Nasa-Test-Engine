@@ -10,8 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 
 public class TestCapabilities 
-{
-	
+{	
 	public enum DevicePlatform
 	{
 		Undefined,
@@ -26,53 +25,21 @@ public class TestCapabilities
 	private String app;
 	private String automationName;
 	
-	public DevicePlatform GetPlatform(){return platform; }
-	
-	public String GetPlatformVersion() 
-	{
-		try 
-		{
-			return LaunchCMD("adb shell getprop ro.build.version.release");
-		} 
-		catch (Exception e) 
-		{
-			// TODO Auto-generated catch block
-			return e.getMessage();
-		}
-	}
-	
-	public String GetDeviceName() 
-	{ 
-		try 
-		{
-			return LaunchCMD("adb shell getprop ro.product.model");
-		} 
-		catch (Exception e) 
-		{
-			// TODO Auto-generated catch block
-			return e.getMessage();
-		}
-	}
-	
-	public String GetAVD() { return avd; }
-	public String GetApp() { return app; }
-	public String GetAutomationName() { return automationName; }
-	
-	public void SetPlatform(String plat){platform = DevicePlatform.valueOf(plat);}
-	public void SetPlatformVersion (String s){platformVersion = s;}
-	public void SetDeviceName (String s){deviceName = s;}
-	public void SetAVD (String s){avd = s;}
-	public void SetApp (String s){app = s;}
-	public void SetAutomationName (String s){automationName = s;}
-	
 	public TestCapabilities()
 	{
-		this.platform = DevicePlatform.Android;
-		this.platformVersion = "";
-		this.deviceName = "";
-		this.avd = "";
-		this.app = "";
-		this.automationName = "";
+		try 
+		{
+			this.platform = DevicePlatform.Android;
+			this.platformVersion = LaunchCMD("adb shell getprop ro.build.version.release");
+			this.deviceName = LaunchCMD("adb shell getprop ro.product.model");
+			this.avd = "";
+			this.app = "";
+			this.automationName = "UiAutomator2";
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public DesiredCapabilities AssignAppiumCapabilities()
@@ -83,12 +50,12 @@ public class TestCapabilities
 			appPath = appPath.concat("\\src\\main\\resources\\Android_AppUITesting.apk");
 			System.out.println(appPath);
 			DesiredCapabilities appiumSettings = new DesiredCapabilities();
-			appiumSettings.setCapability("platform", this.GetPlatform().toString());
-			appiumSettings.setCapability("platformVersion", this.GetPlatformVersion());
-			appiumSettings.setCapability("deviceName", this.GetDeviceName());
+			appiumSettings.setCapability("platform", platform.toString());
+			appiumSettings.setCapability("platformVersion", platformVersion);
+			appiumSettings.setCapability("deviceName", deviceName);
 			//appiumSettings.setCapability("avd", /*this.GetAVD()*/ "Nexus6P"); //removed to avoid emulation
 			appiumSettings.setCapability("app", appPath);
-			appiumSettings.setCapability("automationName", "UiAutomator2");
+			appiumSettings.setCapability("automationName", automationName);
 			return appiumSettings;
 		}
 		else
@@ -123,11 +90,37 @@ public class TestCapabilities
 		}
 		if(results == null)
 		{
+			//TODO verify that this exception is thrown in the case of this error
 			throw new Exception("Connect an Android phone and ensure USB Debugging is enabled");
 		}
 		return results;   
+	}	
+
+	public String toString() 
+	{
+		String result = "Platform: " + platform.toString() + "          Platform Version: " + platformVersion + "          DeviceName: " + deviceName + "          AVD: " + avd + "          APP: " + app + "          AutomationName: " + automationName;
+		return result;
 	}
 	
+	public DevicePlatform GetPlatform(){return platform; }
 	
+	public String GetPlatformVersion() 
+	{		
+		return platformVersion;
+	}
 	
+	public String GetDeviceName() 
+	{ 
+		return deviceName;
+	}
+	
+	public String GetAVD() { return avd; }
+	public String GetApp() { return app; }
+	public String GetAutomationName() { return automationName; }	
+	public void SetPlatform(String plat){platform = DevicePlatform.valueOf(plat);}
+	public void SetPlatformVersion (String s){platformVersion = s;}
+	public void SetDeviceName (String s){deviceName = s;}
+	public void SetAVD (String s){avd = s;}
+	public void SetApp (String s){app = s;}
+	public void SetAutomationName (String s){automationName = s;}
 }

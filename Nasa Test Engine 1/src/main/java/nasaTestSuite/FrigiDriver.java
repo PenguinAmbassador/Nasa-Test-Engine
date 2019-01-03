@@ -129,6 +129,7 @@ public class FrigiDriver extends AndroidDriver
 		myWaitXPath(xPath, waitSecs);
 		try {
 			WebElement elem = findByXPath(xPath, false, this);
+			System.out.println("Clicking element: " + elem);
 			elem.click();
 		}catch(NullPointerException e){
 			System.out.println("Failed to find XPath: " + xPath);
@@ -219,7 +220,7 @@ public class FrigiDriver extends AndroidDriver
 	{
 		WebElement result = null;
 		if(looping == true) {
-			while(looping) {
+//			while(looping) {
 				try
 				{
 					result = d.findElementById(xpath);
@@ -228,7 +229,7 @@ public class FrigiDriver extends AndroidDriver
 				{
 					print("Failed to find Element with xPath:" + xpath);
 				}
-			}
+//			}
 		}else {
 			try
 			{
@@ -248,6 +249,19 @@ public class FrigiDriver extends AndroidDriver
 		myWaitXPath(xPath, waitSecs);
 		try {
 			WebElement elem = findByXPath(xPath, false, this);//replacing this line with AppiumDriver method instead of FrigiDriver method didn't work. TODO fix this later.
+			return elem;
+		}catch(NullPointerException e){
+			System.out.println("Failed to find XPath: " + xPath);
+		}
+		return null;
+	}
+
+	//list overload
+	public WebElement findByXPaths(String xPath, int index, int waitSecs)
+	{
+		myWaitXPath(xPath, waitSecs);
+		try {
+			WebElement elem = (WebElement)findElementsByXPath(xPath).get(index);//replacing this line with AppiumDriver method instead of FrigiDriver method didn't work. TODO fix this later.
 			return elem;
 		}catch(NullPointerException e){
 			System.out.println("Failed to find XPath: " + xPath);
@@ -408,14 +422,20 @@ public class FrigiDriver extends AndroidDriver
 		System.out.println("Found: " + result);
 		return result;
 	}
-
+	
+	public void typeField(String xpath, String text) 
+	{		
+		WebElement elem = findByXPath(xpath, BUTTON_WAIT);
+		elem.clear();
+		elem.sendKeys(text);
+	}
+	
 	/**
 	 * Tap 
 	 * @param xPath
 	 * @param waitSecs
 	 */
 	public void tapByXPath(String xPath, int waitSecs) {
-		thinkWait();
 		myWaitXPath(xPath, waitSecs);
 		WebElement elem = null;
 		try {
@@ -428,6 +448,7 @@ public class FrigiDriver extends AndroidDriver
 		} else {
 			System.out.println("Problem tapping xpath: " + xPath);
 		}
+		thinkWait();
 	}
 	
 	/**
@@ -499,8 +520,7 @@ public class FrigiDriver extends AndroidDriver
 			System.out.println("deviceScreenHeight: " + deviceScreenHeight);
 			System.out.println("elementCenterActualX: " + elementCenterActualX);
 			System.out.println("elementCenterActualY: " + elementCenterActualY);
-		}
-		
+		}		
 		return elementLocation;
 	}
 	
@@ -518,7 +538,7 @@ public class FrigiDriver extends AndroidDriver
 		elem.clear();
 		elem.sendKeys("placeholder@gmail.com");
 		//Typical loop should be from 50-250 but 0-300 just to be safe
-		for(int i = 130; i < 2000; i = i + 10) {
+		for(int i = 0; i < 200; i = i + 10) {
 			System.out.println("LoopNum: " + i);
 			System.out.println("\tPasswordShowing: " + passwordShowing);
 			this.offset = i; 
@@ -565,28 +585,39 @@ public class FrigiDriver extends AndroidDriver
 		    median = (double) successfulTaps.get(successfulTaps.size()/2);
 		}
 		offset = (int) median;
+		offset = offset +50; //TODO VERIFY THIS WORKS
 		System.out.println("OFFSET: " + offset);
 	}
-	
-	public void myScroll() {
-//		WebElement appliancesLabel = findByXPath(MyXPath.appliancesLabel);
-//		WebElement supportLabel = findByXPath(MyXPath.supportLabel);
-//		
-//		TouchAction myAction = new TouchAction(driver); myAction.tap(supportLabel).moveTo(appliancesLabel).release();
-	}
+
 	//how-to-scroll-with-appium
 	public void scrollDown() {
 	    //if pressX was zero it didn't work for me
 	    int pressX = manage().window().getSize().width / 2;
 	    System.out.println("pressX" + pressX);
 	    // 4/5 of the screen as the bottom finger-press point
-	    int bottomY = manage().window().getSize().height * 4/5;
+	    int bottomY = manage().window().getSize().height * 7/8; //used to be 4/5
 	    System.out.println("bottomY" + bottomY);
 	    // just non zero point, as it didn't scroll to zero normally
 	    int topY = manage().window().getSize().height / 8;
 	    System.out.println("topY" + topY);
 	    //scroll with TouchAction by itself
 	    scroll(pressX, (bottomY+200), pressX, topY);
+	}
+	
+	//NOT WORKING, labels are hard to find by xpath
+	public void scrollDown(WebElement element) {
+		//certain elements are unscrollable so it is more reliable to scroll starting at a particular element
+		int bottomY = (int)getElementCenter(element)[1];
+		
+	    //center of the screen
+	    int pressX = manage().window().getSize().width / 2;
+	    System.out.println("pressX" + pressX);
+	    System.out.println("bottomY" + bottomY);
+	    // just non zero point, as it didn't scroll to zero normally
+	    int topY = manage().window().getSize().height / 8;
+	    System.out.println("topY" + topY);
+	    //scroll with TouchAction by itself
+	    scroll(pressX, bottomY, pressX, topY);
 	}
 	
 	//how-to-scroll-with-appium

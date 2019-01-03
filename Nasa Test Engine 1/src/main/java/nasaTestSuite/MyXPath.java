@@ -16,7 +16,7 @@ public class MyXPath {
     public static String emailField = "//input[@id='email']";
     public static String passField = "//input[@id='password']";
     public static String signInTwo = "//button[@id='sign-in--button']";
-    public static String staySignedIn = "//input[@id= 'stay-signed-in']";
+    public static String staySignedIn = "//input[@id='stay-signed-in']";
 	public static String topValidation = "//div[@class='input--error input--error-global']";
 	public static String midValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED
 	public static String botValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED
@@ -89,6 +89,8 @@ public class MyXPath {
     public static String backButton = "//a[contains(@class,'icon icon-arrow-header-prev pull-left')]";
     public static String longerThanExpectedButton = "//button[@class='button--transparent loading--cancel-btn']";
     //scrolling 
+//    public static String phoneLabels = "//input[@id='phone']"; //returns 2 elements XPATH FAILED
+    public static String phoneLabels = "//div[@class='input-row input-row--text-input']"; //3rd div is phonelabel //XPATH FAILED
     public static String supportLabel = "//div[contains(text(),'Support')]"; //TODO replace with findText
     public static String appliancesLabel = "//div[contains(text(),'Appliances')]"; //TODO replace with findText
 	
