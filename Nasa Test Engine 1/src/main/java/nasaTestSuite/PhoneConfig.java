@@ -20,6 +20,12 @@ public class PhoneConfig
 		System.out.println("Need to add logic to avoid changing offset with accurate devices.");
 		switch (deviceName)
 		{
+			case "SAMSUNG-SM-G930A":
+				deviceName = "S6 - SAMSUNG-SM-G930A";
+				offset = 115;
+				accurateOffset = true;
+				newDevice = false;
+				break;				
 			case "Nexus 6P":
 				offset = 165;
 				accurateOffset = false;

@@ -50,7 +50,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class FrigiDriver extends AndroidDriver
 {
 	//S8: 150 Nexus6p: 170 
-	public int offset = 160; //phone offset
+	private int offset = 160; //phone offset
 	public final int OPEN_WAIT = 120;
 	public final int UPDATE_WAIT = 240;
 	public final int POWER_SECS = 20;
@@ -62,18 +62,21 @@ public class FrigiDriver extends AndroidDriver
 	int oneMinute = 60;
 
 	private URL testServerAddress; 
+	private PhoneConfig phone;
 
 
 	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities) {
 		super(remoteAddress,desiredCapabilities);
 		this.manage().timeouts().implicitlyWait(1000000, TimeUnit.SECONDS);
+		phone = new PhoneConfig("", "");
 	}
 	
 	//offset used in tap function
-	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities, int offset) {
+	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities, PhoneConfig phone) {
 		super(remoteAddress,desiredCapabilities);
-		this.offset = offset;
 		this.manage().timeouts().implicitlyWait(1000000, TimeUnit.SECONDS);
+		this.phone = phone;
+		this.offset = phone.getOffset();
 	}
 	
 	public void useWebContext() {
@@ -541,7 +544,7 @@ public class FrigiDriver extends AndroidDriver
 		for(int i = 0; i < 200; i = i + 10) {
 			System.out.println("LoopNum: " + i);
 			System.out.println("\tPasswordShowing: " + passwordShowing);
-			this.offset = i; 
+//			this.offset = i; //DELETE
 			if(passwordShowing) {
 				tapByXPath(MyXPath.hidePassButton, OFFSET_WAIT);
 				if(xPathIsDisplayed(MyXPath.passwordHiddenValidation, OFFSET_WAIT)) {
@@ -585,10 +588,18 @@ public class FrigiDriver extends AndroidDriver
 		    median = (double) successfulTaps.get(successfulTaps.size()/2);
 		}
 		offset = (int) median;
-		offset = offset +50; //TODO VERIFY THIS WORKS
+		changeOffset(50);
 		System.out.println("OFFSET: " + offset);
 	}
 
+	public void changeOffset(int difference) {
+		if(phone.isAccurateOffset()) {
+			//do nothing
+		}else {
+			offset += difference;			
+		}		
+	}
+	
 	//how-to-scroll-with-appium
 	public void scrollDown() {
 	    //if pressX was zero it didn't work for me
@@ -626,6 +637,9 @@ public class FrigiDriver extends AndroidDriver
 	    touchAction.longPress(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
 	}
 
+	public int getOffset() {
+		return offset;
+	}
 	
 	public AndroidDriver getDriver() 
 	{

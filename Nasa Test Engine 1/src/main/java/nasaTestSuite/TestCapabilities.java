@@ -90,7 +90,6 @@ public class TestCapabilities
 		}
 		if(results == null)
 		{
-			//TODO verify that this exception is thrown in the case of this error
 			throw new Exception("Connect an Android phone and ensure USB Debugging is enabled");
 		}
 		return results;   

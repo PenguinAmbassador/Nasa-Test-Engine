@@ -437,11 +437,11 @@ public class TestFunctions
 		boolean passing = true;
 		printStartTest("Forgot Password");
 		//Change offset for the top half of the screen
-		d.offset = d.offset - 50;
+		d.changeOffset(-50);
 		passing = passing && d.xPathIsDisplayed(MyXPath.forgotPasswordButton);
 		d.tapByXPath(MyXPath.forgotPasswordButton, BUTTON_WAIT);
 		//Change offset for the bottom half of the screen
-		d.offset = d.offset + 100;
+		d.changeOffset(100);
 		passing = passing && d.xPathIsDisplayed(MyXPath.forgotPasswordEmailField);
 		d.typeField(MyXPath.forgotPasswordEmailField, email);
 		passing = passing && d.xPathIsDisplayed(MyXPath.resetPasswordButton);
@@ -451,7 +451,7 @@ public class TestFunctions
 		passing = passing && d.xPathIsDisplayed(MyXPath.signInFromResetButton);
 		d.tapByXPath(MyXPath.signInFromResetButton, BUTTON_WAIT);
 		//Reseting offset to original offset
-		d.offset = d.offset - 50;
+		d.changeOffset(-50);
 		if(passing) {
 			System.out.println("PASS");
 		}else {

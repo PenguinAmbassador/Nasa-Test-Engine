@@ -9,7 +9,8 @@ import main.java.nasaTestSuite.TestCapabilities;
 import main.java.nasaTestSuite.TestFunctions;
 import main.java.nasaTestSuite.TestServers;
 
-public class Base {	
+public class Base 
+{	
 	static int oneMinute = 60;
 
 	public static FrigiDriver frigi = null;
@@ -23,15 +24,17 @@ public class Base {
 	 * Launch appium, Frigidaire app, and tap sign in. 
 	 * @param offset
 	 */
-	protected static void setupApp(int offset) {
+	protected static void setupApp(int offset) 
+	{
 		//Starting the app and pressing the first button
 		try {	
 			TestCapabilities capabilities = new TestCapabilities();
+			//TODO offset param not currently used, but would be a valuable default offset
 			PhoneConfig phone = new PhoneConfig(capabilities.GetDeviceName(), capabilities.GetPlatformVersion());
 			System.out.println("Capabilities: " + capabilities);
 			System.out.println("Phone: " + phone);
 			System.out.println("Temporarily removed update");
-			frigi = new FrigiDriver(TestServers.LocalServer(), capabilities.AssignAppiumCapabilities(), phone.getOffset()); //was from 540-890
+			frigi = new FrigiDriver(TestServers.LocalServer(), capabilities.AssignAppiumCapabilities(), phone); //was from 540-890
 			frigi.useWebContext(); //required for hybrid apps
 			app = new Appliance(frigi);
 			test = new TestFunctions(frigi, app);	
@@ -44,7 +47,7 @@ public class Base {
 			} else {	
 				frigi.tapByXPath(MyXPath.signInOne);
 			}
-			System.out.println("OFFSET: " + frigi.offset); //change offset back to protected later
+			System.out.println("FRIGI OFFSET: " + frigi.getOffset()); //change offset back to protected later
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
