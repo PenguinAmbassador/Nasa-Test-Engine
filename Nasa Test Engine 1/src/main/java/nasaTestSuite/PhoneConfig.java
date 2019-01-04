@@ -13,11 +13,10 @@ public class PhoneConfig
 	 * @param deviceName Passed in from TestCapabilities (example: Nexus 6P)
 	 * @param OS Passed in from TestCapabilities (example: 7.1.1)
 	 */
-	public PhoneConfig(String deviceName, String OS)
+	public PhoneConfig(int defaultOffset, String deviceName, String OS)
 	{
 		this.deviceName = deviceName;
 		this.OS = OS;
-		System.out.println("Need to add logic to avoid changing offset with accurate devices.");
 		switch (deviceName)
 		{
 			case "SAMSUNG-SM-G930A":
@@ -34,7 +33,7 @@ public class PhoneConfig
 			default:
 				System.out.println("NEW DEVICE");
 				newDevice = true;
-				offset = 150;
+				offset = defaultOffset;
 				accurateOffset = false;
 				break;		
 		}

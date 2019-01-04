@@ -28,13 +28,13 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.MyXPath;
 
-//@Ignore
+@Ignore
 public class SignInTest extends Base
 {	
 	@BeforeClass
 	public static void beforeClass()
 	{
-		setupApp(165);
+		setupApp();
 		System.out.println("SignIn Functionality Testing Start.");	
 	}
 

@@ -85,14 +85,14 @@ public class MyXPath {
 	public static String stromboSpeedDown = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
     	
     //universal
+	public static String connectionDown = "//li[@class='settings--item settings--current'][contains(text(),'Connection Down')]";//TODO add logic for connection down
+	public static String internetAlertOkButton = "//div[@class='dialog--buttons']";//TODO add logic for internet alert
 	public static String timer = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View[3]/android.view.View[1]";
     public static String backButton = "//a[contains(@class,'icon icon-arrow-header-prev pull-left')]";
     public static String longerThanExpectedButton = "//button[@class='button--transparent loading--cancel-btn']";
     //scrolling 
 //    public static String phoneLabels = "//input[@id='phone']"; //returns 2 elements XPATH FAILED
     public static String phoneLabels = "//div[@class='input-row input-row--text-input']"; //3rd div is phonelabel //XPATH FAILED
-    public static String supportLabel = "//div[contains(text(),'Support')]"; //TODO replace with findText
-    public static String appliancesLabel = "//div[contains(text(),'Appliances')]"; //TODO replace with findText
 	
     /**
      * Find div elements by text. This method is unreliable for dynamic validation, however it proved useful for scrolling through labels that are static. 

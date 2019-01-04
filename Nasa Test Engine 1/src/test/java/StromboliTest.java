@@ -26,41 +26,19 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.MyXPath;
 
-@Ignore
-public class StromboliTest 
-{
-	static int oneMinute = 60;
-
-	public static FrigiDriver frigi = null;
-	public static Stromboli strombo = null;
-	public static Appliance app = null;
-	public static TestFunctions test = null;
-	
+//@Ignore
+public class StromboliTest extends Base
+{	
 	@BeforeClass//("^This code opens the app$")
 	public static void launchMyTest()
 	{
-		//Setup app
 		System.out.println("StromboliTest");//delete later
-		try {
-			frigi = new FrigiDriver(new URL("http://localhost:4723/wd/hub"), new TestCapabilities().AssignAppiumCapabilities());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		strombo = new Stromboli(frigi);
-		test = new TestFunctions(frigi, strombo);		
-		System.out.println("temporarily removed update");
-		frigi.useWebContext();
-		
-		//Sign in
-		frigi.tapByXPath(MyXPath.signInOne);
+		setupApp();	
+
+		System.out.println("Assume power is on");
 	    strombo.signIn("eluxtester1@gmail.com", "123456");
-		System.out.println("PASS: Sign In");
 //		strombo.isPowerOn();
-	    System.out.println("App Launched");
-	    System.out.println();
-	    frigi.thinkWait();
 		strombo.openControls("Strombo");
-		frigi.thinkWait();
 	}
 	
 	//functional but not passing/verified

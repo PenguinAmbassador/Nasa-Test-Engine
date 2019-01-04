@@ -32,10 +32,13 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.String;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -68,7 +71,7 @@ public class FrigiDriver extends AndroidDriver
 	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities) {
 		super(remoteAddress,desiredCapabilities);
 		this.manage().timeouts().implicitlyWait(1000000, TimeUnit.SECONDS);
-		phone = new PhoneConfig("", "");
+		phone = new PhoneConfig(150, "", "");
 	}
 	
 	//offset used in tap function
@@ -322,6 +325,8 @@ public class FrigiDriver extends AndroidDriver
 	 */
 	public void thinkWait() 
 	{	
+		//TODO Account for Connection Down screen
+		//TODO Account for Internet Alert error
 		//TODO LOOK INTO THE IMPLICIT WAIT ISSUE
 		try {
 			Thread.sleep(4000);
@@ -635,8 +640,8 @@ public class FrigiDriver extends AndroidDriver
 	public void scroll(int fromX, int fromY, int toX, int toY) {
 	    TouchAction touchAction = new TouchAction(this);
 	    touchAction.longPress(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
-	}
-
+	}	
+	
 	public int getOffset() {
 		return offset;
 	}

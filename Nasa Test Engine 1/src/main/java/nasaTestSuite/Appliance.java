@@ -34,7 +34,6 @@ public class Appliance {
 	
 	public void signIn(String email, String password) 
 	{
-		//TODO move the email.clear into here
 		d.typeField(MyXPath.emailField, email);
 		typePassword(password);
 		d.tapByXPath(MyXPath.signInTwo);	
