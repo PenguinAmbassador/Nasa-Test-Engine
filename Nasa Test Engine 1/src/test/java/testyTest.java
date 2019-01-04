@@ -26,7 +26,7 @@ import main.java.nasaTestSuite.Appliance;
 import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.MyXPath;
-@Ignore
+//@Ignore
 public class testyTest extends Base
 {
 	@BeforeClass//("^This code opens the app$")
@@ -34,24 +34,19 @@ public class testyTest extends Base
 	{
 		//Setup app
 		System.out.println("Testy Test");
-		setupApp(150);
+		setupApp();
 		
 		//Sign in
 	    strombo.signIn("eluxtester1@gmail.com", "123456");
 		System.out.println("PASS: Sign In");
-//		strombo.isPowerOn();
-	    System.out.println("App Launched");
 	    System.out.println();
-	    frigi.thinkWait();
 		strombo.openControls("Strombo");
-		frigi.thinkWait();
-		System.out.println("ECON/COOL SETTINGS MODE");
 		if(!strombo.isPowerOn()) {
 			System.out.println("Turning on appliance");
 			frigi.tapByXPath(MyXPath.plainPowerButton, frigi.BUTTON_WAIT);
 		}
-		strombo.changeModeToCoolorEcon();
-		strombo.openSettings();
+//		strombo.changeModeToCoolorEcon();
+//		strombo.openSettings();
 	}
 	
 	@Test

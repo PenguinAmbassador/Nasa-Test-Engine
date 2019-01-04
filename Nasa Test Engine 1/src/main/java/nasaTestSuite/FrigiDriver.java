@@ -60,6 +60,7 @@ public class FrigiDriver extends AndroidDriver
 	public final int BUTTON_WAIT = 20;
 	public final int OFFSET_WAIT = 1;
 	public final int SIGN_IN_WAIT = 120;
+	public final int TEXT_SEARCH_WAIT = 5;
 	public final int TOGGLE_SECS = 2000;//ms
 	
 	int oneMinute = 60;

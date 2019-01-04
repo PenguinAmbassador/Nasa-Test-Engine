@@ -26,7 +26,7 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.MyXPath;
 
-//@Ignore
+@Ignore
 public class StromboliTest extends Base
 {	
 	@BeforeClass//("^This code opens the app$")
@@ -37,15 +37,18 @@ public class StromboliTest extends Base
 
 		System.out.println("Assume power is on");
 	    strombo.signIn("eluxtester1@gmail.com", "123456");
-//		strombo.isPowerOn();
 		strombo.openControls("Strombo");
+		if(!strombo.isPowerOn()) {
+			//if power is off, turn on
+			frigi.tapByXPath(MyXPath.plainPowerButton);
+		}
 	}
 	
-	//functional but not passing/verified
+	//functional and passing
 	@Test
-	public void powerOn() 
+	public void powerOnOff() 
 	{
-		test.testPowerOn();
+		test.testPower();
 	}
 	
 	//functional and passing

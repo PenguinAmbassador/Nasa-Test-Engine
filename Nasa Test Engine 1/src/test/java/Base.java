@@ -21,6 +21,7 @@ import main.java.nasaTestSuite.TestServers;
 public class Base 
 {	
 	static int oneMinute = 60;
+	private int screenshotCount = 0;
 
 	public static FrigiDriver frigi = null;
 	public static Stromboli strombo = null;
@@ -63,7 +64,9 @@ public class Base
 	}
 	
 	public void fail() {
-		takeScreenshot("screenshot");
+		screenshotCount++;
+		System.out.println("Screenshot #" + screenshotCount + "taken.");
+		takeScreenshot("screenshot" + screenshotCount);
 		Assert.fail();
 	}
 	

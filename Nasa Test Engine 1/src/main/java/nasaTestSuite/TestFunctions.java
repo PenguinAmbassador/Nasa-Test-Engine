@@ -285,24 +285,36 @@ public class TestFunctions
 	{
 		
 	}	
+	
 	////TEST METHODS////
-	public void testPowerOn() 
+	public void testPower() 
 	{
 		//appliance.openControls(this.getName());//ASSUME FOR NOW YOU'RE JUST GOING TO BE ON STROMBOLI SCREEN
 		printStartTest("Power on function");
-		if(app.isPowerOn()) {//if power is on turn it off so we can test power on function
-			System.out.println("Appliance was already on. Powering down to verify test.");
-			d.tapByXPath(MyXPath.plainPowerButton, BUTTON_WAIT);
+		for(int i = 0; i < 2; i++) {
+			if(app.isPowerOn()) {
+				System.out.println("Appliance is on. Shutting OFF.");
+				d.tapByXPath(MyXPath.plainPowerButton, BUTTON_WAIT);
+				//expect appliance to be off
+				if(app.isPowerOn()) {
+					printEndTest("Power on function", "FAIL");
+					fail();
+				} else {
+					//pass
+				}
+			} else {
+				System.out.println("Appliance is off. Powering ON.");
+				d.tapByXPath(MyXPath.plainPowerButton, BUTTON_WAIT);
+				//expect appliance to be on
+				if(app.isPowerOn()) {
+					//pass
+				} else {
+					printEndTest("Power on function", "FAIL");
+					fail();
+				}
+			}			
 		}
-		d.tapByXPath(MyXPath.plainPowerButton, BUTTON_WAIT);
-
-		//verify
-		if(app.isPowerOn()) {
-			printEndTest("Power on function", "PASS");
-		}else{
-			printEndTest("Power on function", "FAIL");
-			fail();
-		}
+		printEndTest("Power on function", "PASS");
 	}
 	
 	/**
@@ -324,9 +336,9 @@ public class TestFunctions
 	 */
 	public static void printEndTest(String testName, String result) 
 	{
-		System.out.println("==========================================================================");
+		System.out.println("--------------------------------------------------------------------------");
 		System.out.println("End Result - " + testName + ": " + result);
-		System.out.println("==========================================================================");
+		System.out.println("--------------------------------------------------------------------------");
 		System.out.println();
 	}
 	
