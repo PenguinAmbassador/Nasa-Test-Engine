@@ -16,51 +16,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/animal-sniffer-annotations-1.14.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/ant-1.9.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/ant-launcher-1.9.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/asm-5.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/aspectjweaver-1.8.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/byte-buddy-1.8.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/cglib-3.2.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/checker-compat-qual-2.0.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-beanutils-1.9.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-codec-1.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-collections-3.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-digester-1.8.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-exec-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-io-2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-lang3-3.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/commons-validator-1.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/error_prone_annotations-2.1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/gson-2.8.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/guava-25.0-jre.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/httpclient-4.5.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/httpcore-4.4.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/j2objc-annotations-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/java-client-6.0.0-BETA3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/jsr305-1.3.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/okhttp-3.10.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/okio-1.14.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/opencv-3.2.0-1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-api-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-chrome-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-edge-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-firefox-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-ie-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-java-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-opera-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-remote-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-safari-driver-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/selenium-support-3.13.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/spring-aop-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/spring-beans-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/spring-context-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/spring-core-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/spring-expression-5.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/TayloJih/eclipse-workspace/Dependency Jars/spring-jcl-5.0.2.RELEASE.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

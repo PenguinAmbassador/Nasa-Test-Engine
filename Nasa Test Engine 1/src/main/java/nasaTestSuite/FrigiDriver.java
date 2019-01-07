@@ -1,7 +1,10 @@
 package main.java.nasaTestSuite;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
@@ -11,9 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.FindsByAndroidUIAutomator;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.LongPressOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import main.java.nasaTestSuite.TestCapabilities;
+import main.java.nasaTestSuite.XPath;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -23,13 +30,11 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.lang.String;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -41,317 +46,125 @@ import javax.xml.xpath.XPathConstants;
 
 import io.appium.java_client.android.AndroidDriver;
 
-public class FrigiDriver {
-//	public final int OPEN_WAIT = 120;
-//	public final int UPDATE_WAIT = 240;
-//	public final int POWER_SECS = 30;
-//	public final int BUTTON_WAIT = 60;
-//	public final int SIGN_IN_WAIT = 30;
-
+public class FrigiDriver extends AndroidDriver
+{
+	//S8: 150 Nexus6p: 170 
+	public int offset = 160; //phone offset
 	public final int OPEN_WAIT = 120;
 	public final int UPDATE_WAIT = 240;
-	public final int POWER_SECS = 5;
-	public final int BUTTON_WAIT = 5;
-	public final int SIGN_IN_WAIT = 5;
+	public final int POWER_SECS = 20;
+	public final int BUTTON_WAIT = 20;
+	public final int OFFSET_WAIT = 1;
+	public final int SIGN_IN_WAIT = 120;
+	public final int TOGGLE_SECS = 2000;//ms
 	
 	int oneMinute = 60;
 
 	private URL testServerAddress; 
-	private static AndroidDriver driver; //David: why is this static?
-	private boolean boolAppStart = false;
-	private boolean boolAppUpdated = false;
-	
-	public Dehum dhum;
 
-	public void startApp(int implicitTime) {
-		TestCapabilities testCap = new TestCapabilities();
-		testCap.AssignAppiumCapabilities();
-		try 
-		{
-			testServerAddress = new URL("http://localhost:4723/wd/hub");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			System.out.println("StepDef StartApp() CAUGHT: Failed to load URL");
-		}
-		DesiredCapabilities appiumSettings = testCap.AssignAppiumCapabilities();
-		try 
-		{
-			driver = new AndroidDriver<MobileElement>(testServerAddress, appiumSettings);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			driver.quit();
-			System.out.println("StepDef StartApp() CAUGHT: Failed to initialize AndroidDriver driver");
-		}
-		
-		driver.manage().timeouts().implicitlyWait(implicitTime, TimeUnit.SECONDS);
-		boolAppStart = true;
-		
-		//TODO add logic for list of appliances based on configurations
-		//this.dhum = new Dehum(driver, implicitTime);
-	}
-//	
-//	public FrigiDriver(int implicitTime) {
-//		TestCapabilities testCap = new TestCapabilities();
-//		testCap.AssignAppiumCapabilities();
-//		try 
-//		{
-//			testServerAddress = new URL("http://localhost:4723/wd/hub");
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//			System.out.println("StepDef StartApp() CAUGHT: Failed to load URL");
-//		}
-//		DesiredCapabilities appiumSettings = testCap.AssignAppiumCapabilities();
-//		try 
-//		{
-//			driver = new AndroidDriver<MobileElement>(testServerAddress, appiumSettings);
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//			driver.quit();
-//			System.out.println("StepDef StartApp() CAUGHT: Failed to initialize AndroidDriver driver");
-//		}
-//		
-//		driver.manage().timeouts().implicitlyWait(implicitTime, TimeUnit.SECONDS);
-//		boolAppStart = true;
-//		
-//		//TODO add logic for list of appliances based on configurations
-//		this.dhum = new Dehum(driver, implicitTime);
-//	}
-	
-	
 
-	public void UpdateApp() {
-		Boolean looping = true;
-		while(looping) { //David: removed wait time
-			try {
-				WebElement updateButton = driver.findElementById("android:id/button2");
-				updateButton.click();
-				looping = false;
-			}catch(Exception e) {
-				//David: This will loop for infinity if the update button never shows up
-			}
-		}
-		
-		boolAppUpdated = true;
-	}
-	public void clickSignIn1() {
-		try {
-			boolean looping = true;
-			while(looping) {
-				MobileElement result = grabFromClass("android.widget.Button",0, driver);
-				result.click();
-				looping = false;
-			}
-		}catch(Exception e) {
-			System.out.println("looking for sign in");
-		}
+	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities) {
+		super(remoteAddress,desiredCapabilities);
+		this.manage().timeouts().implicitlyWait(1000000, TimeUnit.SECONDS);
 	}
 	
-	public void typeEmail() {
-		myWaitXPath(MyXPath.emailField, oneMinute);
-		WebElement elem = findByXPath(MyXPath.emailField, false, driver);
-		elem.sendKeys("eluxtester1@gmail.com");
+	//offset used in tap function
+	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities, int offset) {
+		super(remoteAddress,desiredCapabilities);
+		this.offset = offset;
+		this.manage().timeouts().implicitlyWait(1000000, TimeUnit.SECONDS);
 	}
 	
-	public void typePassword() {
-		myWaitXPath(MyXPath.passField, oneMinute);
-		WebElement elem = findByXPath(MyXPath.passField, false, driver);
-		elem.sendKeys("123456");
-	}
-	
-//	//still needs work
-	public void typeSignIn() {//David
-		WebElement emailField = null;
-		WebElement passField = null;
-
-		WebDriverWait wait = new WebDriverWait(driver,20);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.emailField)));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.passField)));
-		
-//		boolean looping = true;
-//		while(looping) {
-//			try {
-//				emailField = FindByID("email", true, driver);
-//				passField = FindByID("password", true, driver);
-//				looping = false;
-//				System.out.println("ID SUCCESS!!! :D");
-//			}catch(Exception e){
-//				//David: Loops forever if sign in fails
-//			}
-//		}
-		
-		 
-		if(emailField == null || passField == null)
-		{
-			List<MobileElement> editableFields = driver.findElementsByClassName("android.widget.EditText");
-			print("Result size " + editableFields.size());
-			editableFields.get(0).sendKeys("eluxtester1@gmail.com");
-			editableFields.get(0).click();
-			editableFields.get(1).click();
-			editableFields.get(1).sendKeys("123456");
-		}else{
-			emailField.sendKeys("eluxtester@gmail.com");
-			emailField.click();
-			passField.sendKeys("123456");
-			passField.click();
-
-			System.out.println("Find By ID is working");
-		}
-	}
-	
-	public void clickSignIn2() {
-		WebElement signInButton = null;
-		try {
-			WebDriverWait wait = new WebDriverWait(driver,20);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.signInTwo)));
-			signInButton = findByXPath(MyXPath.signInTwo, false, driver);
-			signInButton.click();
-		}catch(Exception e) {
-			System.out.println("Looking for signin2");
-		}
-	}
-	
-	public String checkScreen() {
-		//NO APPLIANCES: add-appliance (ID)
-		//RAC: 
-		for(int i = 0; i < 100; i++) {
-			WebElement element = null;
-			try {//Mean no appliances added
-				element = driver.findElementById("com.ELXSmart:id/add-appliance");
-				return "ProvisionScreen";
-			}catch(Exception e) {
-				System.out.println("ProvisionScreen null");
-			}
-			try {//means we're on dehum screen
-				element = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View[1]/android.view.View[1]");
-				System.out.println("xpath works123");
-				System.out.println("element get Text: " + element.getText());
-				return "DehumScreen";
-			}catch(Exception e) {
-				System.out.println("DehumScreen null");
-			}
-			try {//means we're appliance list (after hitting back button)
-				element = driver.findElementByXPath("	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[4]/android.view.View[2]/android.widget.ListView");
-				System.out.println("xpath works123");
-				System.out.println("element get Text: " + element.getText());
-				return "ApplianceListScreen";
-			}catch(Exception e) {
-				e.printStackTrace();
-				System.out.println("ApplianceListScreen null");
-			}
-		}
-		//TODO add rac and strombo. try to decrease the i of for loop or replace with waitFor. Try to add navigate functionality
-		return null;//shouldn't get here. 
-	}
-	
-	//srt: JIHAD'S HELPER METHODS
-	private MobileElement grabFromClass(String className,int index, AndroidDriver d)
+	public void useWebContext() 
 	{
-		List<MobileElement> results = null;
-		boolean looping = true;
-		while(looping) {
-			try {
-				results = d.findElementsByClassName(className);
-				if(results.size()>0) {
-
-					print("Size of " + className + " Elements: " + results.size());
-					looping = false;
-				}
-			}catch(NullPointerException e) {
-				print("Looking for button by class: " + className);
-				//loops forever if button isn't there
-			}
-		}
-		return results.get(index);
+		Set<String> contextNames = getContextHandles();
+		String webView = contextNames.toArray()[1].toString();
+		context(webView);
+	}
+	
+	public void useNativeContext() 
+	{
+		context("NATIVE_APP");
 	}
 	
 	public void clickByXpath(String xPath, int waitSecs)
 	{
-		myWaitXPath(xPath, waitSecs);
-		try 
+		if(myWaitXPath(xPath, waitSecs))
 		{
-			WebElement elem = findByXPath(xPath, false, driver);
-			elem.click();
+			try 
+			{
+				WebElement elem = findByXPath(xPath, false, this);
+				elem.click();
+			}
+			catch(NullPointerException e)
+			{
+				System.out.println("Failed to find XPath: " + xPath);
+			}
 		}
-		catch(NullPointerException e)
-		{
-			System.out.println("Failed to find XPath: " + xPath);
-		}
+		
 	}
 	
-	public void myWaitXPath(String xPath, int waitSecs) 
+	//TODO discuss if boolean return based on success/failure of element grab is appropriate. probably not. Have a new method for that like isDisplayed
+	public boolean myWaitXPath(String xPath, int waitSecs) 
 	{
+		boolean success = true;
 		try 
 		{
-			WebDriverWait wait = new WebDriverWait(driver, waitSecs);
+			WebDriverWait wait = new WebDriverWait(this, waitSecs);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 		}
 		catch (TimeoutException e) 
 		{
 			System.out.println("XPath Failed: " + xPath);
 			System.out.println("Timed out after " + waitSecs + " second(s)");
+			success = false;
 		}
+		return success;
+	}
+	
+	/**
+	 * Checks is an element is displayed. Verified Method.
+	 * @param xPath String: gathered from with the app that points to the desired element
+	 * @param waitSecs int: time to wait for the desired element to load before throwing an exception
+	 * @return boolean: determines whether or not desired element was found
+	 */
+	public boolean xPathIsDisplayed(String xPath, int waitSecs) 
+	{
+		boolean success = true;
+		try {
+			WebDriverWait wait = new WebDriverWait(this, waitSecs);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+		}catch (TimeoutException e) {
+			System.out.println("XPath Failed: " + xPath);
+			System.out.println("Timed out after " + waitSecs + " second(s)");
+			success = false;
+		}
+		System.out.println("Verify xpath: " + xPath);
+		System.out.println("Displayed: " + success);
+		return success;
+	}
+	public boolean xPathIsDisplayed(String xPath) 
+	{
+		return xPathIsDisplayed(xPath, BUTTON_WAIT);
 	}
 	
 	public void myWaitText(String text, int waitSecs) 
 	{
-		try 
-		{
-			WebDriverWait wait = new WebDriverWait(driver, waitSecs);
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(text)));
-			wait.until(ExpectedConditions.visibilityOf(driver.findElementByAndroidUIAutomator("new UiSelector().textContains(\""+ text +"\")")));
-		}
-		catch (TimeoutException e) 
-		{
+		try {
+			WebDriverWait wait = new WebDriverWait(this, waitSecs);
+			wait.until(ExpectedConditions.visibilityOf(findElementByAndroidUIAutomator("new UiSelector().textContains(\""+ text +"\")")));
+		}catch (TimeoutException e) {
 			System.out.println("Timed out after " + waitSecs + " second(s)");
 		}
 	}
 	
-	public WebElement findByID(String id, boolean looping, AndroidDriver d)
-	{
-		WebElement result = null;
-		if(looping == true) 
-		{
-			while(looping) 
-			{
-				try
-				{
-					result = d.findElementById("com.ELXSmart:id/"+id);
-				}
-				catch(Exception e)
-				{
-					print("Failed to find Element with ID:" + id);
-				}
-			}
-		}
-		else 
-		{
-			try
-			{
-				result = d.findElementById("com.ELXSmart:id/"+id);
-			}
-			catch(Exception e)
-			{
-				print("Failed to find Element with ID:" + id);
-			}
-		}
-		return result;
-		
-	}
+	
+	//Old findByXPath that David made. It's bad code but the new method can't run without it. 
 	public WebElement findByXPath(String xpath, boolean looping, AndroidDriver d)
 	{
 		WebElement result = null;
-		if(looping == true) 
-		{
-			while(looping) 
-			{
+		if(looping == true) {
+			while(looping) {
 				try
 				{
 					result = d.findElementById(xpath);
@@ -361,9 +174,7 @@ public class FrigiDriver {
 					print("Failed to find Element with xPath:" + xpath);
 				}
 			}
-		}
-		else 
-		{
+		}else {
 			try
 			{
 				result = d.findElementByXPath(xpath);
@@ -373,25 +184,32 @@ public class FrigiDriver {
 				print("Failed to find Element with xPath:" + xpath);
 			}
 		}
-		return result;
-		
+		return result;		
 	}
-//	public WebElement findByXPath(String xpath, boolean looping, AndroidDriver driver)
-//	{
-//		myWait(xpath, BUTTON_WAIT);
-//		return driver.findElementById(xpath);
-//	}
 	
+	//New findByXPath that was supposed to replace the old xpath. Causes error when I tried to remove the old method. 
+	public WebElement findByXPath(String xPath, int waitSecs)
+	{
+		myWaitXPath(xPath, waitSecs);
+		try 
+		{
+			WebElement elem = super.findElementByXPath(xPath);
+			return elem;
+		}
+		catch(NullPointerException e)
+		{
+			System.out.println("Failed to find XPath: " + xPath);
+		}
+		return null;
+	}
+	
+	//overload
 	public WebElement findByXPath(String xpath)
 	{
 		myWaitXPath(xpath, BUTTON_WAIT);
-		return driver.findElementById(xpath);
+		return findElementById(xpath);
 	}
 	
-	public String getText(WebElement element) 
-	{
-		return element.getText();
-	}
 	
 	private void switchWifi(String ssid)
 	{
@@ -415,146 +233,280 @@ public class FrigiDriver {
 		}
 	}
 	
-	private void Sleep(int milli)
-	{
-		try 
-		{
-			Thread.sleep(milli);
-		} 
-		catch (InterruptedException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	private void print(String msg)
+	
+	public void print(String msg)
 	{
 		System.out.println(msg);
 	}
 	
+	//TODO redesign think so that appium looks for a thinking element before each click rather than waiting after a click
+	//There is potential for designing an abstract button class with code that comes with each button. Either that or add stuff to the tap methods
 	/**
 	 * Stops the driver while the app is thinking
 	 */
 	public void thinkWait() 
-	{
-		myWaitXPath(MyXPath.thinking,30);
-		WebElement thinking = findByXPath(MyXPath.thinking, false, driver);
-		try 
-		{
-			WebDriverWait wait = new WebDriverWait(driver, 60);
-			wait.until(ExpectedConditions.invisibilityOf(thinking));
+	{	
+		//TODO LOOK INTO THE IMPLICIT WAIT ISSUE
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		catch(WebDriverException e) 
-		{
-			e.getMessage();
-			System.out.println("CAUGHT ERROR: Thinking Stale Reference");
+		try {
+			WebElement thinking = findElementByXPath("//div[@class='loading--content']");
+			System.out.println();
+			while(thinking.isDisplayed()) {
+			    System.out.print("thinking");
+			    if(xPathIsDisplayed(XPath.longerThanExpectedButton, 0)) {
+			    	System.out.println("TEST FAILED: thinking longer than expected");
+			    	tapByXPath(XPath.longerThanExpectedButton);
+			    	fail();
+			    }
+			}
+			System.out.println();
+		}catch(Exception e){
+			System.out.println("Thinking not found");
 		}
 	}
 	
-	public boolean lookForXPath(String xPath, int wait) 
+	//TODO Check for usage and delete
+	public boolean searchForXPath(String xPath, int wait) 
 	{
 		boolean result = false;
 		try 
 		{
 			myWaitXPath(xPath, wait);
-			WebElement elem = findByXPath(xPath, false, driver);
+			WebElement elem = findByXPath(xPath, false, this);
 			result = true;
-		}
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-			System.out.println("Replace with specific Exception");
-		}
-		return result;
-	}
-	
-	public boolean lookForText(String text, int wait) 
-	{
-		boolean result = false;
-		try 
-		{
-			myWaitText(text, wait);
-			WebElement elem = findByXPath(text, false, driver);
-			result = true;
-		}
-		catch(Exception e) 
-		{
-			e.printStackTrace();
-			System.out.println("Replace with specific Exception");
-			System.out.println("Failed to find Text: " + text);
-		}
-		return result;
-	}
-	
-	public void openControls(String appliance) 
-	{
-		//assumes signed in
-		//assumes settings button present with all appliances xBUG: settings might not be the same id
-		System.out.println("Opening Controls...");
-		try 
-		{
-			//clickByXpath(MyXPath.backButton, SIGN_IN_WAIT);
-
-			try 
-			{
-				WebDriverWait wait = new WebDriverWait(driver, 10);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.backButton)));
-			}
-			catch (TimeoutException e) 
-			{
-				System.out.println("XPath Failed: " + MyXPath.backButton);
-				System.out.println("Timed out after " + 10 + " second(s)");
-			}
-			WebElement bac = null;
-			try
-			{
-				bac = driver.findElementById(MyXPath.backButton);
-				bac.click();
-			}
-			catch(Exception e)
-			{
-				print("Failed to find back with xPath:" + MyXPath.backButton);
-			}
-			
-			myWaitText(appliance, SIGN_IN_WAIT);
-			WebElement elem = driver.findElementByAndroidUIAutomator("new UiSelector().textContains(\""+ appliance +"\")");
-			elem.click();
-			System.out.println("Opening " + appliance);
 		}
 		catch(WebDriverException e) 
 		{
-			e.printStackTrace();
-			//if there are no appliances then we can't open controls
-			if(lookForXPath(MyXPath.addAppliance, SIGN_IN_WAIT)) 
-			{
-				System.out.println("Unable to open controls. Please provision an appliance.");
-			}
+			e.getMessage();
+			System.out.println("XPath not found: " + xPath);
+			System.out.println("Did that print twice?");
+		}
+		return result;
+	}
+	
+	/**
+	 * Search by text. Currently not working or is unreliable. Span elements have proven difficult to locate. 
+	 * @param text
+	 * @param xpath
+	 * @param wait
+	 * @return
+	 */
+	//BAD CODE
+	public boolean searchForText(String text, String xpath, int wait) 
+	{
+		boolean result;
+		System.out.println("Searching for: " + text);
+		WebElement target = findByXPath(xpath, BUTTON_WAIT);
+		String actual = target.getText();
+		System.out.println("Actual: " + actual);
+		if(actual.equals(text)){
+			result =  true;
+		}else {
+			result = false;
+		}
+		System.out.println("Found: " + result);
+		return result;
+	}
+
+	/**
+	 * Tap: performs a tap action on the element at the specified XPath 
+	 * @param xPath string: gathered from with the app that points to the desired element
+	 * @param waitSecs int: time to wait for the desired element to load before throwing an exception
+	 */
+	public void tapByXPath(String xPath, int waitSecs) {
+		thinkWait();
+		myWaitXPath(xPath, waitSecs);
+		WebElement elem = null;
+		try 
+		{
+			elem = findByXPath(xPath, false, this); //TODO: this bugs me. why won't it work without this fallback?
+		}
+		catch(NullPointerException e)
+		{
+			System.out.println("Failed to find XPath: " + xPath);
+		}
+		if(elem != null) 
+		{
+			tapOnElement(elem);
+		} 
+		else 
+		{
+			System.out.println("Problem tapping xpath: " + xPath);
+		}
+	}
+	
+	/**
+	 * Overloaded tapByXPath(String, String)
+	 * @param xPath String: gathered from with the app that points to the desired element
+	 */
+	public void tapByXPath(String xPath) 
+	{
+		tapByXPath(xPath, BUTTON_WAIT);
+	}
+	
+	private void tapOnElement(WebElement element)
+	{
+		float[] elementLocation = getElementCenter(element);
+		int elementCoordinateX, elementCoordinateY; 
+		elementCoordinateX = Math.round(elementLocation[0]);
+		elementCoordinateY = Math.round(elementLocation[1]);
+		MobileDriver mDriver = this;
+		new TouchAction(mDriver).tap(PointOption.point(elementCoordinateX, elementCoordinateY)).perform();		
+		useWebContext();
+	}
+
+	
+	//My changes: offset
+	public float[] getElementCenter(WebElement element){
+		System.out.println();
+		System.out.println("Tapping element: " + element);
+		JavascriptExecutor js = (JavascriptExecutor)this;
+		// get webview dimensions
+		Long webviewWidth  = (Long) js.executeScript("return screen.width");
+		Long webviewHeight = (Long) js.executeScript("return screen.height");
+		// get element location in webview
+		int elementLocationX = element.getLocation().getX();
+		int elementLocationY = element.getLocation().getY();
+		// get the center location of the element
+		int elementWidthCenter = element.getSize().getWidth() / 2;
+		int elementHeightCenter = element.getSize().getHeight() / 2;
+		int elementWidthCenterLocation = elementWidthCenter + elementLocationX;
+		int elementHeightCenterLocation = elementHeightCenter + elementLocationY;
+		// switch to native context
+		context("NATIVE_APP");
+		float deviceScreenWidth, deviceScreenHeight;
+		// offset. Commenting out for development of offset calculation.
+//		int offset = 160;//used to be 115
+		// get the actual screen dimensions
+		deviceScreenWidth  = manage().window().getSize().getWidth();
+		deviceScreenHeight = manage().window().getSize().getHeight();
+		// calculate the ratio between actual screen dimensions and webview dimensions
+		float ratioWidth = deviceScreenWidth / webviewWidth.intValue();
+		float ratioHeight = deviceScreenHeight / webviewHeight.intValue();
+		// calculate the actual element location on the screen
+		float elementCenterActualX = elementWidthCenterLocation * ratioWidth;
+		float elementCenterActualY = (elementHeightCenterLocation * ratioHeight) + offset;
+		System.out.println();
+		float[] elementLocation = {elementCenterActualX, elementCenterActualY};
+		
+		//Print Debug info
+		if(!false) 
+		{
+			System.out.println("webview width: " + webviewWidth);
+			System.out.println("webview height: " + webviewHeight);
+			System.out.println("elementLocationX: " + elementLocationX);
+			System.out.println("elementLocationY: " + elementLocationY);
+			System.out.println("deviceScreenWidth: " + deviceScreenWidth);
+			System.out.println("deviceScreenHeight: " + deviceScreenHeight);
+			System.out.println("elementCenterActualX: " + elementCenterActualX);
+			System.out.println("elementCenterActualY: " + elementCenterActualY);
 		}
 		
+		return elementLocation;
 	}
 	
+	/**
+	 * Tap until password show button is successfully tapped. Find the median in an array of successful taps and set the offset to this median. 
+	 */
+	public void calculateOffset() 
+	{
+		System.out.println("Calculating Offset");
+		boolean foundRange = false;
+		boolean passwordShowing = false;
+		ArrayList<Integer> successfulTaps = new ArrayList<Integer>();
+		
+		//Placeholder email since validation errors will move the target button.		
+		WebElement elem = findByXPath(XPath.emailField, BUTTON_WAIT);
+		elem.clear();
+		elem.sendKeys("placeholder@gmail.com");
+		//Typical loop should be from 50-250 but 0-300 just to be safe
+		for(int i = 130; i < 2000; i = i + 10) {
+			System.out.println("LoopNum: " + i);
+			System.out.println("\tPasswordShowing: " + passwordShowing);
+			this.offset = i; 
+			if(passwordShowing) {
+				tapByXPath(XPath.hidePassButton, OFFSET_WAIT);
+				if(xPathIsDisplayed(XPath.passwordHiddenValidation, OFFSET_WAIT)) {
+					System.out.println(i + ": Successful Hide Tap");
+					successfulTaps.add(i);
+					passwordShowing = false;
+					foundRange = true;
+				}else if(foundRange){
+					//unsuccessful tap
+					//range already found, so end loop
+					i = 1000;
+				}else{
+					//unsuccessful tap
+				}				
+			}else{
+				tapByXPath(XPath.showPassButton, OFFSET_WAIT);
+				if(xPathIsDisplayed(XPath.passwordShowingValidation, OFFSET_WAIT)) {
+					System.out.println(i + ": Successful Show Tap");
+					successfulTaps.add(i);
+					passwordShowing = true;
+					foundRange = true;
+				}else if(foundRange){
+					//unsuccessful tap
+					//range already found, so end loop
+					i = 1000;
+				}else{
+					//unsuccessful tap
+				}
+			}		
+		}		
+		System.out.println("ARRAY: " + successfulTaps);
+		for(int j = 0; j < (successfulTaps.size()-1); j++) 
+		{
+			System.out.println(successfulTaps.get(j) + ", ");
+		}
+		System.out.println(successfulTaps.get(successfulTaps.size()-1));
+		
+		double median;
+		if (successfulTaps.size() % 2 == 0) 
+		{
+		    median = ((double)successfulTaps.get(successfulTaps.size()/2) + (double)successfulTaps.get(successfulTaps.size()/2 - 1))/2;
+		}
+		else 
+		{
+		    median = (double) successfulTaps.get(successfulTaps.size()/2);
+		}
+		offset = (int) median;
+		System.out.println("OFFSET: " + offset);
+	}
 	
+	public void myScroll() 
+	{
+//		WebElement appliancesLabel = findByXPath(XPath.appliancesLabel);
+//		WebElement supportLabel = findByXPath(XPath.supportLabel);
+//		
+//		TouchAction myAction = new TouchAction(driver); myAction.tap(supportLabel).moveTo(appliancesLabel).release();
+	}
+	//how-to-scroll-with-appium
+	public void scrollDown() {
+	    //if pressX was zero it didn't work for me
+	    int pressX = manage().window().getSize().width / 2;
+	    System.out.println("pressX" + pressX);
+	    // 4/5 of the screen as the bottom finger-press point
+	    int bottomY = manage().window().getSize().height * 4/5;
+	    System.out.println("bottomY" + bottomY);
+	    // just non zero point, as it didn't scroll to zero normally
+	    int topY = manage().window().getSize().height / 8;
+	    System.out.println("topY" + topY);
+	    //scroll with TouchAction by itself
+	    scroll(pressX, (bottomY+200), pressX, topY);
+	}
 	
+	//how-to-scroll-with-appium
+	public void scroll(int fromX, int fromY, int toX, int toY) 
+	{
+	    TouchAction touchAction = new TouchAction(this);
+	    touchAction.longPress(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
+	}
+
 	
-	//GETTERS SETTERS
-	public AndroidDriver getDriver() 
-	{
-		return driver;
-	}
-	public boolean isBoolAppStart() 
-	{
-		return boolAppStart;
-	}
-	public void setBoolAppStart(boolean boolAppStart) 
-	{
-		this.boolAppStart = boolAppStart;
-	}
-	public boolean isBoolAppUpdated() 
-	{
-		return boolAppUpdated;
-	}
-	public void setBoolAppUpdated(boolean boolAppUpdated) 
-	{
-		this.boolAppUpdated = boolAppUpdated;
-	}
 }

@@ -5,11 +5,9 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 public class MyRunnerTest {
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		Result result = JUnitCore.runClasses(MyTest.class);
-		for(Failure failure : result.getFailures()) 
-		{
+		for(Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());
 		}
 	}

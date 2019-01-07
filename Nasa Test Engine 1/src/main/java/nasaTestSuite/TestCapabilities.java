@@ -1,6 +1,9 @@
 package main.java.nasaTestSuite;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -77,7 +80,7 @@ public class TestCapabilities
 		String appPath = new File("").getAbsolutePath();
 		if(appPath.contains("Users"))
 		{
-			appPath = appPath.concat("\\src\\main\\resources\\Android_AppUITesting.apk");
+			appPath = appPath.concat("\\src\\main\\resources\\Android_v4.0.3_Test.apk");
 			System.out.println(appPath);
 			DesiredCapabilities appiumSettings = new DesiredCapabilities();
 			appiumSettings.setCapability("platform", this.GetPlatform().toString());
@@ -128,4 +131,3 @@ public class TestCapabilities
 	
 	
 }
-
