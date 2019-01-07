@@ -3,7 +3,7 @@ package test.java;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 import main.java.nasaTestSuite.PhoneConfig;
 import main.java.nasaTestSuite.Stromboli;
 import main.java.nasaTestSuite.TestCapabilities;
@@ -26,7 +26,7 @@ import io.appium.java_client.android.AndroidDriver;
 import main.java.nasaTestSuite.Appliance;
 import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 
 @Ignore
 public class SignInTest extends Base
@@ -44,8 +44,8 @@ public class SignInTest extends Base
 	@Before
 	public void resetErrors() {
 		//Tried to change to click backbutton, try again with more specific xpath. 
-		frigi.tapByXPath(MyXPath.backButton, frigi.BUTTON_WAIT);
-		frigi.tapByXPath(MyXPath.signInOne, frigi.BUTTON_WAIT);
+		frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
+		frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);
 	}
 	
 	@Test

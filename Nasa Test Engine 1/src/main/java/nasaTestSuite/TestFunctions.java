@@ -22,7 +22,7 @@ import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.cucumber.datatable.dependency.com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import main.java.nasaTestSuite.TestCapabilities;
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -81,22 +81,22 @@ public class TestFunctions
 	{
 		printStartTest("Change Name");
 		
-		WebElement currentNameFieldElem = d.findByXPath(MyXPath.applianceNameField, BUTTON_WAIT);
+		WebElement currentNameFieldElem = d.findByXPath(XPath.applianceNameField, BUTTON_WAIT);
 		
 		String prevName = currentNameFieldElem.getAttribute("value");
 		System.out.println("Previous Name: " + prevName);
 		String expectedName = prevName + " renamed";
 		currentNameFieldElem.clear();
 		currentNameFieldElem.sendKeys(expectedName);
-		d.tapByXPath(MyXPath.backButton, BUTTON_WAIT);
-		WebElement currentNameLabelElem = d.findByXPath(MyXPath.getControlApplianceName("Strombo"), BUTTON_WAIT);
+		d.tapByXPath(XPath.backButton, BUTTON_WAIT);
+		WebElement currentNameLabelElem = d.findByXPath(XPath.getControlApplianceName("Strombo"), BUTTON_WAIT);
 		String actualName = currentNameLabelElem.getText();
 		strombo.openSettings();
 		
 		System.out.println("Expected name: " + expectedName);
 		System.out.println("Actual name: " + actualName);
 
-		currentNameFieldElem = d.findByXPath(MyXPath.applianceNameField, BUTTON_WAIT);
+		currentNameFieldElem = d.findByXPath(XPath.applianceNameField, BUTTON_WAIT);
 		currentNameFieldElem.clear();
 		currentNameFieldElem.sendKeys(prevName);
 		if(actualName.equals(expectedName)) {
@@ -113,12 +113,12 @@ public class TestFunctions
 		
 		String expectedState = "";
 		boolean success = true;
-		WebElement cleanAirToggle = d.findByXPath(MyXPath.cleanAirToggle, false, driver);
+		WebElement cleanAirToggle = d.findByXPath(XPath.cleanAirToggle, false, driver);
 		
 		String prevState = cleanAirToggle.getAttribute("class");
 		System.out.println("Previous Toggle State: " + prevState);
 		
-		d.tapByXPath(MyXPath.cleanAirToggle, TOGGLE_SECS);
+		d.tapByXPath(XPath.cleanAirToggle, TOGGLE_SECS);
 		d.thinkWait();
 		//if OFF class="toggle" when OFF     if ON class="toggle active"
 		if(prevState.equals("toggle")){
@@ -144,7 +144,7 @@ public class TestFunctions
 		prevState = actualState;
 		System.out.println("Previous Toggle State: " + prevState);
 		
-		d.tapByXPath(MyXPath.cleanAirToggle, TOGGLE_SECS);
+		d.tapByXPath(XPath.cleanAirToggle, TOGGLE_SECS);
 		d.thinkWait();
 		//if OFF class="toggle" when OFF     if ON class="toggle active"
 		if(prevState.equals("toggle")){
@@ -182,12 +182,12 @@ public class TestFunctions
 		
 		String expectedState = "";
 		boolean success = true;
-		WebElement sleepModeToggle = d.findByXPath(MyXPath.sleepModeToggle, false, driver);
+		WebElement sleepModeToggle = d.findByXPath(XPath.sleepModeToggle, false, driver);
 		//STOPPING POINT
 		String prevState = sleepModeToggle.getAttribute("class");
 		System.out.println("Previous Toggle State: " + prevState);
 		
-		d.tapByXPath(MyXPath.sleepModeToggle, TOGGLE_SECS);
+		d.tapByXPath(XPath.sleepModeToggle, TOGGLE_SECS);
 		d.thinkWait();
 		//if OFF class="toggle" when OFF     if ON class="toggle active"
 		if(prevState.equals("toggle")){
@@ -213,7 +213,7 @@ public class TestFunctions
 		prevState = actualState;
 		System.out.println("Previous Toggle State: " + prevState);
 		
-		d.tapByXPath(MyXPath.sleepModeToggle, TOGGLE_SECS);
+		d.tapByXPath(XPath.sleepModeToggle, TOGGLE_SECS);
 		d.thinkWait();
 		//if OFF class="toggle" when OFF     if ON class="toggle active"
 		if(prevState.equals("toggle")){
@@ -248,15 +248,15 @@ public class TestFunctions
 	public void timeZone() 
 	{
 		int c = 0;
-		d.tapByXPath(MyXPath.timeZoneOuterButton, BUTTON_WAIT);
+		d.tapByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
 		for(int i = 0; i <= 11; i++) 
 		{
 			System.out.println(c++);
-			d.tapByXPath(MyXPath.getTimeZoneInnerButton(i), BUTTON_WAIT);
+			d.tapByXPath(XPath.getTimeZoneInnerButton(i), BUTTON_WAIT);
 			System.out.println(c++);
-			d.tapByXPath(MyXPath.timeZoneOuterButton, BUTTON_WAIT);
+			d.tapByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
 			System.out.println(c++);
-			WebElement checkedElem = d.findByXPath(MyXPath.timeZoneChecked, BUTTON_WAIT);
+			WebElement checkedElem = d.findByXPath(XPath.timeZoneChecked, BUTTON_WAIT);
 			System.out.println(c++);
 			String idString = checkedElem.getAttribute("id");
 			System.out.println(c++);
@@ -294,7 +294,7 @@ public class TestFunctions
 		for(int i = 0; i < 2; i++) {
 			if(app.isPowerOn()) {
 				System.out.println("Appliance is on. Shutting OFF.");
-				d.tapByXPath(MyXPath.plainPowerButton, BUTTON_WAIT);
+				d.tapByXPath(XPath.plainPowerButton, BUTTON_WAIT);
 				//expect appliance to be off
 				if(app.isPowerOn()) {
 					printEndTest("Power on function", "FAIL");
@@ -304,7 +304,7 @@ public class TestFunctions
 				}
 			} else {
 				System.out.println("Appliance is off. Powering ON.");
-				d.tapByXPath(MyXPath.plainPowerButton, BUTTON_WAIT);
+				d.tapByXPath(XPath.plainPowerButton, BUTTON_WAIT);
 				//expect appliance to be on
 				if(app.isPowerOn()) {
 					//pass
@@ -349,9 +349,9 @@ public class TestFunctions
 	public void emptyEmailValidation() 
 	{
 		printStartTest("Empty Email Validation");
-		WebElement emailField = d.findByXPath(MyXPath.emailField, BUTTON_WAIT);
+		WebElement emailField = d.findByXPath(XPath.emailField, BUTTON_WAIT);
 		emailField.clear();
-		d.tapByXPath(MyXPath.signInTwo, BUTTON_WAIT);
+		d.tapByXPath(XPath.signInTwo, BUTTON_WAIT);
 		
 		WebElement element = (WebElement)(d.findElements(By.xpath("//div[@class='input--error input--error-inline']")).get(0));
 		String actual = element.getText();
@@ -370,9 +370,9 @@ public class TestFunctions
 	public void emptyPasswordValidation() 
 	{
 		printStartTest("Empty Password Validation");
-		WebElement passwordField = d.findByXPath(MyXPath.passField, BUTTON_WAIT);
+		WebElement passwordField = d.findByXPath(XPath.passField, BUTTON_WAIT);
 		passwordField.clear();
-		d.tapByXPath(MyXPath.signInTwo, BUTTON_WAIT);
+		d.tapByXPath(XPath.signInTwo, BUTTON_WAIT);
 
 		WebElement element = (WebElement)(d.findElements(By.xpath("//div[@class='input--error input--error-inline']")).get(1));
 		String actual = element.getText();
@@ -392,10 +392,10 @@ public class TestFunctions
 	public void invalidEmailValidation(String email) 
 	{
 		//print start test in test class
-		WebElement emailField = d.findByXPath(MyXPath.emailField, BUTTON_WAIT);
+		WebElement emailField = d.findByXPath(XPath.emailField, BUTTON_WAIT);
 		emailField.clear();
 		emailField.sendKeys(email);
-		d.tapByXPath(MyXPath.passField, BUTTON_WAIT);
+		d.tapByXPath(XPath.passField, BUTTON_WAIT);
 
 		WebElement element = (WebElement)(d.findElements(By.xpath("//div[@class='input--error input--error-inline']")).get(0));
 		String actual = element.getText();
@@ -413,7 +413,7 @@ public class TestFunctions
 	{
 		printStartTest("Short Pass Validation");
 		app.signIn("eluxtester1@gmail.com", "12345");
-		boolean validationErrorFound = d.searchForText("Verify your log-in information and retry.", MyXPath.topValidation, BUTTON_WAIT);
+		boolean validationErrorFound = d.searchForText("Verify your log-in information and retry.", XPath.topValidation, BUTTON_WAIT);
 		Assert.assertEquals(true, validationErrorFound);
 	}
 	
@@ -426,7 +426,7 @@ public class TestFunctions
 	public void credentialValidation(String email, String password) {
 		//print start test in test class
 		app.signIn(email, password);
-		boolean validationErrorFound = d.xPathIsDisplayed(MyXPath.findText("Verify your log-in information and retry."), BUTTON_WAIT);
+		boolean validationErrorFound = d.xPathIsDisplayed(XPath.findText("Verify your log-in information and retry."), BUTTON_WAIT);
 		Assert.assertEquals(true, validationErrorFound);		
 	}
 	
@@ -450,18 +450,18 @@ public class TestFunctions
 		printStartTest("Forgot Password");
 		//Change offset for the top half of the screen
 		d.changeOffset(-50);
-		passing = passing && d.xPathIsDisplayed(MyXPath.forgotPasswordButton);
-		d.tapByXPath(MyXPath.forgotPasswordButton, BUTTON_WAIT);
+		passing = passing && d.xPathIsDisplayed(XPath.forgotPasswordButton);
+		d.tapByXPath(XPath.forgotPasswordButton, BUTTON_WAIT);
 		//Change offset for the bottom half of the screen
 		d.changeOffset(100);
-		passing = passing && d.xPathIsDisplayed(MyXPath.forgotPasswordEmailField);
-		d.typeField(MyXPath.forgotPasswordEmailField, email);
-		passing = passing && d.xPathIsDisplayed(MyXPath.resetPasswordButton);
-		d.tapByXPath(MyXPath.resetPasswordButton, BUTTON_WAIT);
-		passing = passing && d.xPathIsDisplayed(MyXPath.sendAgainButton);
-		d.tapByXPath(MyXPath.sendAgainButton, BUTTON_WAIT);
-		passing = passing && d.xPathIsDisplayed(MyXPath.signInFromResetButton);
-		d.tapByXPath(MyXPath.signInFromResetButton, BUTTON_WAIT);
+		passing = passing && d.xPathIsDisplayed(XPath.forgotPasswordEmailField);
+		d.typeField(XPath.forgotPasswordEmailField, email);
+		passing = passing && d.xPathIsDisplayed(XPath.resetPasswordButton);
+		d.tapByXPath(XPath.resetPasswordButton, BUTTON_WAIT);
+		passing = passing && d.xPathIsDisplayed(XPath.sendAgainButton);
+		d.tapByXPath(XPath.sendAgainButton, BUTTON_WAIT);
+		passing = passing && d.xPathIsDisplayed(XPath.signInFromResetButton);
+		d.tapByXPath(XPath.signInFromResetButton, BUTTON_WAIT);
 		//Reseting offset to original offset
 		d.changeOffset(-50);
 		if(passing) {
@@ -478,15 +478,15 @@ public class TestFunctions
 	public void showPass() 
 	{
 		printStartTest("Show/Hide Password");
-		d.tapByXPath(MyXPath.showPassButton, BUTTON_WAIT);
-		if(d.xPathIsDisplayed(MyXPath.passwordShowingValidation, BUTTON_WAIT)) {
+		d.tapByXPath(XPath.showPassButton, BUTTON_WAIT);
+		if(d.xPathIsDisplayed(XPath.passwordShowingValidation, BUTTON_WAIT)) {
 			System.out.println("PASS: type='text'");
 		}else {
 			System.out.println("FAIL");
 			fail();
 		}
-		d.tapByXPath(MyXPath.hidePassButton, BUTTON_WAIT);
-		if(d.xPathIsDisplayed(MyXPath.passwordHiddenValidation, BUTTON_WAIT)) {
+		d.tapByXPath(XPath.hidePassButton, BUTTON_WAIT);
+		if(d.xPathIsDisplayed(XPath.passwordHiddenValidation, BUTTON_WAIT)) {
 			System.out.println("PASS: type='password'");
 		}else {
 			System.out.println("FAIL");

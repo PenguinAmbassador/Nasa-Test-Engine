@@ -21,7 +21,7 @@ import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.cucumber.datatable.dependency.com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import main.java.nasaTestSuite.TestCapabilities;
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -340,9 +340,9 @@ public class FrigiDriver extends AndroidDriver
 			System.out.println();
 			while(thinking.isDisplayed()) {
 			    System.out.print("thinking");
-			    if(xPathIsDisplayed(MyXPath.longerThanExpectedButton, 0)) {
+			    if(xPathIsDisplayed(XPath.longerThanExpectedButton, 0)) {
 			    	System.out.println("TEST FAILED: thinking longer than expected");
-			    	tapByXPath(MyXPath.longerThanExpectedButton);
+			    	tapByXPath(XPath.longerThanExpectedButton);
 			    	fail();
 			    }
 			}
@@ -543,7 +543,7 @@ public class FrigiDriver extends AndroidDriver
 		ArrayList<Integer> successfulTaps = new ArrayList<Integer>();
 		
 		//Placeholder email since validation errors will move the target button.		
-		WebElement elem = findByXPath(MyXPath.emailField, BUTTON_WAIT);
+		WebElement elem = findByXPath(XPath.emailField, BUTTON_WAIT);
 		elem.clear();
 		elem.sendKeys("placeholder@gmail.com");
 		//Typical loop should be from 50-250 but 0-300 just to be safe
@@ -552,8 +552,8 @@ public class FrigiDriver extends AndroidDriver
 			System.out.println("\tPasswordShowing: " + passwordShowing);
 //			this.offset = i; //DELETE
 			if(passwordShowing) {
-				tapByXPath(MyXPath.hidePassButton, OFFSET_WAIT);
-				if(xPathIsDisplayed(MyXPath.passwordHiddenValidation, OFFSET_WAIT)) {
+				tapByXPath(XPath.hidePassButton, OFFSET_WAIT);
+				if(xPathIsDisplayed(XPath.passwordHiddenValidation, OFFSET_WAIT)) {
 					System.out.println(i + ": Successful Hide Tap");
 					successfulTaps.add(i);
 					passwordShowing = false;
@@ -566,8 +566,8 @@ public class FrigiDriver extends AndroidDriver
 					//unsuccessful tap
 				}				
 			}else{
-				tapByXPath(MyXPath.showPassButton, OFFSET_WAIT);
-				if(xPathIsDisplayed(MyXPath.passwordShowingValidation, OFFSET_WAIT)) {
+				tapByXPath(XPath.showPassButton, OFFSET_WAIT);
+				if(xPathIsDisplayed(XPath.passwordShowingValidation, OFFSET_WAIT)) {
 					System.out.println(i + ": Successful Show Tap");
 					successfulTaps.add(i);
 					passwordShowing = true;

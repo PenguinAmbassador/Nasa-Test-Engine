@@ -11,7 +11,7 @@ import org.openqa.selenium.TakesScreenshot;
 
 import main.java.nasaTestSuite.Appliance;
 import main.java.nasaTestSuite.FrigiDriver;
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 import main.java.nasaTestSuite.PhoneConfig;
 import main.java.nasaTestSuite.Stromboli;
 import main.java.nasaTestSuite.TestCapabilities;
@@ -52,10 +52,10 @@ public class Base
 				//s7 offset is 90 accurate.
 				//s8 offset is 150? inaccurate.
 				//NEXUS6P is 165 inaccurate.
-				frigi.tapByXPath(MyXPath.signInOne, frigi.BUTTON_WAIT);
+				frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);
 				frigi.calculateOffset();				
 			} else {	
-				frigi.tapByXPath(MyXPath.signInOne);
+				frigi.tapByXPath(XPath.signInOne);
 			}
 			System.out.println("FRIGI OFFSET: " + frigi.getOffset()); //change offset back to protected later
 		} catch (Exception e) {

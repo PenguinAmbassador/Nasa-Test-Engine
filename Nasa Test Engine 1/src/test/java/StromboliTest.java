@@ -3,7 +3,7 @@ package test.java;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 import main.java.nasaTestSuite.Stromboli;
 import main.java.nasaTestSuite.TestCapabilities;
 import main.java.nasaTestSuite.TestFunctions;
@@ -24,7 +24,7 @@ import io.appium.java_client.android.AndroidDriver;
 import main.java.nasaTestSuite.Appliance;
 import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 
 @Ignore
 public class StromboliTest extends Base
@@ -40,7 +40,7 @@ public class StromboliTest extends Base
 		strombo.openControls("Strombo");
 		if(!strombo.isPowerOn()) {
 			//if power is off, turn on
-			frigi.tapByXPath(MyXPath.plainPowerButton);
+			frigi.tapByXPath(XPath.plainPowerButton);
 		}
 	}
 	

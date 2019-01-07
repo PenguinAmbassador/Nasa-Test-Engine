@@ -32,8 +32,8 @@ public class Stromboli extends Appliance
 	public void clickTempPlus() 
 	{
 		WebDriverWait wait = new WebDriverWait(d, BUTTON_WAIT);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.stromboTempUp)));
-		WebElement tempPlusElm = d.findByXPath(MyXPath.stromboTempUp, BUTTON_WAIT);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPath.stromboTempUp)));
+		WebElement tempPlusElm = d.findByXPath(XPath.stromboTempUp, BUTTON_WAIT);
 		tempPlusElm.click();
 		d.thinkWait();
 	}
@@ -42,8 +42,8 @@ public class Stromboli extends Appliance
 	public void clickTempMinus() 
 	{
 		WebDriverWait wait = new WebDriverWait(d, BUTTON_WAIT);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.stromboTempDown)));
-		WebElement tempMinusElm = d.findByXPath(MyXPath.stromboTempDown, false, d);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPath.stromboTempDown)));
+		WebElement tempMinusElm = d.findByXPath(XPath.stromboTempDown, false, d);
 		tempMinusElm.click();
 		d.thinkWait();
 	}
@@ -52,8 +52,8 @@ public class Stromboli extends Appliance
 	public void clickSpeedUp() 
 	{
 		WebDriverWait wait = new WebDriverWait(d,BUTTON_WAIT);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.stromboSpeedup)));
-		WebElement speedElm = d.findByXPath(MyXPath.stromboSpeedup, false, d);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPath.stromboSpeedup)));
+		WebElement speedElm = d.findByXPath(XPath.stromboSpeedup, false, d);
 		speedElm.click();
 		d.thinkWait();
 	}
@@ -62,8 +62,8 @@ public class Stromboli extends Appliance
 	public void clickSpeedDown() 
 	{
 		WebDriverWait wait = new WebDriverWait(d,BUTTON_WAIT);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.stromboSpeedDown)));
-		WebElement speedElm = d.findByXPath(MyXPath.stromboSpeedDown, false, d);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPath.stromboSpeedDown)));
+		WebElement speedElm = d.findByXPath(XPath.stromboSpeedDown, false, d);
 		speedElm.click();
 		d.thinkWait();
 	}
@@ -71,8 +71,8 @@ public class Stromboli extends Appliance
 	public void clickModeUp() 
 	{
 		WebDriverWait wait = new WebDriverWait(d,BUTTON_WAIT);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.stromboModeUp)));
-		WebElement modeElm = d.findByXPath(MyXPath.stromboModeUp, false, d);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPath.stromboModeUp)));
+		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, false, d);
 		modeElm.click();
 		d.thinkWait();	
 	}
@@ -80,8 +80,8 @@ public class Stromboli extends Appliance
 	public void clickModeDown() 
 	{
 		WebDriverWait wait = new WebDriverWait(d,BUTTON_WAIT);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MyXPath.stromboModeDown)));
-		WebElement modeElm = d.findByXPath(MyXPath.stromboModeDown, false, d);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPath.stromboModeDown)));
+		WebElement modeElm = d.findByXPath(XPath.stromboModeDown, false, d);
 		modeElm.click();
 		d.thinkWait();	
 	}
@@ -99,7 +99,7 @@ public class Stromboli extends Appliance
 	public int getTargTemp() 
 	{
 		try {
-			targTemp = Integer.parseInt(d.findByXPath(MyXPath.stromboTargetTemp, BUTTON_WAIT).getAttribute("data-value"));
+			targTemp = Integer.parseInt(d.findByXPath(XPath.stromboTargetTemp, BUTTON_WAIT).getAttribute("data-value"));
 		}
 		catch(Exception e)
 		{
@@ -110,7 +110,7 @@ public class Stromboli extends Appliance
 
 	public int getNextExpectedMode() {
 		try {
-			mode = Integer.parseInt(d.findByXPath(MyXPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
+			mode = Integer.parseInt(d.findByXPath(XPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
 		}
 		catch(Exception e)
 		{
@@ -133,7 +133,7 @@ public class Stromboli extends Appliance
 	}
 
 	public int getPrevExpectedMode() {
-		mode = Integer.parseInt(d.findByXPath(MyXPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
+		mode = Integer.parseInt(d.findByXPath(XPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
 		int nextExpectedMode = -1;
 		switch (mode) {
 	        case 4:  nextExpectedMode = 1; //econ
@@ -151,7 +151,7 @@ public class Stromboli extends Appliance
 	}
 
 	public int getNextExpectedSpeed() {
-		speed = Integer.parseInt(d.findByXPath(MyXPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		speed = Integer.parseInt(d.findByXPath(XPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		System.out.println("Speed by data value" + speed);
 		int nextExpectedSpeed = -1;
 		switch (speed) {
@@ -170,7 +170,7 @@ public class Stromboli extends Appliance
 	}
 
 	public int getPrevExpectedSpeed() {
-		speed = Integer.parseInt(d.findByXPath(MyXPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		speed = Integer.parseInt(d.findByXPath(XPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		int prevExpectedSpeed = -1;
 		switch (speed) {
 	        case 1:  prevExpectedSpeed = 7;
@@ -189,13 +189,13 @@ public class Stromboli extends Appliance
 	
 	public int getMode() 
 	{
-		mode = Integer.parseInt(d.findByXPath(MyXPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
+		mode = Integer.parseInt(d.findByXPath(XPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
 		return mode;
 	}
 	
 	public int getSpeed() 
 	{
-		speed = Integer.parseInt(d.findByXPath(MyXPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		speed = Integer.parseInt(d.findByXPath(XPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		return speed;
 	}
 

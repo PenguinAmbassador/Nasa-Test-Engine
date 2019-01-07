@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
-import main.java.nasaTestSuite.MyXPath;
+import main.java.nasaTestSuite.XPath;
 
 public class MyTest {
 

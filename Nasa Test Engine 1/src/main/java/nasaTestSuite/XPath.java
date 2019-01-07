@@ -1,6 +1,6 @@
 package main.java.nasaTestSuite;
 
-public class MyXPath {
+public class XPath {
     //screens
     public static String signInRegisterScreen = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView";
     public static String registerScreen = "	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[2]/android.widget.Button[2]"; //register button
