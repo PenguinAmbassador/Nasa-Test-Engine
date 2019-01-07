@@ -103,4 +103,10 @@ public class SignInTest extends Base
 	{
 		test.showPass();
 	}
+	
+	@Test
+	public void staySignedIn()
+	{
+		test.staySignedIn();
+	}
 }

@@ -314,7 +314,7 @@ public class FrigiDriver extends AndroidDriver
 			e.printStackTrace();
 		}
 	}
-	private void print(String msg)
+	public void print(String msg)
 	{
 		System.out.println(msg);
 	}
@@ -430,13 +430,6 @@ public class FrigiDriver extends AndroidDriver
 		}
 		System.out.println("Found: " + result);
 		return result;
-	}
-	
-	public void typeField(String xpath, String text) 
-	{		
-		WebElement elem = findByXPath(xpath, BUTTON_WAIT);
-		elem.clear();
-		elem.sendKeys(text);
 	}
 	
 	/**

@@ -20,7 +20,6 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import io.cucumber.datatable.dependency.com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import main.java.nasaTestSuite.TestCapabilities;
 import main.java.nasaTestSuite.XPath;
 import io.appium.java_client.MobileElement;
@@ -455,7 +454,7 @@ public class TestFunctions
 		//Change offset for the bottom half of the screen
 		d.changeOffset(100);
 		passing = passing && d.xPathIsDisplayed(XPath.forgotPasswordEmailField);
-		d.typeField(XPath.forgotPasswordEmailField, email);
+		app.typeField(XPath.forgotPasswordEmailField, email);
 		passing = passing && d.xPathIsDisplayed(XPath.resetPasswordButton);
 		d.tapByXPath(XPath.resetPasswordButton, BUTTON_WAIT);
 		passing = passing && d.xPathIsDisplayed(XPath.sendAgainButton);
@@ -490,6 +489,45 @@ public class TestFunctions
 			System.out.println("PASS: type='password'");
 		}else {
 			System.out.println("FAIL");
+			fail();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void relaunchApp()
+	{
+		printStartTest("Closing app");
+		d.closeApp();
+		d.launchApp();
+		printStartTest("App has been relaunched");
+	}
+	
+	/**
+	 * 
+	 */
+	public void staySignedIn()
+	{
+		printStartTest("Stay Signed In");
+		d.tapByXPath(XPath.staySignedIn);
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		d.print("Did it run?");
+		app.signIn();
+		relaunchApp();
+		d.tapByXPath(XPath.signInOne);
+		WebElement appPage = d.findByXPath(XPath.addAppliance);
+		if(appPage != null)
+		{
+			d.print("Test Passed");
+		}
+		else
+		{
 			fail();
 		}
 	}

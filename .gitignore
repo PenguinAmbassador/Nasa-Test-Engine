@@ -1,2 +1,5 @@
 
 *.prefs
+*.project
+*.classpath
+*.jar

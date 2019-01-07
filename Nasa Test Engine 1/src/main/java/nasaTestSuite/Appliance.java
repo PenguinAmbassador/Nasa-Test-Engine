@@ -24,6 +24,13 @@ public class Appliance {
 		System.out.println("UNIMPLEMENTED");
 	}
 	
+	public void typeField(String xpath, String text) 
+	{		
+		WebElement elem = d.findByXPath(xpath, BUTTON_WAIT);
+		elem.clear();
+		elem.sendKeys(text);
+	}
+	
 	public void typePassword(String password) 
 	{
 		d.tapByXPath(XPath.passField, BUTTON_WAIT);
@@ -34,10 +41,16 @@ public class Appliance {
 	
 	public void signIn(String email, String password) 
 	{
-		d.typeField(XPath.emailField, email);
+		typeField(XPath.emailField, email);
 		typePassword(password);
 		d.tapByXPath(XPath.signInTwo);	
 		System.out.println("Signed into " + email);
+	}
+	
+	public void signIn()
+	{
+		//DAVID: recommend deletion, but if this is easier then just delete this comment
+		signIn("eluxtester1@gmail.com", "123456");
 	}
 	
 	public void signOut() 
@@ -72,10 +85,9 @@ public class Appliance {
 	{
 		//TODO implement map navigation
 		//Tap Back
-		d.tapOnElement(d.findByXPath(XPath.backButton, d.BUTTON_WAIT)); 
-		//Tap Strombo in list
-		d.tapOnElement(d.findByXPath(XPath.getListApplianceName(applianceName), d.BUTTON_WAIT));
-//		tapOnElement(findByXPath(MyXPath.plainPowerButton, BUTTON_WAIT));trying to get power to work
+		//TODO merge accepted. verify functionality.
+		d.tapByXPath(XPath.backButton, d.BUTTON_WAIT);
+		d.tapByXPath(XPath.getListApplianceName(applianceName), d.BUTTON_WAIT);
 		
 	}
 }
