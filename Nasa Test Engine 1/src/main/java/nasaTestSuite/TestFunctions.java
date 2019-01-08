@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import org.openqa.selenium.WebElement;
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -352,6 +353,7 @@ public class TestFunctions
 		emailField.clear();
 		d.tapByXPath(XPath.signInTwo, BUTTON_WAIT);
 		
+		//TODO replace this with methods and xpath fields
 		WebElement element = (WebElement)(d.findElements(By.xpath("//div[@class='input--error input--error-inline']")).get(0));
 		String actual = element.getText();
 		String expected = "Please enter a valid email.";
@@ -498,9 +500,28 @@ public class TestFunctions
 	 */
 	public void relaunchApp()
 	{
+		//TODO move to the Appliance class based on convention of keeping test methods and functionality methods separate. 
 		printStartTest("Closing app");
 		d.closeApp();
 		d.launchApp();
+		d.useWebContext();
+
+//		// start app CODE FROM FORUM
+//		try{
+//			d.runAppInBackground(Duration.ofSeconds(1));//FAILED: app never launched. Forum was unclear on what was supposed to happen...
+//			}catch (Exception e) {
+//				
+//		}
+//		try { //wait so that the app can reset
+//			System.out.println("60 second wait started");
+//			Thread.sleep(5000);
+//			System.out.println("halfway");
+//			Thread.sleep(5000);
+//			System.out.println("60 second wait ended");
+//		} catch (InterruptedException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		printStartTest("App has been relaunched");
 	}
 	
@@ -510,25 +531,34 @@ public class TestFunctions
 	public void staySignedIn()
 	{
 		printStartTest("Stay Signed In");
-		d.tapByXPath(XPath.staySignedIn);
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		d.print("Did it run?");
+		d.tapByXPath(XPath.staySignedIn);			
+//		if(d.xPathIsDisplayed(XPath.staySignedIn)) {
+//			d.tapByXPath(XPath.staySignedIn);			
+//		}else {
+//			d.tapByXPath(XPath.staySignedIn2);
+//		}
 		app.signIn();
 		relaunchApp();
+//		WebElement appPage = d.findByXPath(XPath.addAppliance);
+//		if(appPage != null)
+//		{
+//			d.print("Test Passed");
+//		}
+//		else
+//		{
+//			fail();
+//		}
 		d.tapByXPath(XPath.signInOne);
-		WebElement appPage = d.findByXPath(XPath.addAppliance);
-		if(appPage != null)
-		{
-			d.print("Test Passed");
-		}
-		else
-		{
+		boolean expectFalse = d.xPathIsDisplayed(XPath.signInTwo);
+		if(expectFalse) {
+			System.out.println("TEST FAILED: First sign in button should log on automatically, but has opened the credentails screen instead.");
 			fail();
+		}else {
+			System.out.println("Mostly passing. Need 3 checks to verify.");
+			//Check: are we at the appliance control screen?
+			//Check: are we at the add new appliance screen?
+			//Check: are we at a connection lost screen?
+			app.signOut();
 		}
 	}
 }

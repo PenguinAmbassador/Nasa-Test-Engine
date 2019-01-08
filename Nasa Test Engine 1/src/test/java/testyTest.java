@@ -26,7 +26,7 @@ import main.java.nasaTestSuite.Appliance;
 import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
-//@Ignore
+@Ignore
 public class testyTest extends Base
 {
 	@BeforeClass//("^This code opens the app$")

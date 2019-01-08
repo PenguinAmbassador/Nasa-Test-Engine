@@ -16,7 +16,8 @@ public class XPath {
     public static String emailField = "//input[@id='email']";
     public static String passField = "//input[@id='password']";
     public static String signInTwo = "//button[@id='sign-in--button']";
-    public static String staySignedIn = "//input[@id='stay-signed-in']";
+//    public static String staySignedIn = "//input[@id='stay-signed-in']"; //attempt 1 David: xpath failed?
+    public static String staySignedIn = "//label[@for='stay-signed-in']"; //attempt 2
 	public static String topValidation = "//div[@class='input--error input--error-global']";
 	public static String midValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED
 	public static String botValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED

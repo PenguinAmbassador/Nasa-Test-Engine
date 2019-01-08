@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.MobileCapabilityType;
 
 public class TestCapabilities 
 {	
@@ -56,6 +57,9 @@ public class TestCapabilities
 			//appiumSettings.setCapability("avd", /*this.GetAVD()*/ "Nexus6P"); //removed to avoid emulation
 			appiumSettings.setCapability("app", appPath);
 			appiumSettings.setCapability("automationName", automationName);
+			//TRYING TO REBOOT APP WITHOUT CLEARING DATA
+			appiumSettings.setCapability(MobileCapabilityType.FULL_RESET, false);
+			appiumSettings.setCapability(MobileCapabilityType.NO_RESET, true);
 			return appiumSettings;
 		}
 		else

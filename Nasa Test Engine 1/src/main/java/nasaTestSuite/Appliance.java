@@ -55,6 +55,7 @@ public class Appliance {
 	
 	public void signOut() 
 	{
+		//TODO: Bad Assumption - Assumes you are not already at the appliance list
 		System.out.println("SIGN OUT");
 		d.tapByXPath(XPath.backButton, BUTTON_WAIT);
 		openSettings();
