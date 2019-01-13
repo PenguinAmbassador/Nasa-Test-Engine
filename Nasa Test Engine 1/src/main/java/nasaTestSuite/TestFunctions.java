@@ -496,69 +496,43 @@ public class TestFunctions
 	}
 	
 	/**
-	 * 
-	 */
-	public void relaunchApp()
-	{
-		//TODO move to the Appliance class based on convention of keeping test methods and functionality methods separate. 
-		printStartTest("Closing app");
-		d.closeApp();
-		d.launchApp();
-		d.useWebContext();
-
-//		// start app CODE FROM FORUM
-//		try{
-//			d.runAppInBackground(Duration.ofSeconds(1));//FAILED: app never launched. Forum was unclear on what was supposed to happen...
-//			}catch (Exception e) {
-//				
-//		}
-//		try { //wait so that the app can reset
-//			System.out.println("60 second wait started");
-//			Thread.sleep(5000);
-//			System.out.println("halfway");
-//			Thread.sleep(5000);
-//			System.out.println("60 second wait ended");
-//		} catch (InterruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		printStartTest("App has been relaunched");
-	}
-	
-	/**
-	 * 
+	 * Verifies "Stay Signed In" checkbox functionality. 
+	 * Behavior: Enter credentials, check the "Stay Signed In" option, and relaunch app. 
+	 * Expectation: The first sign in button leads into the app without asking for credentials. 
 	 */
 	public void staySignedIn()
 	{
 		printStartTest("Stay Signed In");
 		d.tapByXPath(XPath.staySignedIn);			
-//		if(d.xPathIsDisplayed(XPath.staySignedIn)) {
-//			d.tapByXPath(XPath.staySignedIn);			
-//		}else {
-//			d.tapByXPath(XPath.staySignedIn2);
-//		}
 		app.signIn();
-		relaunchApp();
-//		WebElement appPage = d.findByXPath(XPath.addAppliance);
-//		if(appPage != null)
-//		{
-//			d.print("Test Passed");
+		app.relaunchApp();
+		//Questionable behavior? Sometimes the app launches without stopping at the signInOne button when the user is logged in, but sometimes it does.
+		
+		System.out.println("Does the first Sign In Button need to be pressed after relaunch if a user is already logged in?"); 
+//		if(app.isSignedIn()) {
+//		} else {
+//			d.tapByXPath(XPath.signInOne);
+//			if(app.isSignedIn()) {
+//			} else {
+//				printEndTest("Stay Signed In", "FAIL");
+//				fail();			
+//			}
+//			printEndTest("Stay Signed In", "FAIL");
+//			fail();			
 //		}
-//		else
-//		{
-//			fail();
-//		}
-		d.tapByXPath(XPath.signInOne);
-		boolean expectFalse = d.xPathIsDisplayed(XPath.signInTwo);
-		if(expectFalse) {
-			System.out.println("TEST FAILED: First sign in button should log on automatically, but has opened the credentails screen instead.");
-			fail();
-		}else {
-			System.out.println("Mostly passing. Need 3 checks to verify.");
-			//Check: are we at the appliance control screen?
-			//Check: are we at the add new appliance screen?
-			//Check: are we at a connection lost screen?
-			app.signOut();
+		
+		//If the app is not signed in, press the first sign in button and if it is still not signed in fail the test.
+		if(!app.isSignedIn()) {
+			d.tapByXPath(XPath.signInOne);
+			if(!app.isSignedIn()) {
+				printEndTest("Stay Signed In", "FAIL");
+				fail();	
+			}			
+		} else {		
+			//PASS
+			System.out.println("Did the app sign in without pressing the first sign in button?");
 		}
+		printEndTest("Stay Signed In", "PASS");
+		app.signOut();	
 	}
 }

@@ -35,7 +35,10 @@ public class SignInTest extends Base
 	public static void beforeClass()
 	{
 		setupApp();
-		System.out.println("SignIn Functionality Testing Start.");	
+		if(app.isSignedIn()) {
+			app.signOut();
+		}
+		System.out.println("SignIn Test Class - START.");	
 	}
 
 	/**
@@ -44,8 +47,10 @@ public class SignInTest extends Base
 	@Before
 	public void resetErrors() {
 		//Tried to change to click backbutton, try again with more specific xpath. 
+		System.out.println("Resetting errors before each test");
 		frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
-		frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);
+		frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);		
+		System.out.println("--------------------------------------------------------------------------");
 	}
 	
 	@Test

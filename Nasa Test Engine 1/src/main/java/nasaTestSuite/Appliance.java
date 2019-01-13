@@ -1,5 +1,7 @@
 package main.java.nasaTestSuite;
 
+import static org.junit.Assert.fail;
+
 import org.openqa.selenium.WebElement;
 
 import io.appium.java_client.MobileElement;
@@ -87,8 +89,36 @@ public class Appliance {
 		//TODO implement map navigation
 		//Tap Back
 		//TODO merge accepted. verify functionality.
+		System.out.println("WIP: Inefficiently doesn't check whether the appliance has already been chosen");
 		d.tapByXPath(XPath.backButton, d.BUTTON_WAIT);
 		d.tapByXPath(XPath.getListApplianceName(applianceName), d.BUTTON_WAIT);
 		
+	}
+
+	/**
+	 * Check whether or not the user is signed in or not. 
+	 * @return True if signed in. False if signed out.
+	 */
+	public boolean isSignedIn() {
+		boolean result = false;
+		boolean signedIn = d.xPathIsDisplayed(XPath.settingsButton);
+		boolean signedOut = d.xPathIsDisplayed(XPath.signInTwo, d.SHORT_WAIT) || d.xPathIsDisplayed(XPath.signInOne, d.SHORT_WAIT);
+		//Using two variables instead of one to check for an unexpected screen. A false signedOut does not imply a successful sign in, so each screen is checked separately. 
+		if(signedIn) {
+			result = true;
+		} else if(signedOut){
+			result = false;		
+		} else {
+			//if both are false then there is an unexpected screen. 
+			System.out.println("isSignedIn ERROR: Unexpected outcome");
+		}
+		return result; 
+	}
+	public void relaunchApp() {
+		System.out.println("Closing app");
+		d.closeApp();
+		d.launchApp();
+		d.useWebContext();
+		System.out.println("App has been relaunched");
 	}
 }

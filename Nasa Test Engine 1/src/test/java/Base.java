@@ -29,7 +29,6 @@ public class Base
 	public static TestFunctions test = null;	
 	boolean testing = false;
 	
-	//TODO overload and if a offset is not used and the device is new then calculate a new offset.
 	/**
 	 * Launch appium, Frigidaire app, and tap the first sign in button. 
 	 * @param offset
@@ -40,9 +39,10 @@ public class Base
 		try {	
 			TestCapabilities capabilities = new TestCapabilities();
 			PhoneConfig phone = new PhoneConfig(150, capabilities.GetDeviceName(), capabilities.GetPlatformVersion());
+			System.out.println("WARNING: Temporarily removed update");
+			System.out.println("WARNING: Stay Signed in is an unaccounted for possibility. Tests fail if the app is already signed in.");
 			System.out.println("Capabilities: " + capabilities);
 			System.out.println("Phone: " + phone);
-			System.out.println("Temporarily removed update");
 			frigi = new FrigiDriver(TestServers.LocalServer(), capabilities.AssignAppiumCapabilities(), phone); //was from 540-890
 			frigi.useWebContext(); //required for hybrid apps
 			app = new Appliance(frigi);
@@ -57,35 +57,19 @@ public class Base
 			} else {	
 				frigi.tapByXPath(XPath.signInOne);
 			}
-			System.out.println("FRIGI OFFSET: " + frigi.getOffset()); //change offset back to protected later
+			System.out.println("OFFSET: " + frigi.getOffset()); //change offset back to protected later
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void fail() {
+		//FAIL: screenshot fails because Android OS security prevents screenshots from being taken. 
 		screenshotCount++;
-		System.out.println("Screenshot #" + screenshotCount + "taken.");
-		takeScreenshot("screenshot" + screenshotCount);
-		Assert.fail();
-	}
-	
-	/**
-	 * Take a screenshot and save it the project root directory
-	 * @param name Filename of the picture. Should not include a file extension. 
-	 */
-	public void takeScreenshot(String name) {
-		try {
-			File file  = ((TakesScreenshot)this).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(file, new File(name + ".jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void takeScreenshot(String name, String path) {
-		takeScreenshot(path+name);
+		System.out.println("Screenshot #" + screenshotCount + " taken");
+		frigi.useNativeContext();
+		frigi.takeScreenshot("C:/temp/Screenshot.jpg");
+		Assert.fail(); 
 	}
 	
 	@AfterClass

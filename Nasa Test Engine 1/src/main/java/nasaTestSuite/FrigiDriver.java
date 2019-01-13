@@ -58,7 +58,7 @@ public class FrigiDriver extends AndroidDriver
 	public final int UPDATE_WAIT = 240;
 	public final int POWER_SECS = 20;
 	public final int BUTTON_WAIT = 20;
-	public final int OFFSET_WAIT = 1;
+	public final int SHORT_WAIT = 1;
 	public final int SIGN_IN_WAIT = 120;
 	public final int TEXT_SEARCH_WAIT = 5;
 	public final int TOGGLE_SECS = 2000;//ms
@@ -139,7 +139,10 @@ public class FrigiDriver extends AndroidDriver
 			System.out.println("Clicking element: " + elem);
 			elem.click();
 		}catch(NullPointerException e){
-			System.out.println("Failed to find XPath: " + xPath);
+			System.out.println("Click null: " + xPath);
+		}catch(Exception j) {
+			System.out.println("Click failed: " + xPath);
+			j.getMessage();
 		}
 	}
 	
@@ -250,12 +253,14 @@ public class FrigiDriver extends AndroidDriver
 		return result;		
 	}
 	
-	//New findByXPath that was supposed to replace the old xpath. Causes error when I tried to remove the old method. 
+	//TODO New findByXPath that was supposed to replace the old xpath. Causes error when I tried to remove the old method. 
 	public WebElement findByXPath(String xPath, int waitSecs)
 	{
 		myWaitXPath(xPath, waitSecs);
 		try {
-			WebElement elem = findByXPath(xPath, false, this);//replacing this line with AppiumDriver method instead of FrigiDriver method didn't work. TODO fix this later.
+			AndroidDriver tempDriver = (AndroidDriver)this; //temp driver cast
+//			WebElement elem = findByXPath(xPath, false, this);//replacing this line with AppiumDriver method instead of FrigiDriver method didn't work. TODO fix this later.
+			WebElement elem = tempDriver.findElementByXPath(xPath);
 			return elem;
 		}catch(NullPointerException e){
 			System.out.println("Failed to find XPath: " + xPath);
@@ -279,8 +284,7 @@ public class FrigiDriver extends AndroidDriver
 	//overload
 	public WebElement findByXPath(String xpath)
 	{
-		myWaitXPath(xpath, BUTTON_WAIT);
-		return findElementById(xpath);
+		return findByXPath(xpath, BUTTON_WAIT);
 	}
 	
 	
@@ -433,7 +437,7 @@ public class FrigiDriver extends AndroidDriver
 	}
 	
 	/**
-	 * Tap 
+	 * Tap by xpath
 	 * @param xPath
 	 * @param waitSecs
 	 */
@@ -441,7 +445,7 @@ public class FrigiDriver extends AndroidDriver
 		myWaitXPath(xPath, waitSecs);
 		WebElement elem = null;
 		try {
-			elem = findByXPath(xPath, false, this); //TODO: this bugs me. why won't it work without this fallback?
+			elem = findByXPath(xPath, waitSecs); //TODO: this bugs me. why won't it work without this fallback?
 		}catch(NullPointerException e){
 			System.out.println("Failed to find XPath: " + xPath);
 		}
@@ -545,8 +549,8 @@ public class FrigiDriver extends AndroidDriver
 			System.out.println("\tPasswordShowing: " + passwordShowing);
 //			this.offset = i; //DELETE
 			if(passwordShowing) {
-				tapByXPath(XPath.hidePassButton, OFFSET_WAIT);
-				if(xPathIsDisplayed(XPath.passwordHiddenValidation, OFFSET_WAIT)) {
+				tapByXPath(XPath.hidePassButton, SHORT_WAIT);
+				if(xPathIsDisplayed(XPath.passwordHiddenValidation, SHORT_WAIT)) {
 					System.out.println(i + ": Successful Hide Tap");
 					successfulTaps.add(i);
 					passwordShowing = false;
@@ -559,8 +563,8 @@ public class FrigiDriver extends AndroidDriver
 					//unsuccessful tap
 				}				
 			}else{
-				tapByXPath(XPath.showPassButton, OFFSET_WAIT);
-				if(xPathIsDisplayed(XPath.passwordShowingValidation, OFFSET_WAIT)) {
+				tapByXPath(XPath.showPassButton, SHORT_WAIT);
+				if(xPathIsDisplayed(XPath.passwordShowingValidation, SHORT_WAIT)) {
 					System.out.println(i + ": Successful Show Tap");
 					successfulTaps.add(i);
 					passwordShowing = true;
@@ -628,6 +632,24 @@ public class FrigiDriver extends AndroidDriver
 	    System.out.println("topY" + topY);
 	    //scroll with TouchAction by itself
 	    scroll(pressX, bottomY, pressX, topY);
+	}
+	
+	/**
+	 * Take a screenshot and save it the project root directory
+	 * @param name Filename of the picture. Should not include a file extension. 
+	 */
+	public void takeScreenshot(String name) {
+		try {
+			File file  = ((TakesScreenshot)this).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(file, new File(name + ".jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void takeScreenshot(String name, String path) {
+		takeScreenshot(path+name);
 	}
 	
 	//how-to-scroll-with-appium

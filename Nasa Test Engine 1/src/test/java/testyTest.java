@@ -3,7 +3,6 @@ package test.java;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 
-import main.java.nasaTestSuite.XPath;
 import main.java.nasaTestSuite.Stromboli;
 import main.java.nasaTestSuite.TestCapabilities;
 import main.java.nasaTestSuite.TestFunctions;
@@ -36,15 +35,17 @@ public class testyTest extends Base
 		System.out.println("Testy Test");
 		setupApp();
 		
-		//Sign in
-	    strombo.signIn("eluxtester1@gmail.com", "123456");
-		System.out.println("PASS: Sign In");
-	    System.out.println();
-		strombo.openControls("Strombo");
-		if(!strombo.isPowerOn()) {
-			System.out.println("Turning on appliance");
-			frigi.tapByXPath(XPath.plainPowerButton, frigi.BUTTON_WAIT);
-		}
+//		//Sign in
+//	    strombo.signIn("eluxtester1@gmail.com", "123456");
+//		System.out.println("PASS: Sign In");
+//	    System.out.println();
+//		strombo.openControls("Strombo");
+//		if(!strombo.isPowerOn()) {
+//			System.out.println("Turning on appliance");
+//			frigi.tapByXPath(XPath.plainPowerButton, frigi.BUTTON_WAIT);
+//		}
+		
+		
 //		strombo.changeModeToCoolorEcon();
 //		strombo.openSettings();
 	}
@@ -58,6 +59,14 @@ public class testyTest extends Base
 		} catch (Exception e) {
 			System.out.println("fail caught");
 		}
+	}
+	
+	@Test
+	public void testWait() 
+	{
+		System.out.println("wait test");
+		frigi.myWaitXPath(XPath.signInOne, frigi.BUTTON_WAIT);
+		System.out.println("pass");
 	}
 	
 	@Test
