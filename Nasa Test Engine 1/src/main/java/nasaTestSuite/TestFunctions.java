@@ -56,6 +56,7 @@ public class TestFunctions
 	public final int TOGGLE_SECS = 2000;//ms
 	public final int BUTTON_WAIT = 20;
 	public final int SIGN_IN_WAIT = 120;
+	public final int TEXT_SEARCH_WAIT = 5;
 	
 	int oneMinute = 60;
 	
@@ -74,8 +75,6 @@ public class TestFunctions
 	/**
 	 * TODO test may run faster if you just add some random character to the name instead of naming it back and forth
 	 * TODO change to static later?
-	 * TODO Currently set up to check name, change name, and verify name all withing settings menu
-	 * Need to implement back button and check name on the CONTROL screen rather than just the settings menu page
 	 */
 	public void changeName()
 	{
@@ -96,9 +95,13 @@ public class TestFunctions
 		System.out.println("Expected name: " + expectedName);
 		System.out.println("Actual name: " + actualName);
 
+		//change name back
 		currentNameFieldElem = d.findByXPath(XPath.applianceNameField, BUTTON_WAIT);
 		currentNameFieldElem.clear();
 		currentNameFieldElem.sendKeys(prevName);
+		d.tapByXPath(XPath.backButton, BUTTON_WAIT);
+		strombo.openSettings();
+		
 		if(actualName.equals(expectedName)) {
 			printEndTest("Change Name", "PASS");
 		} else {
@@ -110,64 +113,8 @@ public class TestFunctions
 	public void cleanAir() 
 	{
 		printStartTest("Clean Air");
-		
-		String expectedState = "";
-		boolean success = true;
-		WebElement cleanAirToggle = d.findByXPath(XPath.cleanAirToggle, false, driver);
-		
-		String prevState = cleanAirToggle.getAttribute("class");
-		System.out.println("Previous Toggle State: " + prevState);
-		
-		d.tapByXPath(XPath.cleanAirToggle, TOGGLE_SECS);
-		d.thinkWait();
-		//if OFF class="toggle" when OFF     if ON class="toggle active"
-		if(prevState.equals("toggle")){
-			//clean air was off, after tap it should be on
-			System.out.println("Turning Clean Air ON");
-			expectedState = "toggle active";
-		} else if(prevState.equals("toggle active")) {
-			//clean air was on, after tap it should be off
-			System.out.println("Turning Clean Air OFF");
-			expectedState = "toggle";
-		}else {
-			System.out.println("UNEXPECTED CLEAN AIR TOGGLE STATE: " + prevState);
-		}
-		String actualState = cleanAirToggle.getAttribute("class");
-		if(actualState.equals(expectedState)) {
-			System.out.println("Clean Air 1st result: PASS");
-		}else {
-			System.out.println("Clean Air 1st result: FAIL");
-			success = false;
-		}
 
-
-		prevState = actualState;
-		System.out.println("Previous Toggle State: " + prevState);
-		
-		d.tapByXPath(XPath.cleanAirToggle, TOGGLE_SECS);
-		d.thinkWait();
-		//if OFF class="toggle" when OFF     if ON class="toggle active"
-		if(prevState.equals("toggle")){
-			//clean air was off, after tap it should be on
-			System.out.println("Turning Clean Air ON");
-			expectedState = "toggle active";
-		} else if(prevState.equals("toggle active")) { 
-			//clean air was on, after tap it should be off
-			System.out.println("Turning Clean Air OFF");
-			expectedState = "toggle";
-		} else {
-			System.out.println("UNEXPECTED CLEAN AIR TOGGLE STATE: " + prevState);
-		}
-		actualState = cleanAirToggle.getAttribute("class");
-		if(actualState.equals(expectedState)) {
-			System.out.println("Clean Air 2nd result: PASS");
-		} else {
-			System.out.println("Clean Air 2nd result: FAIL");
-			success = false;
-		}
-		
-		
-		
+		boolean success = toggleTest(XPath.cleanAirToggle);
 		if(success) {
 			printEndTest("Clean Air", "PASS");
 		} else {
@@ -175,65 +122,72 @@ public class TestFunctions
 			fail();
 		}
 	}
-
-	public void sleepMode() 
-	{
-		printStartTest("Sleep Mode");
-		
-		String expectedState = "";
+	
+	private boolean toggleTest(String toggleXPath) {
 		boolean success = true;
-		WebElement sleepModeToggle = d.findByXPath(XPath.sleepModeToggle, false, driver);
-		//STOPPING POINT
-		String prevState = sleepModeToggle.getAttribute("class");
-		System.out.println("Previous Toggle State: " + prevState);
+		String expectedState = "";
+		WebElement cleanAirToggle = d.findByXPath(toggleXPath);
 		
-		d.tapByXPath(XPath.sleepModeToggle, TOGGLE_SECS);
-		d.thinkWait();
+		String prevState = cleanAirToggle.getAttribute("class");
+		System.out.println("Previous Toggle State: " + prevState);
 		//if OFF class="toggle" when OFF     if ON class="toggle active"
 		if(prevState.equals("toggle")){
 			//clean air was off, after tap it should be on
-			System.out.println("Turning Sleep Mode ON");
+			System.out.println("Toggling ON");
 			expectedState = "toggle active";
 		} else if(prevState.equals("toggle active")) {
 			//clean air was on, after tap it should be off
-			System.out.println("Turning Sleep Mode OFF");
+			System.out.println("Toggling OFF");
 			expectedState = "toggle";
 		}else {
-			System.out.println("UNEXPECTED SLEEP TOGGLE STATE: " + prevState);
-		}
-		String actualState = sleepModeToggle.getAttribute("class");
+			System.out.println("UNEXPECTED TOGGLE STATE: " + prevState);
+		}		
+		System.out.println("OFFSET: " + d.getOffset());
+		d.tapByXPath(toggleXPath, TOGGLE_SECS);
+		d.thinkWait();
+		
+		String actualState = cleanAirToggle.getAttribute("class");
 		if(actualState.equals(expectedState)) {
-			System.out.println("Sleep 1st result: PASS");
+			System.out.println("Toggle 1st result: PASS");
 		}else {
-			System.out.println("Sleep 1st result: FAIL");
+			System.out.println("Toggle 1st result: FAIL - Actual State: " + actualState);
 			success = false;
 		}
 
 
 		prevState = actualState;
 		System.out.println("Previous Toggle State: " + prevState);
-		
-		d.tapByXPath(XPath.sleepModeToggle, TOGGLE_SECS);
-		d.thinkWait();
-		//if OFF class="toggle" when OFF     if ON class="toggle active"
+				//if OFF class="toggle" when OFF     if ON class="toggle active"
 		if(prevState.equals("toggle")){
 			//clean air was off, after tap it should be on
-			System.out.println("Turning Sleep Mode ON");
+			System.out.println("Turning Toggle ON");
 			expectedState = "toggle active";
 		} else if(prevState.equals("toggle active")) { 
 			//clean air was on, after tap it should be off
-			System.out.println("Turning Sleep Mode OFF");
+			System.out.println("Turning Toggle OFF");
 			expectedState = "toggle";
 		} else {
-			System.out.println("UNEXPECTED SLEEP TOGGLE STATE: " + prevState);
+			System.out.println("UNEXPECTED TOGGLE STATE: " + prevState);
 		}
-		actualState = sleepModeToggle.getAttribute("class");
+		d.tapByXPath(toggleXPath, TOGGLE_SECS);
+		d.thinkWait();
+		
+		actualState = cleanAirToggle.getAttribute("class");
 		if(actualState.equals(expectedState)) {
-			System.out.println("Sleep Mode 2nd result: PASS");
+			System.out.println("Toggle 2nd result: PASS");
 		} else {
-			System.out.println("Sleep Mode 2nd result: FAIL");
+			System.out.println("Toggle 2nd result: FAIL");
 			success = false;
 		}
+		
+		return success;
+	}
+
+	public void sleepMode() 
+	{
+		printStartTest("Sleep Mode");
+
+		boolean success = toggleTest(XPath.sleepModeToggle);
 		
 		
 		
@@ -244,30 +198,87 @@ public class TestFunctions
 			fail();
 		}
 	}
+
+	public void notificationTest() {
+		printStartTest("Notification Toggle");
+
+		boolean success = toggleTest(XPath.notificationToggle);		
+		
+		if(success) {
+			printEndTest("Notification Toggle", "PASS");
+		} else {
+			printEndTest("Notification Toggle", "FAIL");
+			fail();
+		}
+	}
 	
 	public void timeZone() 
 	{
-		int c = 0;
-		d.tapByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
+		printStartTest("Time Zone");
+		String[] timezones = {"Eastern", "Central", "Arizona", "Mountain", "Pacific", "Alaska", "Aleutian", "Hawaii", "Samoa", "Chamorro", "Atlantic", "Newfoundland"};
+		boolean fail = false;		
+		boolean recheckEastern = false;
+		
+		WebElement elem = d.findByXPath(XPath.timeZoneOuterButton, TEXT_SEARCH_WAIT);
+		String timezone = elem.getText();		
+		if(timezone.equals("Eastern")) {
+			System.out.println("Recheck Eastern TRUE");
+			recheckEastern = true;
+		}
+		
 		for(int i = 0; i <= 11; i++) 
 		{
-			System.out.println(c++);
-			d.tapByXPath(XPath.getTimeZoneInnerButton(i), BUTTON_WAIT);
-			System.out.println(c++);
-			d.tapByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
-			System.out.println(c++);
-			WebElement checkedElem = d.findByXPath(XPath.timeZoneChecked, BUTTON_WAIT);
-			System.out.println(c++);
-			String idString = checkedElem.getAttribute("id");
-			System.out.println(c++);
-			int expected = i;
-			System.out.println(c++);
-			int actual = idString.charAt(idString.length()-1);
-			System.out.println(c++);
-			Assert.assertEquals(expected, actual);
-			System.out.println(c++);
+			//TODO add logic for doing the timezone that already is checked off last. 
+			if(recheckEastern && i == 0) {
+//				d.tapByXPath(XPath.backButton);
+			} else {
+				d.tapByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
+				System.out.println("LOOP: " + i);
+				//scroll down before tapping the lower elements in the list
+				if(i > 7) {
+					d.scrollDown();
+				}
+				d.tapByXPath(XPath.getTimeZoneInnerButton(i), BUTTON_WAIT);
+				WebElement checkedElem = d.findByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
+				String expected = timezones[i];
+				String actual = checkedElem.getText();
+				//if Eastern is already checked on the first pass then skip to the next timezone and do eastern last using the easternLast boolean
+			
+				System.out.println("Actual: " + actual);
+				if(expected.equals(actual)) {
+					//PASS
+				} else {
+					System.out.println(i + " FAILED");
+					fail = true;
+				}				
+			}
 		}
-		System.out.println(c++);
+		
+		//recheck eastern
+		if(recheckEastern) {
+			d.tapByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
+			d.tapByXPath(XPath.getTimeZoneInnerButton(0), BUTTON_WAIT);
+			WebElement checkedElem = d.findByXPath(XPath.timeZoneOuterButton, BUTTON_WAIT);
+			String expected = timezones[0];
+			String actual = checkedElem.getText();
+			//if Eastern is already checked on the first pass then skip to the next timezone and do eastern last using the easternLast boolean
+		
+			System.out.println("Actual: " + actual);
+			if(expected.equals(actual)) {
+				//PASS
+			}else {
+				System.out.println("Eastern Recheck - FAILED");
+				fail = true;
+			}	
+		}
+		
+		if(fail) {
+			printEndTest("Time Zone", "FAIL");
+			fail();
+		}else {
+
+			printEndTest("Time Zone", "PASS");
+		}
 	}
 	
 	//should fail

@@ -28,17 +28,18 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
-//@Ignore
+@Ignore
 public class SignInTest extends Base
 {	
 	@BeforeClass
 	public static void beforeClass()
 	{
+		System.out.println("SignIn Test Class");	
 		setupApp();
 		if(app.isSignedIn()) {
 			app.signOut();
 		}
-		System.out.println("SignIn Test Class - START.");	
+		System.out.println("SignIn Test Class - START");	
 	}
 
 	/**
@@ -47,10 +48,10 @@ public class SignInTest extends Base
 	@Before
 	public void resetErrors() {
 		//Tried to change to click backbutton, try again with more specific xpath. 
+		System.out.println("--------------------------------------------------------------------------");
 		System.out.println("Resetting errors before each test");
 		frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
 		frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);		
-		System.out.println("--------------------------------------------------------------------------");
 	}
 	
 	@Test
@@ -98,20 +99,21 @@ public class SignInTest extends Base
 	}
 	
 	@Test
-	public void forgotPassword() 
+	public void forgot_Password() 
 	{
 		test.forgotPass("eluxtester1@gmail.com");
 	}
 	
 	@Test
-	public void showPassword() 
+	public void show_Password() 
 	{
 		test.showPass();
 	}
 	
 	@Test
-	public void staySignedIn()
+	public void stay_Signed_In()
 	{
 		test.staySignedIn();
 	}
+	//TODO forgot pass Back button
 }

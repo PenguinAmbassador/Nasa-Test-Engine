@@ -133,9 +133,8 @@ public class FrigiDriver extends AndroidDriver
 	
 	public void clickByXpath(String xPath, int waitSecs)
 	{
-		myWaitXPath(xPath, waitSecs);
 		try {
-			WebElement elem = findByXPath(xPath, false, this);
+			WebElement elem = findByXPath(xPath, waitSecs);
 			System.out.println("Clicking element: " + elem);
 			elem.click();
 		}catch(NullPointerException e){
@@ -260,7 +259,7 @@ public class FrigiDriver extends AndroidDriver
 		try {
 			AndroidDriver tempDriver = (AndroidDriver)this; //temp driver cast
 //			WebElement elem = findByXPath(xPath, false, this);//replacing this line with AppiumDriver method instead of FrigiDriver method didn't work. TODO fix this later.
-			WebElement elem = tempDriver.findElementByXPath(xPath);
+			WebElement elem = tempDriver.findElementByXPath(xPath); //This worked to replace the old method. Cast was required, however would it be better to use super?
 			return elem;
 		}catch(NullPointerException e){
 			System.out.println("Failed to find XPath: " + xPath);
@@ -401,8 +400,7 @@ public class FrigiDriver extends AndroidDriver
 	{
 		boolean result = false;
 		try {
-			myWaitXPath(xPath, wait);
-			WebElement elem = findByXPath(xPath, false, this);
+			WebElement elem = findByXPath(xPath, wait);
 			result = true;
 		}catch(WebDriverException e) {
 			e.getMessage();
@@ -419,12 +417,12 @@ public class FrigiDriver extends AndroidDriver
 	 * @param wait
 	 * @return
 	 */
-	//BAD CODE
+	//TODO BAD CODE?
 	public boolean searchForText(String text, String xpath, int wait) 
 	{
 		boolean result;
 		System.out.println("Searching for: " + text);
-		WebElement target = findByXPath(xpath, BUTTON_WAIT);
+		WebElement target = findByXPath(xpath, wait);
 		String actual = target.getText();
 		System.out.println("Actual: " + actual);
 		if(actual.equals(text)){
@@ -485,7 +483,6 @@ public class FrigiDriver extends AndroidDriver
 	
 	//My changes: offset
 	public float[] getElementCenter(WebElement element){
-		System.out.println();
 		System.out.println("Tapping element: " + element);
 		JavascriptExecutor js = (JavascriptExecutor)this;
 		// get webview dimensions
@@ -513,7 +510,6 @@ public class FrigiDriver extends AndroidDriver
 		// calculate the actual element location on the screen
 		float elementCenterActualX = elementWidthCenterLocation * ratioWidth;
 		float elementCenterActualY = (elementHeightCenterLocation * ratioHeight) + offset;
-		System.out.println();
 		float[] elementLocation = {elementCenterActualX, elementCenterActualY};
 		
 		//Print Debug info
@@ -605,6 +601,7 @@ public class FrigiDriver extends AndroidDriver
 	
 	//how-to-scroll-with-appium
 	public void scrollDown() {
+		useNativeContext();
 	    //if pressX was zero it didn't work for me
 	    int pressX = manage().window().getSize().width / 2;
 	    System.out.println("pressX" + pressX);
@@ -616,6 +613,7 @@ public class FrigiDriver extends AndroidDriver
 	    System.out.println("topY" + topY);
 	    //scroll with TouchAction by itself
 	    scroll(pressX, (bottomY+200), pressX, topY);
+	    useWebContext();
 	}
 	
 	//NOT WORKING, labels are hard to find by xpath

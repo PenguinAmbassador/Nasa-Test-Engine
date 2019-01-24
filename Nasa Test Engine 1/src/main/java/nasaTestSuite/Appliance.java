@@ -63,11 +63,8 @@ public class Appliance {
 		openSettings();
 		System.out.println("native scroll");
 		WebElement element = d.findByXPaths(XPath.phoneLabels, 2, BUTTON_WAIT);
-		d.useNativeContext();
-//		WebElement element = d.findByXPaths(MyXPath.phoneLabels, 2, BUTTON_WAIT);
 		System.out.println("Phone Label Element: " + element);
 		d.scrollDown();
-		d.useWebContext();
 		d.tapByXPath(XPath.signOutButton, BUTTON_WAIT);
 		d.tapByXPath(XPath.signInOne, BUTTON_WAIT);
 	}
@@ -79,7 +76,7 @@ public class Appliance {
 
 	public boolean isPowerOn() 
 	{
-		boolean powerOn = !d.searchForText("Off", XPath.offStatus, BUTTON_WAIT);
+		boolean powerOn = !d.searchForText("Off", XPath.offStatus, d.TEXT_SEARCH_WAIT);
 		System.out.println("isPowerOn: " + powerOn);
 		return powerOn;
 	}

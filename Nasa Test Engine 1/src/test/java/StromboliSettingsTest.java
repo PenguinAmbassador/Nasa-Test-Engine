@@ -27,41 +27,23 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
-@Ignore
-public class StromboliSettingsTest 
+//@Ignore
+public class StromboliSettingsTest extends Base
 {
-	static int oneMinute = 60;
-	
-	public static FrigiDriver frigi = null;
-	public static Stromboli strombo = null;
-	public static Appliance app = null;
-	public static TestFunctions test = null;
+
 	@BeforeClass//("^This code opens the app$")
 	public static void launchMyTest()
 	{
 		//Setup app
 		System.out.println("StromboliSettingsTest");//delete later
-		try {
-			frigi = new FrigiDriver(new URL("http://localhost:4723/wd/hub"), new TestCapabilities().AssignAppiumCapabilities());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		strombo = new Stromboli(frigi);
-		test = new TestFunctions(frigi, strombo);		
-		System.out.println("temporarily removed update");
-		frigi.useWebContext();
+		setupApp("eluxtester1@gmail.com", "123456");
 		
 		//Sign in
-		frigi.tapByXPath(XPath.signInOne);
-	    strombo.signIn("eluxtester1@gmail.com", "123456");
 		System.out.println("PASS: Sign In");
-//		strombo.isPowerOn();
 	    System.out.println("App Launched");
 	    System.out.println();
-	    frigi.thinkWait();
 		strombo.openControls("Strombo");
-		frigi.thinkWait();
-		System.out.println("ECON/COOL SETTINGS MODE");
+		System.out.println("Goal: POWERED ON WITH ECON/COOL SETTINGS MODE");
 		if(!strombo.isPowerOn()) {
 			System.out.println("Turning on appliance");
 			frigi.tapByXPath(XPath.plainPowerButton, frigi.BUTTON_WAIT);
@@ -70,47 +52,37 @@ public class StromboliSettingsTest
 		strombo.openSettings();
 	}
 	
-	@Test
-	public void testAssertFail() 
-	{
-		test.testAssertFail();
-	}
-	
-	@Test
-	public void testAssertPass() 
-	{
-		test.testAssertPass();
-	}
+//	//functional and passing
+//	@Test
+//	public void changeName() 
+//	{
+//		test.changeName();
+//	}
 	
 	//functional and passing
-	@Test
-	public void changeName() 
-	{
-		test.changeName();
-	}
-	
-	//functional
 	@Test
 	public void cleanAir() 
 	{
 		test.cleanAir();
 	}
 	
-	//functional
+	//functional and passing
 	@Test
 	public void sleepMode() 
 	{
 		test.sleepMode();
 	}
-	@Test
-	public void timeZone() 
-	{
-		test.timeZone();
-	}
-//
+	
+	//functional and passing
 //	@Test
-//	public void noftification() 
+//	public void timeZone() 
 //	{
-//		frigi.tests.notificationTest();
+//		test.timeZone();
 //	}
+
+	@Test
+	public void notification() 
+	{
+		test.notificationTest();
+	}
 }

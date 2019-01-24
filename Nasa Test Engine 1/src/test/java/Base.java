@@ -63,6 +63,19 @@ public class Base
 		}
 	}
 	
+	/**
+	 * SetupApp overload where the app is signed in if it isn't already based on parameters.
+	 * @param email
+	 * @param password
+	 */
+	protected static void setupApp(String email, String password) {
+		setupApp();
+
+		if(!app.isSignedIn()) {
+			app.signIn(email, password);
+		}
+	}
+	
 	public void fail() {
 		//FAIL: screenshot fails because Android OS security prevents screenshots from being taken. 
 		screenshotCount++;

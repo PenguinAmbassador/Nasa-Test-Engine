@@ -20,7 +20,6 @@ public class PhoneConfig
 		switch (deviceName)
 		{
 			case "SAMSUNG-SM-G930A":
-				deviceName = "S6 - SAMSUNG-SM-G930A";
 				offset = 115;
 				accurateOffset = true;
 				newDevice = false;
