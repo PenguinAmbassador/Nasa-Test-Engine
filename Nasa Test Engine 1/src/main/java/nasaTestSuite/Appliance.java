@@ -57,8 +57,9 @@ public class Appliance {
 	
 	public void signOut() 
 	{
-		//TODO: Bad Assumption - Assumes you are not already at the appliance list
+		//TODO: Bad Assumption - Assumes you have appliances provisioned
 		System.out.println("SIGN OUT");
+		System.out.println("Inefficientlly does not check to see if you are already on an appliance. Back button not necessary most of the time.");
 		d.tapByXPath(XPath.backButton, BUTTON_WAIT);
 		openSettings();
 		System.out.println("native scroll");

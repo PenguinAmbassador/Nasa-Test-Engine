@@ -613,7 +613,7 @@ public class FrigiDriver extends AndroidDriver
 	    int topY = manage().window().getSize().height / 8;
 	    System.out.println("topY" + topY);
 	    //scroll with TouchAction by itself
-	    scroll(pressX, (bottomY+200), pressX, topY);
+	    scroll(pressX, bottomY, pressX, topY);
 	    useWebContext();
 	}
 
@@ -624,13 +624,13 @@ public class FrigiDriver extends AndroidDriver
 	    int pressX = manage().window().getSize().width / 2;
 	    System.out.println("pressX" + pressX);
 	    // 4/5 of the screen as the bottom finger-press point
-	    int bottomY = (manage().window().getSize().height * 7/8) + scrollOffset; //used to be 4/5
+	    int bottomY = manage().window().getSize().height * 7/8; //used to be 4/5
 	    System.out.println("bottomY" + bottomY);
 	    // just non zero point, as it didn't scroll to zero normally
 	    int topY = manage().window().getSize().height / 8;
 	    System.out.println("topY" + topY);
 	    //scroll with TouchAction by itself
-	    scroll(pressX, (bottomY+200), pressX, topY);
+	    scroll(pressX, (bottomY + scrollOffset), pressX, topY);
 	    useWebContext();
 	}
 	

@@ -154,7 +154,7 @@ public class TestFunctions
 		//Fahreneheit = "toggle toggle-select active" Celsius = "toggle toggle-select"
 		String fahrenheit = "toggle toggle-select active";
 		String celsius = "toggle toggle-select";
-		d.scrollDown(-300);
+		d.scrollDown(-100);
 		WebElement cleanAirToggle = d.findByXPath(XPath.unitToggle);
 		String prevState = cleanAirToggle.getAttribute("class");
 		
@@ -168,7 +168,7 @@ public class TestFunctions
 			if(strombo.getTargTemp() >= 60) {
 				//PASS - Open settings and scroll down to prepare for the next test.
 				strombo.openSettings();
-				d.scrollDown(-300);
+				d.scrollDown(-100);
 			}else {
 				printEndTest("Temp Test", "fail");
 				fail();
@@ -180,7 +180,7 @@ public class TestFunctions
 			if(strombo.getTargTemp() < 60) {
 				//PASS
 				strombo.openSettings();
-				d.scrollDown(-300); //TODO remove and verify this isn't needed
+				d.scrollDown(-100); //TODO remove and verify this isn't needed
 			}else {
 				printEndTest("Temp Test", "fail");
 				fail();
@@ -194,7 +194,7 @@ public class TestFunctions
 			if(strombo.getTargTemp() < 60) {
 				//PASS
 				strombo.openSettings();
-				d.scrollDown(-300);
+				d.scrollDown(-100);
 			}else {
 				printEndTest("Temp Test", "fail");
 				fail();
@@ -206,7 +206,7 @@ public class TestFunctions
 			if(strombo.getTargTemp() >= 60) {
 				//PASS
 				strombo.openSettings();
-				d.scrollDown(-300); //TODO remove and verify this isn't needed
+				d.scrollDown(-100); //TODO remove and verify this isn't needed
 			}else {
 				printEndTest("Temp Test", "fail");
 				fail();
@@ -334,6 +334,7 @@ public class TestFunctions
 				System.out.println("LOOP: " + i);
 				//scroll down before tapping the lower elements in the list
 				if(i > 7) {
+					System.out.println("Scroll Down changed since this was tested. May need to change to scrollDown(+200)");
 					d.scrollDown();
 				}
 				d.tapByXPath(XPath.getTimeZoneInnerButton(i), BUTTON_WAIT);
@@ -602,6 +603,7 @@ public class TestFunctions
 			System.out.println("FAIL");
 			fail();
 		}
+		printEndTest("Show/Hide Password", "PASS");
 	}
 	
 	/**
@@ -615,20 +617,6 @@ public class TestFunctions
 		d.tapByXPath(XPath.staySignedIn);			
 		app.signIn();
 		app.relaunchApp();
-		//Questionable behavior? Sometimes the app launches without stopping at the signInOne button when the user is logged in, but sometimes it does.
-		
-		System.out.println("Does the first Sign In Button need to be pressed after relaunch if a user is already logged in?"); 
-//		if(app.isSignedIn()) {
-//		} else {
-//			d.tapByXPath(XPath.signInOne);
-//			if(app.isSignedIn()) {
-//			} else {
-//				printEndTest("Stay Signed In", "FAIL");
-//				fail();			
-//			}
-//			printEndTest("Stay Signed In", "FAIL");
-//			fail();			
-//		}
 		
 		//If the app is not signed in, press the first sign in button and if it is still not signed in fail the test.
 		if(!app.isSignedIn()) {
@@ -643,5 +631,17 @@ public class TestFunctions
 		}
 		printEndTest("Stay Signed In", "PASS");
 		app.signOut();	
+	}
+	public void forgotPassBackButton() {
+		//TODO add the second back button
+		printStartTest("Forgot password back button");
+		boolean passing = true;
+		d.tapByXPath(XPath.forgotPasswordButton);
+		passing = passing && d.xPathIsDisplayed(XPath.forgotPasswordEmailField);	
+		d.tapByXPath(XPath.backButton);	
+		passing = passing && d.xPathIsDisplayed(XPath.forgotPasswordButton);	
+		if(passing) {
+			System.out.println("First back button PASS");
+		}
 	}
 }

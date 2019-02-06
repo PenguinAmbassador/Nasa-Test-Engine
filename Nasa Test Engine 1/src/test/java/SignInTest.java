@@ -28,7 +28,7 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
-@Ignore
+//@Ignore
 public class SignInTest extends Base
 {	
 	@BeforeClass
@@ -99,21 +99,27 @@ public class SignInTest extends Base
 	}
 	
 	@Test
-	public void forgot_Password() 
+	public void Forgot_Password() 
 	{
 		test.forgotPass("eluxtester1@gmail.com");
 	}
 	
 	@Test
-	public void show_Password() 
+	public void Show_Password() 
 	{
 		test.showPass();
 	}
 	
 	@Test
-	public void stay_Signed_In()
+	public void Stay_Signed_In()
 	{
 		test.staySignedIn();
 	}
 	//TODO forgot pass Back button
+	
+	//untested
+	@Test
+	public void Forgot_Pass_Back_Button() {
+		test.forgotPassBackButton();
+	}
 }

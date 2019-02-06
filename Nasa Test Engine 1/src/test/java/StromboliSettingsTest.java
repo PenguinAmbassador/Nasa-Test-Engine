@@ -27,7 +27,7 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
-//@Ignore
+@Ignore
 public class StromboliSettingsTest extends Base
 {
 
@@ -52,39 +52,40 @@ public class StromboliSettingsTest extends Base
 		strombo.openSettings();
 	}
 	
-//	//functional and passing
-//	@Test
-//	public void changeName() 
-//	{
-//		test.changeName();
-//	}
-//	
-//	//functional and passing
-//	@Test
-//	public void cleanAir() 
-//	{
-//		test.cleanAir();
-//	}
-//	
-//	//functional and passing
-//	@Test
-//	public void sleepMode() 
-//	{
-//		test.sleepMode();
-//	}
-//	
-//	//functional and passing
-//	@Test
-//	public void timeZone() 
-//	{
-//		test.timeZone();
-//	}
-//
-//	@Test
-//	public void notification() 
-//	{
-//		test.notificationTest();
-//	}
+	//functional and passing
+	@Test
+	public void changeName() 
+	{
+		test.changeName();
+	}
+	
+	//functional and passing
+	@Test
+	public void cleanAir() 
+	{
+		test.cleanAir();
+	}
+	
+	//functional and passing
+	@Test
+	public void sleepMode() 
+	{
+		test.sleepMode();
+	}
+	
+	//functional and passing
+	@Test
+	public void timeZone() 
+	{
+		test.timeZone();
+	}
+
+	@Test
+	public void notification() 
+	{
+		System.out.println("Does this pass?");
+		test.notificationTest();
+	}
 	
 	//functional and passing
 	@Test
