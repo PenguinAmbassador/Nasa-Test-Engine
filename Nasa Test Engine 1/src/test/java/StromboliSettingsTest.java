@@ -58,31 +58,37 @@ public class StromboliSettingsTest extends Base
 //	{
 //		test.changeName();
 //	}
-	
-	//functional and passing
-	@Test
-	public void cleanAir() 
-	{
-		test.cleanAir();
-	}
-	
-	//functional and passing
-	@Test
-	public void sleepMode() 
-	{
-		test.sleepMode();
-	}
-	
-	//functional and passing
+//	
+//	//functional and passing
+//	@Test
+//	public void cleanAir() 
+//	{
+//		test.cleanAir();
+//	}
+//	
+//	//functional and passing
+//	@Test
+//	public void sleepMode() 
+//	{
+//		test.sleepMode();
+//	}
+//	
+//	//functional and passing
 //	@Test
 //	public void timeZone() 
 //	{
 //		test.timeZone();
 //	}
-
+//
+//	@Test
+//	public void notification() 
+//	{
+//		test.notificationTest();
+//	}
+	
+	//functional and passing
 	@Test
-	public void notification() 
-	{
-		test.notificationTest();
+	public void Temperature_Unit_Test() {
+		test.toggleTempTest();
 	}
 }

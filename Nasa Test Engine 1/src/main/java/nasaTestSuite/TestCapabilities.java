@@ -60,6 +60,7 @@ public class TestCapabilities
 			//TRYING TO REBOOT APP WITHOUT CLEARING DATA
 			appiumSettings.setCapability(MobileCapabilityType.FULL_RESET, false);
 			appiumSettings.setCapability(MobileCapabilityType.NO_RESET, true);
+			appiumSettings.setCapability("autoGrantPermissions", true);
 			return appiumSettings;
 		}
 		else

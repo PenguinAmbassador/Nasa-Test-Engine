@@ -42,6 +42,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.InvalidCoordinatesException;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -439,7 +440,7 @@ public class FrigiDriver extends AndroidDriver
 	 * @param xPath
 	 * @param waitSecs
 	 */
-	public void tapByXPath(String xPath, int waitSecs) {
+	public void tapByXPath(String xPath, int waitSecs){
 		myWaitXPath(xPath, waitSecs);
 		WebElement elem = null;
 		try {
@@ -463,7 +464,7 @@ public class FrigiDriver extends AndroidDriver
 		tapByXPath(xPath, BUTTON_WAIT);
 	}
 	
-	public void tapOnElement(WebElement element){
+	public void tapOnElement(WebElement element)  {
 		float[] elementLocation = getElementCenter(element);
 		int elementCoordinateX, elementCoordinateY; 
 		elementCoordinateX = Math.round(elementLocation[0]);
@@ -607,6 +608,23 @@ public class FrigiDriver extends AndroidDriver
 	    System.out.println("pressX" + pressX);
 	    // 4/5 of the screen as the bottom finger-press point
 	    int bottomY = manage().window().getSize().height * 7/8; //used to be 4/5
+	    System.out.println("bottomY" + bottomY);
+	    // just non zero point, as it didn't scroll to zero normally
+	    int topY = manage().window().getSize().height / 8;
+	    System.out.println("topY" + topY);
+	    //scroll with TouchAction by itself
+	    scroll(pressX, (bottomY+200), pressX, topY);
+	    useWebContext();
+	}
+
+	//how-to-scroll-with-appium
+	public void scrollDown(int scrollOffset) {
+		useNativeContext();
+	    //if pressX was zero it didn't work for me
+	    int pressX = manage().window().getSize().width / 2;
+	    System.out.println("pressX" + pressX);
+	    // 4/5 of the screen as the bottom finger-press point
+	    int bottomY = (manage().window().getSize().height * 7/8) + scrollOffset; //used to be 4/5
 	    System.out.println("bottomY" + bottomY);
 	    // just non zero point, as it didn't scroll to zero normally
 	    int topY = manage().window().getSize().height / 8;

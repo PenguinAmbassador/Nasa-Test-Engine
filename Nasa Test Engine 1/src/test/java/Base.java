@@ -48,14 +48,16 @@ public class Base
 			app = new Appliance(frigi);
 			strombo = new Stromboli(frigi);
 			test = new TestFunctions(frigi, app);	
-			if(phone.isNewDevice()) {
-				//s7 offset is 90 accurate.
-				//s8 offset is 150? inaccurate.
-				//NEXUS6P is 165 inaccurate.
-				frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);
-				frigi.calculateOffset();				
-			} else {	
-				frigi.tapByXPath(XPath.signInOne);
+			if(!app.isSignedIn()) {
+				if(phone.isNewDevice()) {
+					//s7 offset is 90 accurate.
+					//s8 offset is 150? inaccurate.
+					//NEXUS6P is 165 inaccurate.
+					frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);
+					frigi.calculateOffset();				
+				} else {	
+					frigi.tapByXPath(XPath.signInOne);
+				}				
 			}
 			System.out.println("OFFSET: " + frigi.getOffset()); //change offset back to protected later
 		} catch (Exception e) {

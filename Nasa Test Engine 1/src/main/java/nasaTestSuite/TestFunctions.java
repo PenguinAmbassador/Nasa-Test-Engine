@@ -40,6 +40,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.InvalidCoordinatesException;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -123,6 +124,104 @@ public class TestFunctions
 		}
 	}
 	
+	/**
+	 * Test a toggle functionality based on a element/xpath parameter and an expected state (on/off)
+	 * @param toggleElem
+	 * @param toggleXPath
+	 * @param expectedState Are you turning the toggle on or off? Depends on the class attribute of toggleElem is. If you are turning the toggle on an example would be "toggle toggle-select" for the celsius toggle.
+	 * @return
+	 */
+	private boolean toggleTest(WebElement toggleElem, String toggleXPath, String expectedState){//TODO Can't currently tap by element. Remove the toggleXPath if this changes.
+		boolean success = true;
+		d.tapByXPath(toggleXPath, TOGGLE_SECS);
+		d.thinkWait();
+		
+		String actualState = toggleElem.getAttribute("class");
+		if(actualState.equals(expectedState)) {
+			System.out.println("Toggle result: PASS");
+		}else {
+			System.out.println("Toggle result: FAIL - Actual State: " + actualState);
+			success = false;
+		}
+		return success;
+	}
+	
+	/**
+	 * Test the temperature on and off functionality.
+	 */
+	public void toggleTempTest() {
+		boolean success = true;
+		//Fahreneheit = "toggle toggle-select active" Celsius = "toggle toggle-select"
+		String fahrenheit = "toggle toggle-select active";
+		String celsius = "toggle toggle-select";
+		d.scrollDown(-300);
+		WebElement cleanAirToggle = d.findByXPath(XPath.unitToggle);
+		String prevState = cleanAirToggle.getAttribute("class");
+		
+		System.out.println("Previous Toggle State: " + prevState);
+		if(prevState.equals(celsius)){
+			//If the toggle state was previously on celcius, activate fahrenheit. 
+			System.out.println("Turning Toggle ON - Activating Fahrenheit ");
+			success = toggleTest(cleanAirToggle, XPath.unitToggle, fahrenheit);		
+			d.tapByXPath(XPath.backButton);
+			//toggleTest verifies that the toggle moved, but this if/else will go to the previous screen and verify the temps are within the fahrenheit range.
+			if(strombo.getTargTemp() >= 60) {
+				//PASS - Open settings and scroll down to prepare for the next test.
+				strombo.openSettings();
+				d.scrollDown(-300);
+			}else {
+				printEndTest("Temp Test", "fail");
+				fail();
+			}
+			//Check the opposite toggle behavior
+			System.out.println("Turning Toggle OFF - Activating Celsius");
+			success = toggleTest(cleanAirToggle, XPath.unitToggle, celsius);	
+			d.tapByXPath(XPath.backButton);
+			if(strombo.getTargTemp() < 60) {
+				//PASS
+				strombo.openSettings();
+				d.scrollDown(-300); //TODO remove and verify this isn't needed
+			}else {
+				printEndTest("Temp Test", "fail");
+				fail();
+			}
+		//Check the opposite toggle behavior
+		} else if(prevState.equals(fahrenheit)) {
+			//CELCIUS
+			System.out.println("Turning Toggle OFF - Activating Celsius");
+			success = toggleTest(cleanAirToggle, XPath.unitToggle, celsius);	
+			d.tapByXPath(XPath.backButton);
+			if(strombo.getTargTemp() < 60) {
+				//PASS
+				strombo.openSettings();
+				d.scrollDown(-300);
+			}else {
+				printEndTest("Temp Test", "fail");
+				fail();
+			}
+			//FAHRENHEIT
+			System.out.println("Turning Toggle ON - Activating Fahrenheit");
+			success = toggleTest(cleanAirToggle, XPath.unitToggle, fahrenheit);		
+			d.tapByXPath(XPath.backButton);
+			if(strombo.getTargTemp() >= 60) {
+				//PASS
+				strombo.openSettings();
+				d.scrollDown(-300); //TODO remove and verify this isn't needed
+			}else {
+				printEndTest("Temp Test", "fail");
+				fail();
+			}
+		} else {
+			System.out.println("UNEXPECTED TOGGLE STATE: " + prevState);
+		}
+		if(success) {
+			//pass
+		}else {
+			fail();
+		}			
+	}
+	
+	//TODO Remove dependencies and delete this function. The other toggleTest is more flexible. 
 	private boolean toggleTest(String toggleXPath) {
 		boolean success = true;
 		String expectedState = "";
@@ -178,8 +277,7 @@ public class TestFunctions
 		} else {
 			System.out.println("Toggle 2nd result: FAIL");
 			success = false;
-		}
-		
+		}		
 		return success;
 	}
 
