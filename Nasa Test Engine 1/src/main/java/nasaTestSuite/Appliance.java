@@ -65,7 +65,7 @@ public class Appliance {
 		System.out.println("native scroll");
 		WebElement element = d.findByXPaths(XPath.phoneLabels, 2, BUTTON_WAIT);
 		System.out.println("Phone Label Element: " + element);
-		d.scrollDown();
+		d.scrollDown(-300);
 		d.tapByXPath(XPath.signOutButton, BUTTON_WAIT);
 		d.tapByXPath(XPath.signInOne, BUTTON_WAIT);
 	}
@@ -118,5 +118,28 @@ public class Appliance {
 		d.launchApp();
 		d.useWebContext();
 		System.out.println("App has been relaunched");
+	}
+
+	public int getSpeed() 
+	{
+		int speed = -1;
+		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		return speed;
+	}
+
+	//Speed Down
+	public void clickSpeedUp() 
+	{
+		WebElement speedElm = d.findByXPath(XPath.speedUp, BUTTON_WAIT);
+		speedElm.click();
+		d.thinkWait();
+	}
+	
+	//Speed Down
+	public void clickSpeedDown() 
+	{
+		WebElement speedElm = d.findByXPath(XPath.speedDown, BUTTON_WAIT);
+		speedElm.click();
+		d.thinkWait();
 	}
 }

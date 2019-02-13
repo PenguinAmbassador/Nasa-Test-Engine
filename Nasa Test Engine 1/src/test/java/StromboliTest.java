@@ -33,10 +33,10 @@ public class StromboliTest extends Base
 	public static void launchMyTest()
 	{
 		System.out.println("StromboliTest");//delete later
-		setupApp();	
+		setupApp("eluxtester1@gmail.com", "123456");	
 
-		System.out.println("Assume power is on");
-	    strombo.signIn("eluxtester1@gmail.com", "123456");
+//		System.out.println("Assume power is on");
+//	    strombo.signIn("eluxtester1@gmail.com", "123456");
 		strombo.openControls("Strombo");
 		if(!strombo.isPowerOn()) {
 			//if power is off, turn on
@@ -55,11 +55,8 @@ public class StromboliTest extends Base
 	@Test
 	public void tempUp() 
 	{
+		System.out.println("WARNING: add conditions for edge cases");//TODO add conditions for edge cases
 		test.printStartTest("Temp up");
-//		if(!strombo.isPowerOn()) 
-//		{
-//			strombo.tapByXPath(MyXPath.powerOnButton, 10);
-//		}
 		//Change mode until you reach a mode that can change the temperature
 		int tempMode = strombo.getMode();
 		while(tempMode==3 || tempMode==5) 
@@ -216,9 +213,5 @@ public class StromboliTest extends Base
 			fail();
 		}
 	}
-	
-//	@Test public void changeName() {
-//		strombo.testChangeName();
-//	}
 	
 }

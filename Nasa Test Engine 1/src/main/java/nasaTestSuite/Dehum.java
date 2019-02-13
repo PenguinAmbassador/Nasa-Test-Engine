@@ -24,9 +24,61 @@ public class Dehum extends Appliance
 	public Dehum(FrigiDriver frigi) {
 		super(frigi);
 	}
-	
 
-//
+	public int getTargHumidity() 
+	{
+		int targHumidity = -1;
+		try {
+			targHumidity = Integer.parseInt(d.findByXPath(XPath.dehumTargetHumidity, BUTTON_WAIT).getAttribute("data-value"));
+		}
+		catch(Exception e)
+		{
+			e.getMessage();
+		}
+		return targHumidity;
+	}
+
+	//humid PLUS
+	public void clickHumidPlus() 
+	{
+		WebElement element = d.findByXPath(XPath.dehumHumidityUp, BUTTON_WAIT);
+		element.click();
+		d.thinkWait();
+	}
+	
+	//humid MINUS
+	public void clickHumidMinus() 
+	{
+		WebElement element = d.findByXPath(XPath.dehumHumidityDown, BUTTON_WAIT);
+		element.click();
+		d.thinkWait();
+	}
+	
+	/**
+	 * Returns the expected fan speed after input. Copied from Stromboli code hence the switch statement.
+	 * @return
+	 */
+	public int getNextExpectedSpeed() {
+		int speed = -1;
+		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		System.out.println("Speed by data value" + speed);
+		int nextExpectedSpeed = -1;
+		switch (speed) {
+	        case 1:  nextExpectedSpeed = 4;
+	        	break;
+	        case 4:  nextExpectedSpeed = 1;
+	        	break;
+			default: System.out.println("Unknown speed: " + speed);
+				break;
+		}
+		return nextExpectedSpeed;
+	}
+
+	//Can copy the other method since there are only two options
+	public int getPrevExpectedSpeed() {
+		return getNextExpectedSpeed();
+	}
+//OUTDATED CODEvvvvvv
 //	//Humidity PLUS
 //	public void clickHumidPlus() {
 //		WebDriverWait wait = new WebDriverWait(driver,20);

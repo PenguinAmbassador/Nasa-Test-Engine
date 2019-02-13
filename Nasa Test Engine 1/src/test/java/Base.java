@@ -10,6 +10,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import main.java.nasaTestSuite.Appliance;
+import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 import main.java.nasaTestSuite.PhoneConfig;
@@ -25,6 +26,7 @@ public class Base
 
 	public static FrigiDriver frigi = null;
 	public static Stromboli strombo = null;
+	public static Dehum dehum = null;
 	public static Appliance app = null;
 	public static TestFunctions test = null;	
 	boolean testing = false;
@@ -47,6 +49,7 @@ public class Base
 			frigi.useWebContext(); //required for hybrid apps
 			app = new Appliance(frigi);
 			strombo = new Stromboli(frigi);
+			dehum = new Dehum(frigi);
 			test = new TestFunctions(frigi, app);	
 			if(!app.isSignedIn()) {
 				if(phone.isNewDevice()) {
@@ -78,14 +81,14 @@ public class Base
 		}
 	}
 	
-	public void fail() {
-		//FAIL: screenshot fails because Android OS security prevents screenshots from being taken. 
-		screenshotCount++;
-		System.out.println("Screenshot #" + screenshotCount + " taken");
-		frigi.useNativeContext();
-		frigi.takeScreenshot("C:/temp/Screenshot.jpg");
-		Assert.fail(); 
-	}
+//	public void fail() {
+//		//FAIL: screenshot fails because Android OS security prevents screenshots from being taken. 
+//		screenshotCount++;
+//		System.out.println("Screenshot #" + screenshotCount + " taken");
+//		frigi.useNativeContext();
+//		frigi.takeScreenshot("C:/temp/Screenshot.jpg");
+//		Assert.fail(); 
+//	}
 	
 	@AfterClass
 	public static void quit(){

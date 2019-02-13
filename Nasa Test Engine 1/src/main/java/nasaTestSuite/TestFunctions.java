@@ -150,6 +150,7 @@ public class TestFunctions
 	 * Test the temperature on and off functionality.
 	 */
 	public void toggleTempTest() {
+		printStartTest("Temperature Unit Test");
 		boolean success = true;
 		//Fahreneheit = "toggle toggle-select active" Celsius = "toggle toggle-select"
 		String fahrenheit = "toggle toggle-select active";
@@ -180,7 +181,6 @@ public class TestFunctions
 			if(strombo.getTargTemp() < 60) {
 				//PASS
 				strombo.openSettings();
-				d.scrollDown(-100); //TODO remove and verify this isn't needed
 			}else {
 				printEndTest("Temp Test", "fail");
 				fail();
@@ -206,7 +206,6 @@ public class TestFunctions
 			if(strombo.getTargTemp() >= 60) {
 				//PASS
 				strombo.openSettings();
-				d.scrollDown(-100); //TODO remove and verify this isn't needed
 			}else {
 				printEndTest("Temp Test", "fail");
 				fail();

@@ -80,10 +80,10 @@ public class StromboliSettingsTest extends Base
 		test.timeZone();
 	}
 
+	//functional and passing
 	@Test
 	public void notification() 
 	{
-		System.out.println("Does this pass?");
 		test.notificationTest();
 	}
 	
@@ -91,5 +91,17 @@ public class StromboliSettingsTest extends Base
 	@Test
 	public void Temperature_Unit_Test() {
 		test.toggleTempTest();
+	}
+	
+	//TODO Version_Information - Discuss if this falls under UI or functionality testing
+	@Test
+	public void Version_Information() {
+		//Discuss if this falls under UI or functionality testing
+	}
+	
+	//TODO Remove_Appliance - Discuss if this falls under UI or functionality testing
+	@Test 
+	public void Remove_Appliance() {
+		//Discuss if this falls under UI or functionality testing
 	}
 }

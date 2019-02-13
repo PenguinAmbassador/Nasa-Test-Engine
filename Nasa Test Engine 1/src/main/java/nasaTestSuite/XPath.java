@@ -2,13 +2,13 @@ package main.java.nasaTestSuite;
 
 public class XPath {
     //screens
-    public static String signInRegisterScreen = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView";
-    public static String registerScreen = "	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[2]/android.widget.Button[2]"; //register button
-    public static String verifyEmailScreen = ""; //leads back to sign in with back button
-    public static String signInTypeScreen = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[2]/android.view.View[5]/android.widget.Button"; //sign in button
-
-    //updateScreen
-    public static String updateButton = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.LinearLayout/android.widget.Button";
+//    public static String signInRegisterScreen = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView";
+//    public static String registerScreen = "	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[2]/android.widget.Button[2]"; //register button
+//    public static String verifyEmailScreen = ""; //leads back to sign in with back button
+//    public static String signInTypeScreen = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[2]/android.view.View[5]/android.widget.Button"; //sign in button
+//
+//    //updateScreen
+//    public static String updateButton = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.LinearLayout/android.widget.Button";
     //signInRegisterScreen
     
     //signInScreen
@@ -16,8 +16,7 @@ public class XPath {
     public static String emailField = "//input[@id='email']";
     public static String passField = "//input[@id='password']";
     public static String signInTwo = "//button[@id='sign-in--button']";
-//    public static String staySignedIn = "//input[@id='stay-signed-in']"; //attempt 1 David: xpath failed?
-    public static String staySignedIn = "//label[@for='stay-signed-in']"; //attempt 2
+    public static String staySignedIn = "//label[@for='stay-signed-in']";
 	public static String topValidation = "//div[@class='input--error input--error-global']";
 	public static String midValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED
 	public static String botValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED
@@ -43,13 +42,6 @@ public class XPath {
     //applianceOneControlHUMID
     public static String offStatus = "//div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']";
     public static String plainPowerButton = "//div[contains(@class,'single--action-wrap power-button-off')]";
-    public static String targHumidity = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[1]/android.widget.ListView/android.view.View[12]/android.view.View[1]";
-    public static String contHumidity = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[1]/android.widget.ListView/android.view.View[1]";
-    public static String currentHumidityText = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[1]/android.view.View[1]";
-    public static String humidPlusButton = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[1]/android.view.View[3]";
-    public static String humidMinusButton = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[1]/android.view.View[2]";
-    public static String dSpeedUp = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[2]/android.view.View[3]";
-    public static String racSpeedDown = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View/android.view.View[2]/android.view.View[2]";
     public static String thinking = "//div[@class='loading--content']";//this should help prevent us from clicking while thinking
 
     public static String settingsButton = "//a[@class='icon icon-settings icon--align-right pull-right']";
@@ -63,24 +55,28 @@ public class XPath {
     public static String versionInfoButton = "//a[@href='#niurecord']";
     public static String removeApplianceButton = "//a[@href='#remove-appliance']";
     
-    public static String dehumNameText = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[4]/android.view.View[2]/android.widget.ListView/android.view.View[2]/android.widget.EditText";
-    public static String dehumNameValue = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[1]/android.view.View[3]";
-    public static String airFilterStatus = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[4]/android.view.View[2]/android.widget.ListView/android.view.View[4]";
-    public static String notificationToggleBrokenMaybe = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[4]/android.view.View[2]/android.widget.ListView/android.view.View[6]/android.view.View[2]";
-    public static String versionInfo = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[4]/android.view.View[2]/android.widget.ListView/android.view.View[10]/android.view.View";
-    public static String removeAppliance = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[4]/android.view.View[2]/android.widget.ListView/android.view.View[11]/android.view.View";
-        
-    //strombo
-    public static String stromboCurrentFanSpeed = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//li[contains(@class,'current')]";
+    //Appliance
+    public static String currentFanSpeed = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//li[contains(@class,'current')]";
+	public static String speedUp = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next']";
+	public static String speedDown = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
+    
     public static String stromboTargetTemp = "//div[@class='settings--controls settings--temp rac--controls degree--symbol settings--always-show-icons']//li[@class='settings--item settings--fade settings--current']";
+    public static String dehumTargetHumidity = "//div[@class='settings--controls settings--temp rac--controls percent--symbol settings--always-show-icons']//li[@class='settings--item settings--fade settings--current']";
     public static String stromboCurrentTemp = "//div[@class='settings--controls settings--temp rac--controls degree--symbol settings--always-show-icons']//p[@class='settings--description']";
     public static String stromboCurrentMode = "//div[@class='settings--controls settings--mode rac--controls settings--always-show-icons']//li[contains(@class,'current')]";
 	public static String stromboModeUp = "//div[@class='settings--controls settings--mode rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next']";
 	public static String stromboModeDown = "//div[@class='settings--controls settings--mode rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
     public static String stromboTempUp = "//div[@class='settings--controls settings--temp rac--controls degree--symbol settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next']";
 	public static String stromboTempDown = "//div[@class='settings--controls settings--temp rac--controls degree--symbol settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
-	public static String stromboSpeedup = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next']";
-	public static String stromboSpeedDown = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
+	
+	//dehum
+	public static String dehumHumidityUp = "//div[@class='settings--controls settings--temp rac--controls percent--symbol settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next']";
+	public static String dehumHumidityDown = "//div[@class='settings--controls settings--temp rac--controls percent--symbol settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
+	
+	//settings
+	public static String versionInfo = "//a[@href='#niurecord']";
+	public static String removeAppliance = "//a[@href='#remove-appliance']";
+	
     	
     //universal
 	public static String connectionDown = "//li[@class='settings--item settings--current'][contains(text(),'Connection Down')]";//TODO add logic for connection down

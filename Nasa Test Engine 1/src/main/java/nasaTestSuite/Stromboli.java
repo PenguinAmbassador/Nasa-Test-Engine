@@ -44,22 +44,6 @@ public class Stromboli extends Appliance
 		d.thinkWait();
 	}
 	
-	//Humidity Speed Down
-	public void clickSpeedUp() 
-	{
-		WebElement speedElm = d.findByXPath(XPath.stromboSpeedup, BUTTON_WAIT);
-		speedElm.click();
-		d.thinkWait();
-	}
-	
-	//Humidity Speed Down
-	public void clickSpeedDown() 
-	{
-		WebElement speedElm = d.findByXPath(XPath.stromboSpeedDown, BUTTON_WAIT);
-		speedElm.click();
-		d.thinkWait();
-	}
-	
 	public void clickModeUp() 
 	{
 		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, BUTTON_WAIT);
@@ -139,7 +123,7 @@ public class Stromboli extends Appliance
 	}
 
 	public int getNextExpectedSpeed() {
-		speed = Integer.parseInt(d.findByXPath(XPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		System.out.println("Speed by data value" + speed);
 		int nextExpectedSpeed = -1;
 		switch (speed) {
@@ -158,7 +142,7 @@ public class Stromboli extends Appliance
 	}
 
 	public int getPrevExpectedSpeed() {
-		speed = Integer.parseInt(d.findByXPath(XPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
+		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		int prevExpectedSpeed = -1;
 		switch (speed) {
 	        case 1:  prevExpectedSpeed = 7;
@@ -179,12 +163,6 @@ public class Stromboli extends Appliance
 	{
 		mode = Integer.parseInt(d.findByXPath(XPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
 		return mode;
-	}
-	
-	public int getSpeed() 
-	{
-		speed = Integer.parseInt(d.findByXPath(XPath.stromboCurrentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
-		return speed;
 	}
 
 	public Date getTimer() 
