@@ -50,47 +50,56 @@ public class DehumTest extends Base{
 	
 	//untested
 	@Test
-	public void tempUp() 
+	public void Humidity_Up() 
 	{
-		test.printStartTest("Humidity up");
-		int expectedTemp = dehum.getTargHumidity();
+		test.printStartTest("Humidity Up");
+		int expectedHumidity = -1;
+		int currentHumidity = dehum.getTargHumidity();
 		dehum.clickHumidPlus();
-		expectedTemp +=5;
-		int currentTemp = dehum.getTargHumidity();
-		System.out.println("Verify expectedTemp = " + expectedTemp);
-		System.out.println("Verify currentTemp = " + currentTemp);
-		if(expectedTemp != currentTemp) 
+		if(currentHumidity == 85) {
+			expectedHumidity = 30;
+		}else {
+			expectedHumidity = currentHumidity + 5;			
+		}
+		currentHumidity = dehum.getTargHumidity();
+		System.out.println("Verify expectedTemp = " + expectedHumidity);
+		System.out.println("Verify currentTemp = " + currentHumidity);
+		if(expectedHumidity != currentHumidity) 
 		{
-			test.printEndTest("Temp Up", "FAIL");
+			test.printEndTest("Humidity Up", "FAIL");
 			fail();
 		}
 		else
 		{
-			test.printEndTest("Temp Up", "PASS");
+			test.printEndTest("Humidity Up", "PASS");
 		}
 	}
 	
-	//verify functionality
-	@Test
-	public void tempDown() 
-	{
-		test.printStartTest("Humidity up");
-		int expectedTemp = dehum.getTargHumidity();
-		dehum.clickHumidMinus();
-		expectedTemp -=5;
-		int currentTemp = dehum.getTargHumidity();
-		System.out.println("Verify expectedTemp = " + expectedTemp);
-		System.out.println("Verify currentTemp = " + currentTemp);
-		if(expectedTemp != currentTemp) 
-		{
-			test.printEndTest("Temp Up", "FAIL");
-			fail();
-		}
-		else
-		{
-			test.printEndTest("Temp Up", "PASS");
-		}
-	}
+//	//verify functionality
+//	@Test
+//	public void Humidity_Down() 
+//	{
+//		test.printStartTest("Humidity Down");
+//		int expectedHumidity = -1;
+//		int currentHumidity = dehum.getTargHumidity();
+//		dehum.clickHumidMinus();
+//		if(currentHumidity == 30) {
+//			expectedHumidity = 85;
+//		}else {
+//			expectedHumidity = currentHumidity - 5;			
+//		}
+//		currentHumidity = dehum.getTargHumidity();
+//		System.out.println("Verify expectedTemp = " + expectedHumidity);
+//		System.out.println("Verify currentTemp = " + currentHumidity);
+//		if(expectedHumidity != currentHumidity){
+//			test.printEndTest("Humidity Down", "FAIL");
+//			fail();
+//		}
+//		else
+//		{
+//			test.printEndTest("Humidity Down", "PASS");
+//		}
+//	}
 	
 	//functional and passing
 	@Test 
