@@ -48,7 +48,7 @@ public class DehumTest extends Base{
 		test.testPower();
 	}
 	
-	//untested
+	//functional and passing
 	@Test
 	public void Humidity_Up() 
 	{
@@ -75,31 +75,31 @@ public class DehumTest extends Base{
 		}
 	}
 	
-//	//verify functionality
-//	@Test
-//	public void Humidity_Down() 
-//	{
-//		test.printStartTest("Humidity Down");
-//		int expectedHumidity = -1;
-//		int currentHumidity = dehum.getTargHumidity();
-//		dehum.clickHumidMinus();
-//		if(currentHumidity == 30) {
-//			expectedHumidity = 85;
-//		}else {
-//			expectedHumidity = currentHumidity - 5;			
-//		}
-//		currentHumidity = dehum.getTargHumidity();
-//		System.out.println("Verify expectedTemp = " + expectedHumidity);
-//		System.out.println("Verify currentTemp = " + currentHumidity);
-//		if(expectedHumidity != currentHumidity){
-//			test.printEndTest("Humidity Down", "FAIL");
-//			fail();
-//		}
-//		else
-//		{
-//			test.printEndTest("Humidity Down", "PASS");
-//		}
-//	}
+	//functional and passing
+	@Test
+	public void Humidity_Down() 
+	{
+		test.printStartTest("Humidity Down");
+		int expectedHumidity = -1;
+		int currentHumidity = dehum.getTargHumidity();
+		dehum.clickHumidMinus();
+		if(currentHumidity == 30) {
+			expectedHumidity = 85;
+		}else {
+			expectedHumidity = currentHumidity - 5;			
+		}
+		currentHumidity = dehum.getTargHumidity();
+		System.out.println("Verify expectedTemp = " + expectedHumidity);
+		System.out.println("Verify currentTemp = " + currentHumidity);
+		if(expectedHumidity != currentHumidity){
+			test.printEndTest("Humidity Down", "FAIL");
+			fail();
+		}
+		else
+		{
+			test.printEndTest("Humidity Down", "PASS");
+		}
+	}
 	
 	//functional and passing
 	@Test 
@@ -120,7 +120,7 @@ public class DehumTest extends Base{
 		}
 	}
 
-	//verify functionality
+	//functional and passing
 	@Test 
 	public void speedDown() 
 	{

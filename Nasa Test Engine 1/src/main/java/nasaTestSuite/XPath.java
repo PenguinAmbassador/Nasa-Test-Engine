@@ -61,6 +61,7 @@ public class XPath {
 	public static String speedDown = "//div[@class='settings--controls settings--fan rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-prev']";
     
     public static String stromboTargetTemp = "//div[@class='settings--controls settings--temp rac--controls degree--symbol settings--always-show-icons']//li[@class='settings--item settings--fade settings--current']";
+    public static String dehumContHumidity = "//li[@class='settings--item settings--fade settings--current nosymbol']";
     public static String dehumTargetHumidity = "//div[@class='settings--controls settings--temp rac--controls percent--symbol settings--always-show-icons']//li[@class='settings--item settings--fade settings--current']";
     public static String stromboCurrentTemp = "//div[@class='settings--controls settings--temp rac--controls degree--symbol settings--always-show-icons']//p[@class='settings--description']";
     public static String stromboCurrentMode = "//div[@class='settings--controls settings--mode rac--controls settings--always-show-icons']//li[contains(@class,'current')]";

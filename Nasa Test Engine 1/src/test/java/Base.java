@@ -42,7 +42,6 @@ public class Base
 			TestCapabilities capabilities = new TestCapabilities();
 			PhoneConfig phone = new PhoneConfig(150, capabilities.GetDeviceName(), capabilities.GetPlatformVersion());
 			System.out.println("WARNING: Temporarily removed update");
-			System.out.println("WARNING: Stay Signed in is an unaccounted for possibility. Tests fail if the app is already signed in.");
 			System.out.println("Capabilities: " + capabilities);
 			System.out.println("Phone: " + phone);
 			frigi = new FrigiDriver(TestServers.LocalServer(), capabilities.AssignAppiumCapabilities(), phone); //was from 540-890

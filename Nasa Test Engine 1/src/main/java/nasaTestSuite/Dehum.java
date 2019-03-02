@@ -27,9 +27,14 @@ public class Dehum extends Appliance
 
 	public int getTargHumidity() 
 	{
+		boolean contOff = d.xPathIsDisplayed(XPath.dehumTargetHumidity, SHORT_WAIT);
 		int targHumidity = -1;
 		try {
-			targHumidity = Integer.parseInt(d.findByXPath(XPath.dehumTargetHumidity, BUTTON_WAIT).getAttribute("data-value"));
+			if(contOff) {
+				targHumidity = Integer.parseInt(d.findByXPath(XPath.dehumTargetHumidity, BUTTON_WAIT).getAttribute("data-value"));						
+			}else {				
+				targHumidity = 30;
+			}
 		}
 		catch(Exception e)
 		{

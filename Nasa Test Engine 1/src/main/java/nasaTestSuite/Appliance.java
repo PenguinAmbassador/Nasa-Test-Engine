@@ -14,6 +14,7 @@ public class Appliance {
 	public final int BUTTON_WAIT = 20;
 	public final int SIGN_IN_WAIT = 120;
 	public final int TOGGLE_SECS = 2000;//ms
+	public final int SHORT_WAIT = 5;//ms
 	
 	protected static FrigiDriver d;
 	public Appliance(FrigiDriver driver) 
