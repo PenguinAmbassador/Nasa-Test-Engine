@@ -28,7 +28,7 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
-@Ignore
+//@Ignore
 public class SignInTest extends Base
 {	
 	@BeforeClass

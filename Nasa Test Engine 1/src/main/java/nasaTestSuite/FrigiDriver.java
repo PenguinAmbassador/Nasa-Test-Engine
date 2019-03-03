@@ -167,24 +167,35 @@ public class FrigiDriver extends AndroidDriver
 	 * @param waitSecs
 	 * @return
 	 */
-	public boolean xPathIsDisplayed(String xPath, int waitSecs) 
+	public boolean xPathIsDisplayed(String xPath, int waitSecs, boolean silentMode) 
 	{
 		boolean success = true;
 		try {
 			WebDriverWait wait = new WebDriverWait(this, waitSecs);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 		}catch (TimeoutException e) {
-			System.out.println("XPath Failed: " + xPath);
-			System.out.println("Timed out after " + waitSecs + " second(s)");
+			if(!silentMode) {
+				System.out.println("XPath Failed: " + xPath);
+				System.out.println("Timed out after " + waitSecs + " second(s)");				
+			}
 			success = false;
 		}
-		System.out.println("Verify xpath: " + xPath);
-		System.out.println("Displayed: " + success);
+		if(!silentMode) {
+			System.out.println("Verify xpath: " + xPath);
+			System.out.println("Displayed: " + success);
+		}
 		return success;
 	}
+	
 	public boolean xPathIsDisplayed(String xPath) 
 	{
-		return xPathIsDisplayed(xPath, BUTTON_WAIT);
+		return xPathIsDisplayed(xPath, BUTTON_WAIT, false);
+	}
+	
+	//default silentmode false
+	public boolean xPathIsDisplayed(String xPath, int waitSecs) 
+	{
+		return xPathIsDisplayed(xPath, BUTTON_WAIT, false);
 	}
 	
 	public void myWaitText(String text, int waitSecs) 
@@ -330,6 +341,7 @@ public class FrigiDriver extends AndroidDriver
 	 */
 	public void thinkWait() 
 	{	
+		long startTime = System.currentTimeMillis();
 		//TODO Account for Connection Down screen
 		//TODO Account for Internet Alert error
 		//TODO LOOK INTO THE IMPLICIT WAIT ISSUE
@@ -340,15 +352,20 @@ public class FrigiDriver extends AndroidDriver
 			e1.printStackTrace();
 		}
 		try {
-			WebElement thinking = findElementByXPath("//div[@class='loading--content']");
+			WebElement thinkingElement = findElementByXPath("//div[@class='loading--content']");
 			System.out.println();
-			while(thinking.isDisplayed()) {
+			boolean thinking = thinkingElement.isDisplayed();
+			if(thinking) {
+				System.out.println("thinking");
+			}
+			while(thinking) {
 			    System.out.print("thinking");
-			    if(xPathIsDisplayed(XPath.longerThanExpectedButton, 0)) {
+			    if(xPathIsDisplayed(XPath.longerThanExpectedButton, 0, true)) {
 			    	System.out.println("TEST FAILED: thinking longer than expected");
 			    	tapByXPath(XPath.longerThanExpectedButton);
 			    	fail();
 			    }
+			    thinking = thinkingElement.isDisplayed();
 			}
 			System.out.println();
 		}catch(Exception e){
@@ -370,6 +387,9 @@ public class FrigiDriver extends AndroidDriver
 //			System.out.println("CAUGHT ERROR: Thinking Stale Reference");
 //		}
 //		System.out.println(7);
+
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Thinking in Seconds: " + ((stopTime-startTime)/1000f));
 	}
 	
 //	//REDESIGNED METHOD
@@ -481,33 +501,52 @@ public class FrigiDriver extends AndroidDriver
 		new TouchAction(mDriver).tap(PointOption.point(elementCoordinateX, elementCoordinateY)).perform();		
 		useWebContext();
 	}
-	
-	//My changes: offset
-	public float[] getElementCenter(WebElement element){
-		System.out.println("Tapping element: " + element);
+
+	//TODO - move variables to top
+	Long webviewWidth, webviewHeight;
+	float ratioWidth, ratioHeight, nativeDeviceScreenWidth, nativeDeviceScreenHeight;
+	boolean propertiesLoaded = false;
+	public void loadScreenProperties(){
+		long startTime = System.currentTimeMillis();
 		JavascriptExecutor js = (JavascriptExecutor)this;
 		// get webview dimensions
-		Long webviewWidth  = (Long) js.executeScript("return screen.width");
-		Long webviewHeight = (Long) js.executeScript("return screen.height");
-		// get element location in webview
-		int elementLocationX = element.getLocation().getX();
-		int elementLocationY = element.getLocation().getY();
-		// get the center location of the element
-		int elementWidthCenter = element.getSize().getWidth() / 2;
-		int elementHeightCenter = element.getSize().getHeight() / 2;
-		int elementWidthCenterLocation = elementWidthCenter + elementLocationX;
-		int elementHeightCenterLocation = elementHeightCenter + elementLocationY;
+		webviewWidth  = (Long) js.executeScript("return screen.width");
+		webviewHeight = (Long) js.executeScript("return screen.height");
+		
+				
 		// switch to native context
 		context("NATIVE_APP");
-		float nativeDeviceScreenWidth, nativeDeviceScreenHeight;
-		// offset. Commenting out for development of offset calculation.
-//		int offset = 160;//used to be 115
 		// get the actual screen dimensions
 		nativeDeviceScreenWidth  = manage().window().getSize().getWidth();
 		nativeDeviceScreenHeight = manage().window().getSize().getHeight();
 		// calculate the ratio between actual screen dimensions and webview dimensions
-		float ratioWidth = nativeDeviceScreenWidth / webviewWidth.intValue();
-		float ratioHeight = nativeDeviceScreenHeight / webviewHeight.intValue();
+		ratioWidth = nativeDeviceScreenWidth / webviewWidth.intValue();
+		ratioHeight = nativeDeviceScreenHeight / webviewHeight.intValue();
+		useWebContext();
+		propertiesLoaded = true;
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Seconds to load properties: " + ((stopTime - startTime)/1000f));
+	}
+	
+	//My changes: offset
+	public float[] getElementCenter(WebElement element){
+		long startTime = System.currentTimeMillis();
+		if(!propertiesLoaded) {
+			loadScreenProperties();
+		} 
+		
+		System.out.println("Tapping element: " + element);
+		// get the center location of the element
+		int elementWidthCenter = element.getSize().getWidth() / 2;
+		int elementHeightCenter = element.getSize().getHeight() / 2;
+		// get element location in webview
+		int elementLocationX = element.getLocation().getX();
+		int elementLocationY = element.getLocation().getY();
+		
+		int elementWidthCenterLocation = elementWidthCenter + elementLocationX;
+		int elementHeightCenterLocation = elementHeightCenter + elementLocationY;
+				
+		useNativeContext();
 		// calculate the actual element location on the screen
 		float elementCenterActualX = elementWidthCenterLocation * ratioWidth;
 		float elementCenterActualY = (elementHeightCenterLocation * ratioHeight) + offset;
@@ -519,12 +558,14 @@ public class FrigiDriver extends AndroidDriver
 			System.out.println("webview height: " + webviewHeight);
 			System.out.println("elementLocationX: " + elementLocationX);
 			System.out.println("elementLocationY: " + elementLocationY);
-			System.out.println("nativeDeviceScreenWidth: " + nativeDeviceScreenWidth);
-			System.out.println("nativeDeviceScreenHeight: " + nativeDeviceScreenHeight);
+			System.out.println("deviceScreenWidth: " + nativeDeviceScreenWidth);
+			System.out.println("deviceScreenHeight: " + nativeDeviceScreenHeight);
 			System.out.println("elementCenterActualX: " + elementCenterActualX);
 			System.out.println("elementCenterActualY: " + elementCenterActualY);
-			System.out.println("elementCenterActualY: " + elementCenterActualY);
-		}		 
+		}	
+
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Seconds to tap by coordinates: " + ((stopTime - startTime)/1000));
 		return elementLocation;
 	}
 	
