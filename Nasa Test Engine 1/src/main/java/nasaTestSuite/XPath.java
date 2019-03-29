@@ -13,9 +13,9 @@ public class XPath {
     
     //signInScreen
     public static String signInOne = "//button[contains(@class,'sign-in--button')]";
+    public static String signInTwo = "//button[@id='sign-in--button']";
     public static String emailField = "//input[@id='email']";
     public static String passField = "//input[@id='password']";
-    public static String signInTwo = "//button[@id='sign-in--button']";
     public static String staySignedIn = "//label[@for='stay-signed-in']";
 	public static String topValidation = "//div[@class='input--error input--error-global']";
 	public static String midValidation = "//div/.//span[@class='input--error-indicator']"; //BUG SPAN XPATH FAILED

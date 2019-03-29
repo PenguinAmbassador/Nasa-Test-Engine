@@ -337,7 +337,7 @@ public class FrigiDriver extends AndroidDriver
 	//TODO redesign think so that appium looks for a thinking element before each click rather than waiting after a click
 	//There is potential for designing an abstract button class with code that comes with each button. Either that or add stuff to the tap methods
 	/**
-	 * Stops the driver while the app is thinking
+	 * Stops the driver while the app is thinking. Currently checks for a thinking element after 4 seconds of waiting. The program stays inside a loop until app is done thinking.
 	 */
 	public void thinkWait() 
 	{	
@@ -353,13 +353,11 @@ public class FrigiDriver extends AndroidDriver
 		}
 		try {
 			WebElement thinkingElement = findElementByXPath("//div[@class='loading--content']");
-			System.out.println();
 			boolean thinking = thinkingElement.isDisplayed();
 			if(thinking) {
-				System.out.println("thinking");
+				System.out.println("Thinking");
 			}
 			while(thinking) {
-			    System.out.print("thinking");
 			    if(xPathIsDisplayed(XPath.longerThanExpectedButton, 0, true)) {
 			    	System.out.println("TEST FAILED: thinking longer than expected");
 			    	tapByXPath(XPath.longerThanExpectedButton);
@@ -367,7 +365,6 @@ public class FrigiDriver extends AndroidDriver
 			    }
 			    thinking = thinkingElement.isDisplayed();
 			}
-			System.out.println();
 		}catch(Exception e){
 			System.out.println("Thinking not found");
 		}

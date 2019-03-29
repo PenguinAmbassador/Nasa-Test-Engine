@@ -55,7 +55,7 @@ public class TestFunctions
 	public final int UPDATE_WAIT = 240;
 	public final int POWER_SECS = 20;
 	public final int TOGGLE_SECS = 2000;//ms
-	public final int BUTTON_WAIT = 20;
+	public final int BUTTON_WAIT = 5;
 	public final int SIGN_IN_WAIT = 120;
 	public final int TEXT_SEARCH_WAIT = 5;
 	
@@ -139,7 +139,7 @@ public class TestFunctions
 		String actualState = toggleElem.getAttribute("class");
 		if(actualState.equals(expectedState)) {
 			System.out.println("Toggle result: PASS");
-		}else {
+		} else {
 			System.out.println("Toggle result: FAIL - Actual State: " + actualState);
 			success = false;
 		}
@@ -642,5 +642,229 @@ public class TestFunctions
 		if(passing) {
 			System.out.println("First back button PASS");
 		}
+	}
+	
+	public void tempUpBy(int numTaps) {
+		System.out.println("WARNING: add conditions for edge cases");//TODO add conditions for edge cases
+		printStartTest("Temp up by: " + numTaps);
+		WebElement tempPlusElm = d.findByXPath(XPath.stromboTempUp, BUTTON_WAIT);
+		int cMinTemp = 16;
+		int cMaxTemp = 32;
+		int fMinTemp = 60;
+		int fMaxTemp = 90;
+		int expectedTemp = -1;
+		//Change mode until you reach a mode that can change the temperature
+		int tempMode = strombo.getMode();
+		while(tempMode==3 || tempMode==5) 
+		{
+			strombo.clickModeUp();
+			tempMode = strombo.getMode();
+		}
+		int currentTemp = strombo.getTargTemp();
+		
+		if(currentTemp > cMaxTemp) {
+			//fahrenheit
+			if((currentTemp + numTaps) > fMaxTemp) {
+				expectedTemp = (currentTemp + numTaps) - (fMaxTemp - fMinTemp) - 1;
+			} else {
+				expectedTemp = currentTemp + numTaps;
+			}
+		} else {
+			//celcius
+			if((currentTemp + numTaps) > cMaxTemp) {
+				expectedTemp = (currentTemp + numTaps) - (cMaxTemp - cMinTemp) - 1;
+			} else {
+				expectedTemp = currentTemp + numTaps;
+			}
+		}
+		
+		for(int i = 0; i < numTaps; i++) {
+			tempPlusElm.click();
+		}
+		d.thinkWait();	
+		currentTemp = strombo.getTargTemp();
+		System.out.println("Verify expectedTemp = " + expectedTemp);
+		System.out.println("Verify currentTemp = " + currentTemp);
+		System.out.println("removed +1 in conditional: verify.");
+		if(expectedTemp != currentTemp) 
+		{
+			printEndTest("Temp Up", "FAIL");
+			fail();
+		}
+		else
+		{
+			printEndTest("Temp Up", "PASS");
+		}		
+	}
+	
+	//TODO possibly add a tmepUpBy and then randomize the numbers
+	/**
+	 * gets difference between 
+	 * @param targTemp Expected target temp after execution. 
+	 */
+	public void tempUpTo(int targTemp) {
+		System.out.println("WARNING: add conditions for edge cases");//TODO add conditions for edge cases
+		printStartTest("Temp up to: " + targTemp);
+		WebElement tempPlusElm = d.findByXPath(XPath.stromboTempUp, BUTTON_WAIT);
+		int cMinTemp = 16;
+		int cMaxTemp = 32;
+		int fMinTemp = 60;
+		int fMaxTemp = 90;
+		int numTaps = -1;
+		//Change mode until you reach a mode that can change the temperature
+		int tempMode = strombo.getMode();
+		while(tempMode==3 || tempMode==5) 
+		{
+			strombo.clickModeUp();
+			tempMode = strombo.getMode();
+		}
+		
+		//Current target Temp
+		int currTTemp = strombo.getTargTemp();
+		//establish number of taps needed
+		if(currTTemp <= targTemp) {
+			numTaps = targTemp - currTTemp;
+			System.out.println("Basic NumTaps: " + numTaps);
+		} else {	
+			//if the target temp is lower, and you are increasing the temperature you must account for the max temp
+			if(currTTemp > cMaxTemp) {
+				//fahrenheit
+				numTaps = ((targTemp - fMinTemp) + (fMaxTemp - currTTemp));
+				System.out.println("F tap num: " + numTaps);
+			} else {
+				//celcius
+				numTaps = ((targTemp - cMinTemp) + (cMaxTemp - currTTemp));		
+				System.out.println("C tap num: " + numTaps);	
+			}	
+		}
+		for(int i = 0; i < numTaps; i++) {
+			tempPlusElm.click();
+		}
+		d.thinkWait();		
+		int currentTemp = strombo.getTargTemp();
+		System.out.println("Verify expectedTemp = " + targTemp);
+		System.out.println("Verify currentTemp = " + currentTemp);
+		System.out.println("removed +1 in conditional: verify.");
+		if(targTemp != currentTemp) 
+		{
+			printEndTest("Temp Up", "FAIL");
+			fail();
+		}
+		else
+		{
+			printEndTest("Temp Up", "PASS");
+		}		
+	}
+	
+	public void tempDownBy(int numTaps) {
+		System.out.println("WARNING: add conditions for edge cases");//TODO add conditions for edge cases
+		printStartTest("Temp down by: " + numTaps);
+		WebElement tempMinusElm = d.findByXPath(XPath.stromboTempDown, BUTTON_WAIT);
+		int cMinTemp = 16;
+		int cMaxTemp = 32;
+		int fMinTemp = 60;
+		int fMaxTemp = 90;
+		int expectedTemp = -1;
+		//Change mode until you reach a mode that can change the temperature
+		int tempMode = strombo.getMode();
+		while(tempMode==3 || tempMode==5) 
+		{
+			strombo.clickModeUp();
+			tempMode = strombo.getMode();
+		}
+		int currentTemp = strombo.getTargTemp();
+		
+		if(currentTemp > cMaxTemp) {
+			//fahrenheit
+			if((currentTemp - numTaps) < fMinTemp) {
+				expectedTemp = (currentTemp - numTaps) + (fMaxTemp - fMinTemp) + 1;
+			} else {
+				expectedTemp = currentTemp - numTaps;
+			}
+		} else {
+			//celcius
+			if((currentTemp - numTaps) < cMinTemp) {
+				expectedTemp = (currentTemp - numTaps) + (cMaxTemp - cMinTemp) + 1;
+			} else {
+				expectedTemp = currentTemp - numTaps;
+			}
+		}
+		
+		for(int i = 0; i < numTaps; i++) {
+			tempMinusElm.click();
+		}
+		d.thinkWait();			
+		currentTemp = strombo.getTargTemp();
+		System.out.println("Verify expectedTemp = " + expectedTemp);
+		System.out.println("Verify currentTemp = " + currentTemp);
+		System.out.println("removed +1 in conditional: verify.");
+		if(expectedTemp != currentTemp) 
+		{
+			printEndTest("Temp Up", "FAIL");
+			fail();
+		}
+		else
+		{
+			printEndTest("Temp Up", "PASS");
+		}		
+	}
+	
+	//TODO possibly add a tmepUpBy and then randomize the numbers
+	/**
+	 * gets difference between 
+	 * @param targTemp Expected target temp after execution. 
+	 */
+	public void tempDownTo(int targTemp) {
+		System.out.println("WARNING: add conditions for edge cases");//TODO add conditions for edge cases
+		printStartTest("Temp Down to: " + targTemp);
+		WebElement tempMinusElm = d.findByXPath(XPath.stromboTempDown, BUTTON_WAIT);
+		int cMinTemp = 16;
+		int cMaxTemp = 32;
+		int fMinTemp = 60;
+		int fMaxTemp = 90;
+		int numTaps = -1;
+		//Change mode until you reach a mode that can change the temperature
+		int tempMode = strombo.getMode();
+		while(tempMode==3 || tempMode==5) 
+		{
+			strombo.clickModeUp();
+			tempMode = strombo.getMode();
+		}
+		
+		//Current target Temp
+		int currTTemp = strombo.getTargTemp();
+		//establish number of taps needed
+		if(currTTemp >= targTemp) {
+			numTaps =  currTTemp - targTemp;
+			System.out.println("Basic NumTaps: " + numTaps);
+		} else {	
+			//if the target temp is lower, and you are increasing the temperature you must account for the max temp
+			if(currTTemp > cMaxTemp) {
+				//fahrenheit
+				numTaps = ((currTTemp - fMinTemp) + (fMaxTemp - targTemp)) + 1;
+				System.out.println("F tap num: " + numTaps);
+			} else {
+				//celcius
+				numTaps = ((currTTemp - cMinTemp) + (cMaxTemp -  targTemp)) + 1;		
+				System.out.println("C tap num: " + numTaps);	
+			}	
+		}
+		for(int i = 0; i < numTaps; i++) {
+			tempMinusElm.click();
+		}
+		d.thinkWait();		
+		int currentTemp = strombo.getTargTemp();
+		System.out.println("Verify expectedTemp = " + targTemp);
+		System.out.println("Verify currentTemp = " + currentTemp);
+		System.out.println("removed +1 in conditional: verify.");
+		if(targTemp != currentTemp) 
+		{
+			printEndTest("Temp Up", "FAIL");
+			fail();
+		}
+		else
+		{
+			printEndTest("Temp Up", "PASS");
+		}		
 	}
 }

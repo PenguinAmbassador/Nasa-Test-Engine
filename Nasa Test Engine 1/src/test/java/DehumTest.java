@@ -25,7 +25,7 @@ import main.java.nasaTestSuite.Dehum;
 import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
-//@Ignore
+@Ignore
 public class DehumTest extends Base{
 	@BeforeClass//("^This code opens the app$")
 	public static void launchMyTest()

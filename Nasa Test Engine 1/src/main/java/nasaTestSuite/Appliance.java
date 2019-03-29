@@ -11,10 +11,10 @@ public class Appliance {
 	public final int OPEN_WAIT = 120;
 	public final int UPDATE_WAIT = 240;
 	public final int POWER_SECS = 20;
-	public final int BUTTON_WAIT = 20;
+	public final int BUTTON_WAIT = 5;
 	public final int SIGN_IN_WAIT = 120;
 	public final int TOGGLE_SECS = 2000;//ms
-	public final int SHORT_WAIT = 5;//ms
+	public final int SHORT_WAIT = 1;
 	
 	protected static FrigiDriver d;
 	public Appliance(FrigiDriver driver) 
@@ -85,13 +85,13 @@ public class Appliance {
 	
 	public void openControls(String applianceName) 
 	{
-		//TODO implement map navigation
-		//Tap Back
-		//TODO merge accepted. verify functionality.
-		System.out.println("WIP: Inefficiently doesn't check whether the appliance has already been chosen");
-		d.tapByXPath(XPath.backButton, d.BUTTON_WAIT);
-		d.tapByXPath(XPath.getListApplianceName(applianceName), d.BUTTON_WAIT);
-		
+		if(d.xPathIsDisplayed(XPath.getControlApplianceName(applianceName), SHORT_WAIT)) {
+			System.out.println("Controls already open: " + applianceName);
+		}else {
+			System.out.println("WIP: Inefficiently doesn't check whether the appliance has already been chosen");
+			d.tapByXPath(XPath.backButton, d.BUTTON_WAIT);
+			d.tapByXPath(XPath.getListApplianceName(applianceName), d.BUTTON_WAIT);			
+		}
 	}
 
 	/**
@@ -99,17 +99,22 @@ public class Appliance {
 	 * @return True if signed in. False if signed out.
 	 */
 	public boolean isSignedIn() {
+		System.out.println("Checking if Signed in...");
 		boolean result = false;
 		boolean signedIn = d.xPathIsDisplayed(XPath.settingsButton);
-		boolean signedOut = d.xPathIsDisplayed(XPath.signInTwo, d.SHORT_WAIT) || d.xPathIsDisplayed(XPath.signInOne, d.SHORT_WAIT);
 		//Using two variables instead of one to check for an unexpected screen. A false signedOut does not imply a successful sign in, so each screen is checked separately. 
 		if(signedIn) {
+			System.out.println("Already Signed In");
 			result = true;
-		} else if(signedOut){
-			result = false;		
 		} else {
-			//if both are false then there is an unexpected screen. 
-			System.out.println("isSignedIn ERROR: Unexpected outcome");
+			boolean signedOut = d.xPathIsDisplayed(XPath.signInTwo, d.SHORT_WAIT) || d.xPathIsDisplayed(XPath.signInOne, d.SHORT_WAIT);
+			if(signedOut){		
+				System.out.println("Currently Signed In");
+				result = false;		
+			} else {
+				//if both are false then there is an unexpected screen. 
+				System.out.println("isSignedIn ERROR: Unexpected outcome");
+			}
 		}
 		return result; 
 	}

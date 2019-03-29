@@ -29,6 +29,7 @@ public class Stromboli extends Appliance
 	
 
 	//temp PLUS
+	//TODO deprecated
 	public void clickTempPlus() 
 	{
 		WebElement tempPlusElm = d.findByXPath(XPath.stromboTempUp, BUTTON_WAIT);
@@ -37,6 +38,7 @@ public class Stromboli extends Appliance
 	}
 	
 	//temp MINUS
+	//TODO deprecated
 	public void clickTempMinus() 
 	{
 		WebElement tempMinusElm = d.findByXPath(XPath.stromboTempDown, BUTTON_WAIT);

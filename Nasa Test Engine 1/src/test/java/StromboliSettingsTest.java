@@ -60,10 +60,13 @@ public class StromboliSettingsTest extends Base
 	}
 	
 	//functional and passing
+	@Ignore("Disabled clean tests until 2019 unit is available.")
 	@Test
 	public void cleanAir() 
 	{
-		test.cleanAir();
+		//TODO don't know how to tell whether it is a 2019 model yet
+		System.out.println("Disabled clean tests until 2019 unit is available.");
+		//test.cleanAir();
 	}
 	
 	//functional and passing
@@ -84,7 +87,8 @@ public class StromboliSettingsTest extends Base
 	@Test
 	public void notification() 
 	{
-		test.notificationTest();
+		//TODO move to global SettingsTest
+		//test.notificationTest();
 	}
 	
 	//functional and passing
