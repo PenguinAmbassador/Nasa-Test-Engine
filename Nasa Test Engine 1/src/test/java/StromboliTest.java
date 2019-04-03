@@ -11,12 +11,18 @@ import main.java.nasaTestSuite.TestFunctions;
 import static org.junit.Assert.fail;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 import org.apache.tools.ant.util.SymbolicLinkUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -27,31 +33,56 @@ import main.java.nasaTestSuite.FrigiDriver;
 import main.java.nasaTestSuite.XPath;
 
 //@Ignore
+@RunWith(Parameterized.class)
 public class StromboliTest extends Base
 {	
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+        	{ Appliance.Modes.COOL}, { Appliance.Modes.FAN}, { Appliance.Modes.ECON}, { Appliance.Modes.DRY}
+                 //, { 1, 1 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 }  
+           });
+    }
+
+    @Parameter // first data value (0) is default
+    public /* NOT private */ Appliance.Modes firstParam;
+
+//    @Parameter(1)
+//    public /* NOT private */ int secondParam;
+    
 	@BeforeClass//("^This code opens the app$")
 	public static void launchMyTest()
 	{
 		System.out.println("StromboliTest");//delete later
+		System.out.println("WARN: RAC will need to adjust mode num and speed num tests");
 		setupApp("eluxtester1@gmail.com", "123456");	
-
-//		System.out.println("Assume power is on");
-//	    strombo.signIn("eluxtester1@gmail.com", "123456");
 		strombo.openControls("Strombo");
 		if(!strombo.isPowerOn()) {
 			//if power is off, turn on
-			frigi.tapByXPath(XPath.plainPowerButton);
+			frigi.tapByXPath(XPath.plainPowerButton); //todo remove power assumption
 		}
 	}
 	
-//	//functional and passing
-//	@Test
-//	public void powerOnOff() 
-//	{
-//		test.testPower();
-//	}
-//	
-//	
+	@Before
+	public void changeMode() {
+		strombo.modeTo(firstParam);
+	}
+	
+	
+	@Test
+	public void printParams() {
+		System.out.println("Print Param 1: " + firstParam);
+	}
+	
+	//functional and passing
+	@Test
+	public void powerOnOff() 
+	{
+		test.testPower();
+	}
+	
+	
 //	@Test
 //	public void tempUpByRandom() 
 //	{
@@ -59,57 +90,22 @@ public class StromboliTest extends Base
 //		//test.tempUpBy(random);
 //	}
 	
+	//verified
 	@Test
 	public void tempUpPastMax(){
-		if(strombo.getTargTemp() > 32) {
-			System.out.println("Temp up past Max fahrenheit");
-			test.tempUpTo(90);
-			test.tempUpBy(1);
-			strombo.openSettings();
-			frigi.scrollDown(-100);
-			frigi.tapByXPath(XPath.unitToggle);
-			frigi.tapByXPath(XPath.backButton);
-			System.out.println("Temp up past Max celcius");
-			test.tempUpTo(32);
-			test.tempUpBy(1);
-		} else {
-			System.out.println("Temp up past Max celcius");
-			test.tempUpTo(32);
-			test.tempUpBy(1);
-			strombo.openSettings();
-			frigi.scrollDown(-100);
-			frigi.tapByXPath(XPath.unitToggle);
-			frigi.tapByXPath(XPath.backButton);
-			System.out.println("Temp up past Max fahrenheit");
-			test.tempUpTo(90);
-			test.tempUpBy(1);			
+		if(firstParam != Appliance.Modes.FAN && firstParam != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
 		}
 	}
 	
+	//Verified
 	@Test
 	public void tempDownPastMin(){
-		if(strombo.getTargTemp() > 32) {
-			System.out.println("Temp down past min fahrenheit");
-			test.tempDownTo(60);
-			test.tempDownBy(1);
-			strombo.openSettings();
-			frigi.scrollDown(-100);
-			frigi.tapByXPath(XPath.unitToggle);
-			frigi.tapByXPath(XPath.backButton);
-			System.out.println("Temp down past min celsius");
-			test.tempDownTo(16);
-			test.tempDownBy(1);
-		} else {
-			System.out.println("Temp down past min celsius");
-			test.tempDownTo(16);
-			test.tempDownBy(1);
-			strombo.openSettings();
-			frigi.scrollDown(-100);
-			frigi.tapByXPath(XPath.unitToggle);
-			frigi.tapByXPath(XPath.backButton);
-			System.out.println("Temp down past min fahrenheit");
-			test.tempDownTo(32);
-			test.tempDownBy(1);			
+		if(firstParam != Appliance.Modes.FAN && firstParam != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
 		}
 	}
 	
@@ -118,10 +114,6 @@ public class StromboliTest extends Base
 //	public void tempDown() 
 //	{
 //		test.printStartTest("Temp Down");
-////		if(!strombo.isPowerOn()) 
-////		{
-////			strombo.tapByXPath(MyXPath.powerOnButton, 10);
-////		}
 //		strombo.changeModeToCoolorEcon();
 //		int expectedTemp = strombo.getTargTemp();
 //		strombo.clickTempMinus();
@@ -137,112 +129,54 @@ public class StromboliTest extends Base
 //			test.printEndTest("Temp Down", "PASS");
 //		}
 //	}
-//	
-//	//functional and passing
-//	@Test
-//	public void modeUp() 
-//	{
-//		test.printStartTest("Mode Up");
-//		
-////		if(!strombo.isPowerOn()) 
-////		{
-////			strombo.tapByXPath(MyXPath.powerOnButton, 10);
-////		}
-//		int expectedMode = strombo.getNextExpectedMode();
-//		strombo.clickModeUp();
-//		System.out.println("Mode: " + strombo.getMode());
-//		System.out.println("Expected: " + expectedMode);
-//		if(expectedMode == strombo.getMode()) 
-//		{
-//			test.printEndTest("Mode Up", "PASS");
-//		}else 
-//		{
-//			test.printEndTest("Mode Up", "FAIL");
-//			fail();
-//		}
-//	}
-//	
-//	//verify functionality
-//	@Test
-//	public void modeDown() 
-//	{
-//		test.printStartTest("Mode Down");
-//		
-////		if(!strombo.isPowerOn()) 
-////		{
-////			strombo.tapByXPath(MyXPath.powerOnButton, 10);
-////		}
-//		int expectedMode = strombo.getPrevExpectedMode();
-//		strombo.clickModeDown();
-//		int currentMode = strombo.getMode();
-//		System.out.println("Mode: " + currentMode);
-//		System.out.println("Expected: " + expectedMode);
-//		if(expectedMode == currentMode) 
-//		{
-//			test.printEndTest("Mode Down", "PASS");
-//		}else 
-//		{
-//			test.printEndTest("Mode Down", "FAIL");
-//			fail();
-//		}
-//	}
-//
-//	//functional and passing
-//	@Test 
-//	public void speedUp() 
-//	{
-//		test.printStartTest("Speed Up");
-//
-////		if(!strombo.isPowerOn()) 
-////		{
-////			strombo.tapByXPath(MyXPath.powerOnButton, 10);
-////		}
-//		//Avoid dry mode
-//		if(strombo.getMode()==5) {
-//			strombo.clickModeUp();
-//		}
-//		int expectedSpeed = strombo.getNextExpectedSpeed();
-//		strombo.clickSpeedUp();
-//		System.out.println("Speed: " + strombo.getSpeed());
-//		System.out.println("Expected: " + expectedSpeed);
-//		if(expectedSpeed == strombo.getSpeed()) 
-//		{
-//			test.printEndTest("Speed Up", "PASS");
-//		}else 
-//		{
-//			test.printEndTest("Speed Up", "FAIL");
-//			fail();
-//		}
-//	}
-//
-//	//verify functionality
-//	@Test 
-//	public void speedDown() 
-//	{
-//		test.printStartTest("Speed Down");
-//
-////		if(!strombo.isPowerOn()) 
-////		{
-////			strombo.tapByXPath(MyXPath.powerOnButton, 10);
-////		}
-//		//Avoid dry mode
-//		if(strombo.getMode()==5) 
-//		{
-//			strombo.clickModeUp();
-//		}
-//		int expectedSpeed = strombo.getPrevExpectedSpeed();
-//		strombo.clickSpeedDown();
-//		int currentSpeed = strombo.getSpeed();
-//		System.out.println("Speed: " + currentSpeed);
-//		System.out.println("Expected: " + expectedSpeed);
-//		if(expectedSpeed == currentSpeed) 
-//		{
-//			test.printEndTest("Speed Down", "PASS");
-//		}else 
-//		{
-//			test.printEndTest("Speed Down", "FAIL");
-//			fail();
-//		}
-//	}
+	
+	//functional and passing
+	@Test
+	public void modeUp() 
+	{
+		//TODO add test case that verifies that each mode was found
+		//Cycles through all modes
+		//Only need to run this test once
+		if(firstParam == Appliance.Modes.COOL) {
+			test.printStartTest("Mode Up Four Times");
+			for(int i = 0; i < 4; i++) {
+				test.modeUp();
+			}
+		}
+	}
+	
+	//verify functionality
+	@Test
+	public void modeUpDown() 
+	{
+		if(firstParam == Appliance.Modes.COOL) {
+			test.printStartTest("Mode Up");
+			test.modeUp();
+			test.printStartTest("Mode Down");
+			test.modeDown();
+		}
+	}
+
+	//functional and passing
+	@Test 
+	public void speedUp() 
+	{
+		if(firstParam != Appliance.Modes.DRY) {
+			test.printStartTest("Speed Up Four Times");
+			for(int i = 0; i < 4; i++) {
+				test.speedUp();
+			}
+		}
+	}
+
+	//verify functionality
+	@Test 
+	public void speedDown() 
+	{
+		if(firstParam != Appliance.Modes.DRY) {
+			test.printStartTest("Speed Down");
+			test.speedDown();
+		}
+	}
 	
 }

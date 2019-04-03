@@ -16,6 +16,22 @@ public class Appliance {
 	public final int TOGGLE_SECS = 2000;//ms
 	public final int SHORT_WAIT = 1;
 	
+	public enum Modes {
+		OFF(0),
+		COOL(1),
+		FAN(3),
+		ECON(4),
+		DRY(5),
+		AUTO(6); 
+	    private final int hacl;
+	    Modes(int mode) {
+	        this.hacl = mode;
+	    }
+	    public int getHaclCode() {
+	        return this.hacl;
+	    }
+	}
+	
 	protected static FrigiDriver d;
 	public Appliance(FrigiDriver driver) 
 	{
@@ -147,5 +163,12 @@ public class Appliance {
 		WebElement speedElm = d.findByXPath(XPath.speedDown, BUTTON_WAIT);
 		speedElm.click();
 		d.thinkWait();
+	}
+
+	public void changeTempUnit() {
+		openSettings();
+		//d.scrollDown(-100);
+		d.tapByXPath(XPath.unitToggle);
+		d.tapByXPath(XPath.backButton);
 	}
 }

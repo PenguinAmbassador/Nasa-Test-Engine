@@ -110,7 +110,7 @@ public class FrigiDriver extends AndroidDriver
 //		}
 //	}
 	
-	//srt: JIHAD'S HELPER METHODS
+	//srt: JIHAD'S HELPER METHOD
 	private MobileElement grabFromClass(String className,int index, AndroidDriver d)
 	{
 		List<MobileElement> results = null;

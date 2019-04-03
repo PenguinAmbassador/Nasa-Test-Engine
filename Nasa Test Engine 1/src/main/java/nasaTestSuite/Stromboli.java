@@ -46,6 +46,7 @@ public class Stromboli extends Appliance
 		d.thinkWait();
 	}
 	
+	//TODO depreceated
 	public void clickModeUp() 
 	{
 		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, BUTTON_WAIT);
@@ -62,11 +63,11 @@ public class Stromboli extends Appliance
 
 	public void changeModeToCoolorEcon(){
 		//Change mode until you reach a mode that can change the temperature
-		int tempMode = getMode();
+		int tempMode = getModeValue();
 		while(tempMode==3 || tempMode==5) 
 		{
 			clickModeUp();
-			tempMode = getMode();
+			tempMode = getModeValue();
 		}
 	}
 
@@ -128,6 +129,7 @@ public class Stromboli extends Appliance
 		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		System.out.println("Speed by data value" + speed);
 		int nextExpectedSpeed = -1;
+		//These numbers are based on the HACL codes that represent each speed
 		switch (speed) {
 	        case 1:  nextExpectedSpeed = 2;
 	        	break;
@@ -146,6 +148,7 @@ public class Stromboli extends Appliance
 	public int getPrevExpectedSpeed() {
 		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		int prevExpectedSpeed = -1;
+		//These numbers are based on the HACL codes that represent each speed
 		switch (speed) {
 	        case 1:  prevExpectedSpeed = 7;
 	        	break;
@@ -161,7 +164,12 @@ public class Stromboli extends Appliance
 		return prevExpectedSpeed;
 	}
 	
-	public int getMode() 
+	
+	/**
+	 * Returns HACL representation of the different appliance modes.
+	 * @return
+	 */
+	public int getModeValue() 
 	{
 		mode = Integer.parseInt(d.findByXPath(XPath.stromboCurrentMode, BUTTON_WAIT).getAttribute("data-value"));
 		return mode;
@@ -181,6 +189,18 @@ public class Stromboli extends Appliance
 		return name;
 	}
 	
+
 	
+	/**
+	 * Changes mode once and checks to verify result. Checks mode after each tap to see if it is the target mode.
+	 */
+	public void modeTo(Appliance.Modes targetMode) {
+		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, BUTTON_WAIT);
+		int expectedMode = targetMode.getHaclCode();
+		while(getModeValue() != expectedMode) {
+			modeElm.click();	
+		}
+		System.out.println("Switched to: " + targetMode);
+	}
 	
 }
