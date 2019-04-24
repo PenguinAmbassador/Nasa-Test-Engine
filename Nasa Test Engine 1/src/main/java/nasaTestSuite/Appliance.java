@@ -32,6 +32,12 @@ public class Appliance {
 	    }
 	}
 	
+	public enum Types {
+		RAC,
+		STROMBO,
+		DEHUM;
+	}
+	
 	protected static FrigiDriver d;
 	public Appliance(FrigiDriver driver) 
 	{
@@ -99,6 +105,26 @@ public class Appliance {
 		return powerOn;
 	}
 	
+	/**
+	 * 
+	 * @param type
+	 */
+	public void openControls(Types type) {
+		if(type == Types.RAC) {
+			openControls("Air Conditioner");
+		}else 			
+		if(type == Types.STROMBO) {
+			openControls("Strombo");			
+		}else 
+		if(type == Types.DEHUM) {
+			openControls("Dehum");			
+		}
+	}
+	
+	/**
+	 * Open the appliance control screen based on the name of the appliance.
+	 * @param applianceName
+	 */
 	public void openControls(String applianceName) 
 	{
 		if(d.xPathIsDisplayed(XPath.getControlApplianceName(applianceName), SHORT_WAIT)) {

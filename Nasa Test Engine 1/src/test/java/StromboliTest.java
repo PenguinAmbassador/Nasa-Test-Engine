@@ -40,24 +40,34 @@ public class StromboliTest extends Base
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-        	{ Appliance.Modes.COOL}, { Appliance.Modes.FAN}, { Appliance.Modes.ECON}, { Appliance.Modes.DRY}
-                 //, { 1, 1 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 }  
+        	//RAC
+        	{Appliance.Types.RAC, Appliance.Modes.ECON}, {Appliance.Types.RAC, Appliance.Modes.COOL}, {Appliance.Types.RAC, Appliance.Modes.FAN}
+        	,
+        	//STROMBO
+        	{Appliance.Types.STROMBO, Appliance.Modes.ECON}, {Appliance.Types.STROMBO, Appliance.Modes.DRY}, {Appliance.Types.STROMBO, Appliance.Modes.FAN}, {Appliance.Types.STROMBO, Appliance.Modes.COOL}
+        	
+//        	//test 
+//        	{Appliance.Types.RAC, Appliance.Modes.ECON}, {Appliance.Types.RAC, Appliance.Modes.COOL}, {Appliance.Types.RAC, Appliance.Modes.FAN}, {Appliance.Types.STROMBO, Appliance.Modes.DRY}       	
+        	
+        	
+        	//example
+            //, { 1, 1 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 }  
            });
     }
 
-    @Parameter // first data value (0) is default
-    public /* NOT private */ Appliance.Modes firstParam;
+    @Parameter(0) // first data value 
+    public /* NOT private */ Appliance.Types targetAppliance;
 
-//    @Parameter(1)
-//    public /* NOT private */ int secondParam;
+    @Parameter(1) //Second data value
+    public /* NOT private */ Appliance.Modes targetMode;
     
 	@BeforeClass//("^This code opens the app$")
 	public static void launchMyTest()
 	{
 		System.out.println("StromboliTest");//delete later
 		System.out.println("WARN: RAC will need to adjust mode num and speed num tests");
-		setupApp("eluxtester1@gmail.com", "123456");	
-		strombo.openControls("Strombo");
+		setupApp("eluxtester1@gmail.com", "1234567");	
+//		strombo.openControls(Appliance.Types.STROMBO);
 		if(!strombo.isPowerOn()) {
 			//if power is off, turn on
 			frigi.tapByXPath(XPath.plainPowerButton); //todo remove power assumption
@@ -66,13 +76,20 @@ public class StromboliTest extends Base
 	
 	@Before
 	public void changeMode() {
-		strombo.modeTo(firstParam);
+		long startTime = System.currentTimeMillis();
+		
+		
+		strombo.openControls(targetAppliance);
+		strombo.modeTo(targetMode);
+		
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Time Elapsed @Before: " + ((stopTime-startTime)/1000f));
 	}
 	
 	
 	@Test
 	public void printParams() {
-		System.out.println("Print Param 1: " + firstParam);
+		System.out.println("Print Param 1: " + targetAppliance);
 	}
 	
 	//functional and passing
@@ -93,7 +110,7 @@ public class StromboliTest extends Base
 	//verified
 	@Test
 	public void tempUpPastMax(){
-		if(firstParam != Appliance.Modes.FAN && firstParam != Appliance.Modes.DRY) {
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
 			test.printStartTest("Temp up past MAX");
 			test.tempUpPastMax();
 			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
@@ -103,13 +120,13 @@ public class StromboliTest extends Base
 	//Verified
 	@Test
 	public void tempDownPastMin(){
-		if(firstParam != Appliance.Modes.FAN && firstParam != Appliance.Modes.DRY) {
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
 			test.printStartTest("Temp Down past MIN");
 			test.tempDownPastMin();
 		}
 	}
 	
-//	//verify functionality
+//	//DEPRECIATED
 //	@Test
 //	public void tempDown() 
 //	{
@@ -137,7 +154,7 @@ public class StromboliTest extends Base
 		//TODO add test case that verifies that each mode was found
 		//Cycles through all modes
 		//Only need to run this test once
-		if(firstParam == Appliance.Modes.COOL) {
+		if(targetMode == Appliance.Modes.COOL) {
 			test.printStartTest("Mode Up Four Times");
 			for(int i = 0; i < 4; i++) {
 				test.modeUp();
@@ -149,7 +166,7 @@ public class StromboliTest extends Base
 	@Test
 	public void modeUpDown() 
 	{
-		if(firstParam == Appliance.Modes.COOL) {
+		if(targetMode == Appliance.Modes.COOL) {
 			test.printStartTest("Mode Up");
 			test.modeUp();
 			test.printStartTest("Mode Down");
@@ -161,10 +178,10 @@ public class StromboliTest extends Base
 	@Test 
 	public void speedUp() 
 	{
-		if(firstParam != Appliance.Modes.DRY) {
+		if(targetMode != Appliance.Modes.DRY) {
 			test.printStartTest("Speed Up Four Times");
 			for(int i = 0; i < 4; i++) {
-				test.speedUp();
+				test.speedUp(targetAppliance, targetMode);
 			}
 		}
 	}
@@ -173,9 +190,9 @@ public class StromboliTest extends Base
 	@Test 
 	public void speedDown() 
 	{
-		if(firstParam != Appliance.Modes.DRY) {
+		if(targetMode != Appliance.Modes.DRY) {
 			test.printStartTest("Speed Down");
-			test.speedDown();
+			test.speedDown(targetAppliance, targetMode);
 		}
 	}
 	

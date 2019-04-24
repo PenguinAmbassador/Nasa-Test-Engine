@@ -6,6 +6,12 @@ import org.junit.runner.notification.Failure;
 
 public class MyRunnerTest {
 	public static void main(String[] args) {
+		try {
+			System.out.println("Waiting 30 seconds");
+			Thread.sleep(30000);
+		}catch(Exception e) {
+			
+		}
 		Result result = JUnitCore.runClasses(MyTest.class);
 		for(Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());

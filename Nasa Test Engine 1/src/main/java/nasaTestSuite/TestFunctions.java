@@ -646,6 +646,13 @@ public class TestFunctions
 	
 	public void tempUpBy(int numTaps) {
 		System.out.println("Temp up by: " + numTaps);
+
+		try {
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			System.out.println("Sleep Err: " + e);
+		}
+		
 		WebElement tempPlusElm = d.findByXPath(XPath.stromboTempUp, BUTTON_WAIT);
 		int cMinTemp = 16;
 		int cMaxTemp = 32;
@@ -756,6 +763,14 @@ public class TestFunctions
 	
 	public void tempDownBy(int numTaps) {
 		System.out.println("Temp down by: " + numTaps);
+
+		try {
+			System.out.println("WARNING: Still unsure if this is working 100% of the time.");
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			System.out.println("Sleep Err: " + e);
+		}
+		
 		WebElement tempMinusElm = d.findByXPath(XPath.stromboTempDown, BUTTON_WAIT);
 		int cMinTemp = 16;
 		int cMaxTemp = 32;
@@ -788,8 +803,10 @@ public class TestFunctions
 		}
 		
 		for(int i = 0; i < numTaps; i++) {
+			System.out.println("NumTap Loop: " + i);
 			tempMinusElm.click();
 		}
+		
 		d.thinkWait();			
 		currentTemp = strombo.getTargTemp();
 		System.out.println("Verify expectedTemp = " + expectedTemp);
@@ -812,7 +829,8 @@ public class TestFunctions
 	 * @param targTemp Expected target temp after execution. 
 	 */
 	public void tempDownTo(int targTemp) {
-		System.out.println("Temp Down to: " + targTemp);
+		System.out.println("Temp Down to: " + targTemp);	
+		System.out.println("WARNING: OCCASIONALLY DOES NOT CLICK ENOUGH TIMES.");//even though the numtaps was correct the app ended up 5 away from the goal. 
 		WebElement tempMinusElm = d.findByXPath(XPath.stromboTempDown, BUTTON_WAIT);
 		int cMinTemp = 16;
 		int cMaxTemp = 32;
@@ -900,12 +918,12 @@ public class TestFunctions
 	/**
 	 * Changes speed once and checks to verify result. 
 	 */
-	public void speedUp() {
+	public void speedUp(Appliance.Types type, Appliance.Modes mode) {
 		//Avoid dry mode
-		if(strombo.getModeValue()==5) {
+		if(strombo.getModeValue()==5) {//todo remove?
 			strombo.clickModeUp();
 		}
-		int expectedSpeed = strombo.getNextExpectedSpeed();
+		int expectedSpeed = strombo.getNextExpectedSpeed(type, mode);
 		strombo.clickSpeedUp();
 		System.out.println("Speed: " + strombo.getSpeed());
 		System.out.println("Expected: " + expectedSpeed);
@@ -920,12 +938,12 @@ public class TestFunctions
 	/**
 	 * Changes speed once and checks to verify result. 
 	 */
-	public void speedDown() {
+	public void speedDown(Appliance.Types type, Appliance.Modes mode) {
 		//Avoid dry mode
 		if(strombo.getModeValue()==5) {
 			strombo.clickModeUp();
 		}
-		int expectedSpeed = strombo.getPrevExpectedSpeed();
+		int expectedSpeed = strombo.getPrevExpectedSpeed(type, mode);
 		strombo.clickSpeedDown();
 		int currentSpeed = strombo.getSpeed();
 		System.out.println("Speed: " + currentSpeed);

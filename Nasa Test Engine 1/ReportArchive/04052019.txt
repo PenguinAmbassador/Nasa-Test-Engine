@@ -1,0 +1,606 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building NasaTestEngine1 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ NasaTestEngine1 ---
+[INFO] Deleting C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ NasaTestEngine1 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 30 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:compile (default-compile) @ NasaTestEngine1 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 21 source files to C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target\classes
+[INFO] /C:/Users/WoodmDav/localDocuments/myCode/GIT/Nasa Test Engine 1/Nasa Test Engine 1/src/main/java/nasaTestSuite/FrigiDriver.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/Users/WoodmDav/localDocuments/myCode/GIT/Nasa Test Engine 1/Nasa Test Engine 1/src/main/java/nasaTestSuite/FrigiDriver.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ NasaTestEngine1 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 10 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:testCompile (default-testCompile) @ NasaTestEngine1 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 10 source files to C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ NasaTestEngine1 ---
+[INFO] Surefire report directory: C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running test.java.DehumTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.119 sec
+Running test.java.SignInTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.005 sec
+Running test.java.StromboliSettingsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0 sec
+Running test.java.StromboliTest
+StromboliTest
+WARN: RAC will need to adjust mode num and speed num tests
+6.0.1
+
+SAMSUNG-SM-G930A
+
+WARNING: Temporarily removed update
+Capabilities: Platform: Android          Platform Version: 6.0.1          DeviceName: SAMSUNG-SM-G930A          AVD:           APP:           AutomationName: UiAutomator2
+Phone: DeviceName: SAMSUNG-SM-G930A          OS: 6.0.1          Offset: 115          Accurate Offset: true          NewDevice: false
+C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk
+Apr 05, 2019 1:42:43 PM io.appium.java_client.remote.AppiumCommandExecutor$1 lambda$0
+INFO: Detected dialect: W3C
+Checking if Signed in...
+Verify xpath: //a[@class='icon icon-settings icon--align-right pull-right']
+Displayed: true
+Already Signed In
+OFFSET: 115
+Checking if Signed in...
+Verify xpath: //a[@class='icon icon-settings icon--align-right pull-right']
+Displayed: true
+Already Signed In
+Verify xpath: //header//h1[contains(text(),'Air Conditioner')]
+Displayed: true
+Controls already open: Air Conditioner
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Speed Up Four Times
+==========================================================================
+Speed by data value7
+Thinking not found
+Thinking in Seconds: 4.519
+Speed: 7
+Expected: 1
+--------------------------------------------------------------------------
+End Result - Speed Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Speed Down
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.736
+Speed: 7
+Expected: 7
+--------------------------------------------------------------------------
+End Result - Speed Down: PASS
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Mode Up Four Times
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.434
+Mode: 3
+Expected: 4
+--------------------------------------------------------------------------
+End Result - Mode Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: COOL
+Print Param 1: COOL
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Temp Down past MIN
+==========================================================================
+Temp down past min fahrenheit
+Temp Down to: 60
+Basic NumTaps: 10
+Thinking
+Thinking not found
+Thinking in Seconds: 6.969
+Verify expectedTemp = 60
+Verify currentTemp = 63
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: FAIL
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Power on function
+==========================================================================
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+Appliance is on. Shutting OFF.
+Seconds to load properties: 4.624
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 6
+Thinking not found
+Thinking in Seconds: 4.312
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Appliance is off. Powering ON.
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.191
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+--------------------------------------------------------------------------
+End Result - Power on function: PASS
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Temp up past MAX
+==========================================================================
+Temp up past Max fahrenheit
+Temp up to: 90
+Basic NumTaps: 27
+Thinking not found
+Thinking in Seconds: 4.159
+Verify expectedTemp = 90
+Verify currentTemp = 72
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up To: FAIL
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Mode Up
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.608
+Mode: 3
+Expected: 4
+--------------------------------------------------------------------------
+End Result - Mode Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: FAN
+
+
+
+==========================================================================
+Starting Test - Speed Up Four Times
+==========================================================================
+Speed by data value1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.933
+Speed: 2
+Expected: 2
+--------------------------------------------------------------------------
+End Result - Speed Up: PASS
+--------------------------------------------------------------------------
+
+Speed by data value2
+Thinking
+Thinking not found
+Thinking in Seconds: 6.867
+Speed: 4
+Expected: 4
+--------------------------------------------------------------------------
+End Result - Speed Up: PASS
+--------------------------------------------------------------------------
+
+Speed by data value4
+Thinking
+Thinking not found
+Thinking in Seconds: 6.853
+Speed: 1
+Expected: 7
+--------------------------------------------------------------------------
+End Result - Speed Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: FAN
+
+
+
+==========================================================================
+Starting Test - Speed Down
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.928
+Speed: 4
+Expected: 7
+--------------------------------------------------------------------------
+End Result - Speed Down: FAIL
+--------------------------------------------------------------------------
+
+Switched to: FAN
+Switched to: FAN
+Print Param 1: FAN
+Switched to: FAN
+Switched to: FAN
+
+
+
+==========================================================================
+Starting Test - Power on function
+==========================================================================
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+Appliance is on. Shutting OFF.
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.217
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Appliance is off. Powering ON.
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.155
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+--------------------------------------------------------------------------
+End Result - Power on function: PASS
+--------------------------------------------------------------------------
+
+Switched to: FAN
+Switched to: FAN
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Speed Up Four Times
+==========================================================================
+Speed by data value4
+Thinking not found
+Thinking in Seconds: 4.223
+Speed: 4
+Expected: 7
+--------------------------------------------------------------------------
+End Result - Speed Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Speed Down
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.89
+Speed: 2
+Expected: 2
+--------------------------------------------------------------------------
+End Result - Speed Down: PASS
+--------------------------------------------------------------------------
+
+Switched to: ECON
+Switched to: ECON
+Print Param 1: ECON
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Temp Down past MIN
+==========================================================================
+Temp down past min fahrenheit
+Temp Down to: 60
+Basic NumTaps: 12
+Thinking
+Thinking not found
+Thinking in Seconds: 6.761
+Verify expectedTemp = 60
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: PASS
+--------------------------------------------------------------------------
+
+Temp down by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.66
+Verify expectedTemp = 90
+Verify currentTemp = 90
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down by: PASS
+--------------------------------------------------------------------------
+
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[@class='icon icon-settings icon--align-right pull-right']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.252
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[@id='temperature-toggle']]
+Seconds to tap by coordinates: 2
+Thinking not found
+Thinking in Seconds: 4.226
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[contains(@class,'icon icon-arrow-header-prev pull-left')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.16
+Temp down past min celsius
+Temp Down to: 16
+Basic NumTaps: 16
+Thinking not found
+Thinking in Seconds: 4.15
+Verify expectedTemp = 16
+Verify currentTemp = 22
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: FAIL
+--------------------------------------------------------------------------
+
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Power on function
+==========================================================================
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+Appliance is on. Shutting OFF.
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.135
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Appliance is off. Powering ON.
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.284
+Searching for: Off
+XPath Failed: //div[@class='settings--controls rac--off-state settings--always-show-icons']//ul//li[@class='settings--item settings--current']
+Timed out after 5 second(s)
+Actual: 
+Found: false
+isPowerOn: true
+--------------------------------------------------------------------------
+End Result - Power on function: PASS
+--------------------------------------------------------------------------
+
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Temp up past MAX
+==========================================================================
+Temp up past Max celcius
+Temp up to: 32
+Basic NumTaps: 10
+Thinking not found
+Thinking in Seconds: 6.108
+Verify expectedTemp = 32
+Verify currentTemp = 22
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up To: FAIL
+--------------------------------------------------------------------------
+
+Switched to: ECON
+Apr 05, 2019 1:50:21 PM org.openqa.selenium.support.ui.ExpectedConditions findElement
+WARNING: WebDriverException thrown by findElement(By.xpath: //div[@class='settings--controls settings--mode rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next'])
+org.openqa.selenium.WebDriverException: Returned value cannot be converted to List<WebElement>: {message=chrome not reachable
+  (Session info: chrome=73.0.3683.90)
+  (Driver info: chromedriver=2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7),platform=Windows NT 10.0.14393 x86_64)}
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T14:04:26.12Z'
+System info: host: 'USWN0933', ip: '10.74.197.98', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: FrigiDriver
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:354)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElements(DefaultGenericMobileDriver.java:54)
+	at io.appium.java_client.AppiumDriver.findElements(AppiumDriver.java:152)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementsByXPath(RemoteWebDriver.java:423)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElementsByXPath(DefaultGenericMobileDriver.java:156)
+	at io.appium.java_client.AppiumDriver.findElementsByXPath(AppiumDriver.java:184)
+	at org.openqa.selenium.By$ByXPath.findElements(By.java:348)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:305)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElements(DefaultGenericMobileDriver.java:50)
+	at io.appium.java_client.AppiumDriver.findElements(AppiumDriver.java:148)
+	at org.openqa.selenium.support.ui.ExpectedConditions.findElement(ExpectedConditions.java:895)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$000(ExpectedConditions.java:44)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:206)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:202)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:248)
+	at main.java.nasaTestSuite.FrigiDriver.myWaitXPath(FrigiDriver.java:155)
+	at main.java.nasaTestSuite.FrigiDriver.findByXPath(FrigiDriver.java:270)
+	at main.java.nasaTestSuite.Stromboli.modeTo(Stromboli.java:198)
+	at test.java.StromboliTest.changeMode(StromboliTest.java:69)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:27)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.ClassCastException: com.google.common.collect.Maps$TransformedEntriesMap cannot be cast to java.util.List
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:352)
+	... 56 more
+
+Apr 05, 2019 1:50:26 PM org.openqa.selenium.support.ui.ExpectedConditions findElement
+WARNING: WebDriverException thrown by findElement(By.xpath: //div[@class='settings--controls settings--mode rac--controls settings--always-show-icons']//a[@class='settings--toggle settings--toggle-next'])
+org.openqa.selenium.WebDriverException: Returned value cannot be converted to List<WebElement>: {message=chrome not reachable
+  (Session info: chrome=73.0.3683.90)
+  (Driver info: chromedriver=2.37.544315 (730aa6a5fdba159ac9f4c1e8cbc59bf1b5ce12b7),platform=Windows NT 10.0.14393 x86_64)}
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T14:04:26.12Z'
+System info: host: 'USWN0933', ip: '10.74.197.98', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_171'
+Driver info: driver.version: FrigiDriver
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:354)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElements(DefaultGenericMobileDriver.java:54)
+	at io.appium.java_client.AppiumDriver.findElements(AppiumDriver.java:152)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementsByXPath(RemoteWebDriver.java:423)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElementsByXPath(DefaultGenericMobileDriver.java:156)
+	at io.appium.java_client.AppiumDriver.findElementsByXPath(AppiumDriver.java:184)
+	at org.openqa.selenium.By$ByXPath.findElements(By.java:348)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:305)
+	at io.appium.java_client.DefaultGenericMobileDriver.findElements(DefaultGenericMobileDriver.java:50)
+	at io.appium.java_client.AppiumDriver.findElements(AppiumDriver.java:148)
+	at org.openqa.selenium.support.ui.ExpectedConditions.findElement(ExpectedConditions.java:895)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$000(ExpectedConditions.java:44)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:206)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:202)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:248)
+	at main.java.nasaTestSuite.FrigiDriver.myWaitXPath(FrigiDriver.java:155)
+	at main.java.nasaTestSuite.FrigiDriver.findByXPath(FrigiDriver.java:270)
+	at main.java.nasaTestSuite.Stromboli.modeTo(Stromboli.java:198)
+	at test.java.StromboliTest.changeMode(StromboliTest.java:69)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:27)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.ClassCastException: com.google.common.collect.Maps$TransformedEntriesMap cannot be cast to java.util.List
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:352)
+	... 56 more
+

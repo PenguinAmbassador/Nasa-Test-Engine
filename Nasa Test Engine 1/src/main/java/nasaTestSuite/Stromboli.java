@@ -125,41 +125,67 @@ public class Stromboli extends Appliance
 		return nextExpectedMode;
 	}
 
-	public int getNextExpectedSpeed() {
+	public int getNextExpectedSpeed(Types type, Modes mode) {
 		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		System.out.println("Speed by data value" + speed);
 		int nextExpectedSpeed = -1;
 		//These numbers are based on the HACL codes that represent each speed
-		switch (speed) {
-	        case 1:  nextExpectedSpeed = 2;
-	        	break;
-	        case 2:  nextExpectedSpeed = 4;
-	        	break;
-	        case 4:  nextExpectedSpeed = 7;
-	        	break;
-			case 7:  nextExpectedSpeed = 1;
-		    	break;
-			default: System.out.println("Unknown speed: " + speed);
-				break;
+		if(type != Types.RAC || mode != Modes.FAN) {
+			switch (speed) {
+		        case 1:  nextExpectedSpeed = 2;
+		        	break;
+		        case 2:  nextExpectedSpeed = 4;
+		        	break;
+		        case 4:  nextExpectedSpeed = 7;
+		        	break;
+				case 7:  nextExpectedSpeed = 1;
+			    	break;
+				default: System.out.println("Unknown speed: " + speed);
+					break;
+			}			
+		}else {
+			switch (speed) {
+		        case 1:  nextExpectedSpeed = 2;
+		        	break;
+		        case 2:  nextExpectedSpeed = 4;
+		        	break;
+		        case 4:  nextExpectedSpeed = 1;
+		        	break;
+				default: System.out.println("Unknown speed: " + speed);
+					break;
+			}						
 		}
 		return nextExpectedSpeed;
 	}
 
-	public int getPrevExpectedSpeed() {
+	public int getPrevExpectedSpeed(Types type, Modes mode) {
 		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		int prevExpectedSpeed = -1;
 		//These numbers are based on the HACL codes that represent each speed
-		switch (speed) {
-	        case 1:  prevExpectedSpeed = 7;
-	        	break;
-	        case 2:  prevExpectedSpeed = 1;
-	        	break;
-	        case 4:  prevExpectedSpeed = 2;
-	        	break;
-			case 7:  prevExpectedSpeed = 4;
-		    	break;
-			default: System.out.println("Unknown speed: " + speed);
-				break;
+		if(type != Types.RAC || mode != Modes.FAN) {
+			switch (speed) {
+		        case 1:  prevExpectedSpeed = 7;
+		        	break;
+		        case 2:  prevExpectedSpeed = 1;
+		        	break;
+		        case 4:  prevExpectedSpeed = 2;
+		        	break;
+				case 7:  prevExpectedSpeed = 4;
+			    	break;
+				default: System.out.println("Unknown speed: " + speed);
+					break;
+			}
+		}else {
+			switch (speed) {
+		        case 1:  prevExpectedSpeed = 4;
+		        	break;
+		        case 2:  prevExpectedSpeed = 1;
+		        	break;
+		        case 4:  prevExpectedSpeed = 2;
+		        	break;
+				default: System.out.println("Unknown speed: " + speed);
+					break;
+			}			
 		}
 		return prevExpectedSpeed;
 	}
@@ -200,6 +226,7 @@ public class Stromboli extends Appliance
 		while(getModeValue() != expectedMode) {
 			modeElm.click();	
 		}
+		d.thinkWait();
 		System.out.println("Switched to: " + targetMode);
 	}
 	

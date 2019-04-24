@@ -1,0 +1,443 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building NasaTestEngine1 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ NasaTestEngine1 ---
+[INFO] Deleting C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ NasaTestEngine1 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 30 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:compile (default-compile) @ NasaTestEngine1 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 21 source files to C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target\classes
+[INFO] /C:/Users/WoodmDav/localDocuments/myCode/GIT/Nasa Test Engine 1/Nasa Test Engine 1/src/main/java/nasaTestSuite/FrigiDriver.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/Users/WoodmDav/localDocuments/myCode/GIT/Nasa Test Engine 1/Nasa Test Engine 1/src/main/java/nasaTestSuite/FrigiDriver.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ NasaTestEngine1 ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 10 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.7.0:testCompile (default-testCompile) @ NasaTestEngine1 ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 10 source files to C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ NasaTestEngine1 ---
+[INFO] Surefire report directory: C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running test.java.DehumTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.053 sec
+Running test.java.SignInTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.021 sec
+Running test.java.StromboliSettingsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.001 sec
+Running test.java.StromboliTest
+StromboliTest
+WARN: RAC will need to adjust mode num and speed num tests
+6.0.1
+
+SAMSUNG-SM-G930A
+
+WARNING: Temporarily removed update
+Capabilities: Platform: Android          Platform Version: 6.0.1          DeviceName: SAMSUNG-SM-G930A          AVD:           APP:           AutomationName: UiAutomator2
+Phone: DeviceName: SAMSUNG-SM-G930A          OS: 6.0.1          Offset: 115          Accurate Offset: true          NewDevice: false
+C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk
+Apr 24, 2019 10:20:02 AM io.appium.java_client.remote.AppiumCommandExecutor$1 lambda$0
+INFO: Detected dialect: W3C
+Checking if Signed in...
+Verify xpath: //a[@class='icon icon-settings icon--align-right pull-right']
+Displayed: true
+Already Signed In
+OFFSET: 115
+Checking if Signed in...
+Verify xpath: //a[@class='icon icon-settings icon--align-right pull-right']
+Displayed: true
+Already Signed In
+Verify xpath: //header//h1[contains(text(),'Air Conditioner')]
+Displayed: true
+Controls already open: Air Conditioner
+Searching for: Off
+Actual: Off
+Found: true
+isPowerOn: false
+Seconds to load properties: 3.542
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[contains(@class,'single--action-wrap power-button-off')]]
+Seconds to tap by coordinates: 4
+Thinking not found
+Thinking in Seconds: 4.139
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Speed Up Four Times
+==========================================================================
+Speed by data value7
+Thinking
+Thinking not found
+Thinking in Seconds: 4.581
+Speed: 7
+Expected: 1
+--------------------------------------------------------------------------
+End Result - Speed Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Speed Down
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.842
+Speed: 7
+Expected: 7
+--------------------------------------------------------------------------
+End Result - Speed Down: PASS
+--------------------------------------------------------------------------
+
+Switched to: COOL
+Print Param 1: COOL
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Temp Down past MIN
+==========================================================================
+Temp down past min celsius
+Temp Down to: 16
+Basic NumTaps: 6
+Thinking
+Thinking not found
+Thinking in Seconds: 7.025
+Verify expectedTemp = 16
+Verify currentTemp = 16
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: PASS
+--------------------------------------------------------------------------
+
+Temp down by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.706
+Verify expectedTemp = 32
+Verify currentTemp = 32
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down by: PASS
+--------------------------------------------------------------------------
+
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[@class='icon icon-settings icon--align-right pull-right']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.313
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[@id='temperature-toggle']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.154
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[contains(@class,'icon icon-arrow-header-prev pull-left')]]
+Seconds to tap by coordinates: 2
+Thinking not found
+Thinking in Seconds: 4.154
+Temp down past min fahrenheit
+Temp Down to: 60
+Basic NumTaps: 29
+Thinking not found
+Thinking in Seconds: 4.162
+Verify expectedTemp = 60
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: PASS
+--------------------------------------------------------------------------
+
+Temp down by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.846
+Verify expectedTemp = 90
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down by: FAIL
+--------------------------------------------------------------------------
+
+Switched to: COOL
+
+
+
+==========================================================================
+Starting Test - Temp up past MAX
+==========================================================================
+Temp up past Max fahrenheit
+Temp up to: 90
+Basic NumTaps: 30
+Thinking
+Thinking not found
+Thinking in Seconds: 6.775
+Verify expectedTemp = 90
+Verify currentTemp = 90
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up To: PASS
+--------------------------------------------------------------------------
+
+Temp up by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.872
+Verify expectedTemp = 60
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up By: PASS
+--------------------------------------------------------------------------
+
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[@class='icon icon-settings icon--align-right pull-right']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.086
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[@id='temperature-toggle']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 5.274
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[contains(@class,'icon icon-arrow-header-prev pull-left')]]
+Seconds to tap by coordinates: 3
+Thinking not found
+Thinking in Seconds: 4.132
+Temp up past Max celcius
+Temp up to: 32
+Basic NumTaps: 16
+Thinking not found
+Thinking in Seconds: 4.148
+Verify expectedTemp = 32
+Verify currentTemp = 32
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up To: PASS
+--------------------------------------------------------------------------
+
+Temp up by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.879
+Verify expectedTemp = 16
+Verify currentTemp = 32
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up By: FAIL
+--------------------------------------------------------------------------
+
+Switched to: FAN
+
+
+
+==========================================================================
+Starting Test - Speed Up Four Times
+==========================================================================
+Speed by data value1
+Thinking not found
+Thinking in Seconds: 4.389
+Speed: 1
+Expected: 2
+--------------------------------------------------------------------------
+End Result - Speed Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: FAN
+
+
+
+==========================================================================
+Starting Test - Speed Down
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.9
+Speed: 1
+Expected: 1
+--------------------------------------------------------------------------
+End Result - Speed Down: PASS
+--------------------------------------------------------------------------
+
+Switched to: FAN
+Print Param 1: FAN
+Switched to: FAN
+Switched to: FAN
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Speed Up Four Times
+==========================================================================
+Speed by data value1
+Thinking
+Thinking not found
+Thinking in Seconds: 4.55
+Speed: 1
+Expected: 2
+--------------------------------------------------------------------------
+End Result - Speed Up: FAIL
+--------------------------------------------------------------------------
+
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Speed Down
+==========================================================================
+Thinking
+Thinking not found
+Thinking in Seconds: 6.995
+Speed: 1
+Expected: 1
+--------------------------------------------------------------------------
+End Result - Speed Down: PASS
+--------------------------------------------------------------------------
+
+Switched to: ECON
+Print Param 1: ECON
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Temp Down past MIN
+==========================================================================
+Temp down past min celsius
+Temp Down to: 16
+Basic NumTaps: 16
+Thinking
+Thinking not found
+Thinking in Seconds: 6.913
+Verify expectedTemp = 16
+Verify currentTemp = 16
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: PASS
+--------------------------------------------------------------------------
+
+Temp down by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.817
+Verify expectedTemp = 32
+Verify currentTemp = 32
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down by: PASS
+--------------------------------------------------------------------------
+
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[@class='icon icon-settings icon--align-right pull-right']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.114
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[@id='temperature-toggle']]
+Seconds to tap by coordinates: 2
+Thinking not found
+Thinking in Seconds: 4.124
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[contains(@class,'icon icon-arrow-header-prev pull-left')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.131
+Temp down past min fahrenheit
+Temp Down to: 60
+Basic NumTaps: 29
+Thinking not found
+Thinking in Seconds: 4.118
+Verify expectedTemp = 60
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down To: PASS
+--------------------------------------------------------------------------
+
+Temp down by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.787
+Verify expectedTemp = 90
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Down by: FAIL
+--------------------------------------------------------------------------
+
+Switched to: ECON
+
+
+
+==========================================================================
+Starting Test - Temp up past MAX
+==========================================================================
+Temp up past Max fahrenheit
+Temp up to: 90
+Basic NumTaps: 30
+Thinking
+Thinking not found
+Thinking in Seconds: 6.826
+Verify expectedTemp = 90
+Verify currentTemp = 90
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up To: PASS
+--------------------------------------------------------------------------
+
+Temp up by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.752
+Verify expectedTemp = 60
+Verify currentTemp = 60
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up By: PASS
+--------------------------------------------------------------------------
+
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[@class='icon icon-settings icon--align-right pull-right']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.146
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //div[@id='temperature-toggle']]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.138
+Tapping element: [[main.java.nasaTestSuite.FrigiDriver, Capabilities: {app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, appPackage=com.ELXSmart, autoGrantPermissions=true, automationName=UiAutomator2, databaseEnabled=false, desired={platformName=android, platform=ANDROID, app=C:\Users\WoodmDav\localDocuments\myCode\GIT\Nasa Test Engine 1\Nasa Test Engine 1\src\main\resources\Android_AppUITesting.apk, autoGrantPermissions=true, automationName=UiAutomator2, deviceName=SAMSUNG-SM-G930A, fullReset=false, noReset=true, platformVersion=6.0.1}, deviceApiLevel=23, deviceManufacturer=samsung, deviceModel=SAMSUNG-SM-G930A, deviceName=e7c7e0ee, deviceScreenDensity=640, deviceScreenSize=1440x2560, deviceUDID=e7c7e0ee, fullReset=false, javascriptEnabled=true, locationContextEnabled=false, networkConnectionEnabled=true, noReset=true, pixelRatio=4, platform=ANDROID, platformName=Android, platformVersion=6.0.1, statBarHeight=96, takesScreenshot=true, viewportRect={left=0, top=96, width=1440, height=2464}, warnings={}, webStorageEnabled=false}] -> xpath: //a[contains(@class,'icon icon-arrow-header-prev pull-left')]]
+Seconds to tap by coordinates: 1
+Thinking not found
+Thinking in Seconds: 4.158
+Temp up past Max celcius
+Temp up to: 32
+Basic NumTaps: 16
+Thinking not found
+Thinking in Seconds: 4.149
+Verify expectedTemp = 32
+Verify currentTemp = 32
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up To: PASS
+--------------------------------------------------------------------------
+
+Temp up by: 1
+Thinking
+Thinking not found
+Thinking in Seconds: 6.898
+Verify expectedTemp = 16
+Verify currentTemp = 32
+removed +1 in conditional: verify.
+--------------------------------------------------------------------------
+End Result - Temp Up By: FAIL
+--------------------------------------------------------------------------
+

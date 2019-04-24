@@ -333,23 +333,25 @@ public class FrigiDriver extends AndroidDriver
 	{
 		System.out.println(msg);
 	}
-	
+
 	//TODO redesign think so that appium looks for a thinking element before each click rather than waiting after a click
 	//There is potential for designing an abstract button class with code that comes with each button. Either that or add stuff to the tap methods
 	/**
-	 * Stops the driver while the app is thinking. Currently checks for a thinking element after 4 seconds of waiting. The program stays inside a loop until app is done thinking.
+	 * Wait for the thinking element to appear then disappear
+	 * @param seconds Seconds spent waiting before checking for the element. Most of the time thinking icon will appear after 3 seconds, but will appear immediatly after using power button.
 	 */
-	public void thinkWait() 
-	{	
+	public void thinkWait(int seconds) {
 		long startTime = System.currentTimeMillis();
 		//TODO Account for Connection Down screen
 		//TODO Account for Internet Alert error
 		//TODO LOOK INTO THE IMPLICIT WAIT ISSUE
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if(seconds > 0) {
+			try {
+				Thread.sleep(seconds*1000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		try {
 			WebElement thinkingElement = findElementByXPath("//div[@class='loading--content']");
@@ -387,6 +389,15 @@ public class FrigiDriver extends AndroidDriver
 
 		long stopTime = System.currentTimeMillis();
 		System.out.println("Thinking in Seconds: " + ((stopTime-startTime)/1000f));
+	
+	}
+	
+	/**
+	 * Stops the driver while the app is thinking. Currently checks for a thinking element after 4 seconds of waiting. The program stays inside a loop until app is done thinking.
+	 */
+	public void thinkWait() 
+	{	
+		thinkWait(4);
 	}
 	
 //	//REDESIGNED METHOD
