@@ -295,19 +295,6 @@ public class TestFunctions
 			fail();
 		}
 	}
-
-	public void notificationTest() {
-		printStartTest("Notification Toggle");
-
-		boolean success = toggleTest(XPath.notificationToggle);		
-		
-		if(success) {
-			printEndTest("Notification Toggle", "PASS");
-		} else {
-			printEndTest("Notification Toggle", "FAIL");
-			fail();
-		}
-	}
 	
 	public void timeZone() 
 	{
@@ -390,15 +377,10 @@ public class TestFunctions
 	{
 		Assert.assertEquals(1,1); //expected 1 actual 1
 	}
-	public void notification() 
-	{
-		
-	}	
 	
 	////TEST METHODS////
 	public void testPower() 
 	{
-		//appliance.openControls(this.getName());//ASSUME FOR NOW YOU'RE JUST GOING TO BE ON STROMBOLI SCREEN
 		printStartTest("Power on function");
 		for(int i = 0; i < 2; i++) {
 			if(app.isPowerOn()) {
@@ -716,13 +698,6 @@ public class TestFunctions
 		int fMinTemp = 60;
 		int fMaxTemp = 90;
 		int numTaps = -1;
-		//Change mode until you reach a mode that can change the temperature
-		int tempMode = strombo.getModeValue();
-		while(tempMode==3 || tempMode==5) 
-		{
-			strombo.clickModeUp();
-			tempMode = strombo.getModeValue();
-		}
 		
 		//Current target Temp
 		int currTTemp = strombo.getTargTemp();
@@ -777,15 +752,8 @@ public class TestFunctions
 		int fMinTemp = 60;
 		int fMaxTemp = 90;
 		int expectedTemp = -1;
-		//Change mode until you reach a mode that can change the temperature
-		int tempMode = strombo.getModeValue();
-		while(tempMode==3 || tempMode==5) 
-		{
-			strombo.clickModeUp();
-			tempMode = strombo.getModeValue();
-		}
-		int currentTemp = strombo.getTargTemp();
 		
+		int currentTemp = strombo.getTargTemp();		
 		if(currentTemp > cMaxTemp) {
 			//fahrenheit
 			if((currentTemp - numTaps) < fMinTemp) {
@@ -837,13 +805,6 @@ public class TestFunctions
 		int fMinTemp = 60;
 		int fMaxTemp = 90;
 		int numTaps = -1;
-		//Change mode until you reach a mode that can change the temperature
-		int tempMode = strombo.getModeValue();
-		while(tempMode==3 || tempMode==5) 
-		{
-			strombo.clickModeUp();
-			tempMode = strombo.getModeValue();
-		}
 		
 		//Current target Temp
 		int currTTemp = strombo.getTargTemp();
@@ -919,10 +880,6 @@ public class TestFunctions
 	 * Changes speed once and checks to verify result. 
 	 */
 	public void speedUp(Appliance.Types type, Appliance.Modes mode) {
-		//Avoid dry mode
-		if(strombo.getModeValue()==5) {//todo remove?
-			strombo.clickModeUp();
-		}
 		int expectedSpeed = strombo.getNextExpectedSpeed(type, mode);
 		strombo.clickSpeedUp();
 		System.out.println("Speed: " + strombo.getSpeed());
@@ -939,10 +896,6 @@ public class TestFunctions
 	 * Changes speed once and checks to verify result. 
 	 */
 	public void speedDown(Appliance.Types type, Appliance.Modes mode) {
-		//Avoid dry mode
-		if(strombo.getModeValue()==5) {
-			strombo.clickModeUp();
-		}
 		int expectedSpeed = strombo.getPrevExpectedSpeed(type, mode);
 		strombo.clickSpeedDown();
 		int currentSpeed = strombo.getSpeed();
