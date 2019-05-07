@@ -23,10 +23,10 @@ public class MyTest {
 //		    // Write code here that turns the phrase above into concrete actions
 //		}
 //
-//		@Test//("^Phone or emulator are ready$")
-//		public void phone_or_emulator_are_ready()  {
-//		    // Write code here that turns the phrase above into concrete actions
-//		}
+		@Test//("^Phone or emulator are ready$")
+		public void phone_or_emulator_are_ready()  {
+		    // Write code here that turns the phrase above into concrete actions
+		}
 
 //		@BeforeClass//("^This code opens the app$")
 //		public static void launchMyTest(){

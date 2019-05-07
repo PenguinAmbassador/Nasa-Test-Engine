@@ -74,30 +74,30 @@ public class StromboliTest extends Base
 		}
 	}
 	
-	@Before
-	public void changeMode() {
-		long startTime = System.currentTimeMillis();
-		
-		
-		strombo.openControls(targetAppliance);
-		strombo.modeTo(targetMode);
-		
-		long stopTime = System.currentTimeMillis();
-		System.out.println("Time Elapsed @Before: " + ((stopTime-startTime)/1000f));
-	}
-	
-	
-	@Test
-	public void printParams() {
-		System.out.println("Print Param 1: " + targetAppliance);
-	}
-	
-	//functional and passing
-	@Test
-	public void powerOnOff() 
-	{
-		test.testPower();
-	}
+//	@Before
+//	public void changeMode() {
+//		long startTime = System.currentTimeMillis();
+//		
+//		
+//		strombo.openControls(targetAppliance);
+//		strombo.modeTo(targetMode);
+//		
+//		long stopTime = System.currentTimeMillis();
+//		System.out.println("Time Elapsed @Before: " + ((stopTime-startTime)/1000f));
+//	}
+//	
+//	
+//	@Test
+//	public void printParams() {
+//		System.out.println("Print Param 1: " + targetAppliance);
+//	}
+//	
+//	//functional and passing
+//	@Test
+//	public void powerOnOff() 
+//	{
+//		test.testPower();
+//	}
 	
 	
 //	@Test
@@ -126,6 +126,120 @@ public class StromboliTest extends Base
 		}
 	}
 	
+	//verified
+	@Test
+	public void tempUpPas6436Max(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void tempDownPast253Min(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
+		}
+	}
+	
+	//verified
+	@Test
+	public void tempUpPas654tMax(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void tempDownP643stMin(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
+		}
+	}
+	
+	//verified
+	@Test
+	public void tempUpPastMa352x(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void tempDownPas534Min(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
+		}
+	}
+	
+	//verified
+	@Test
+	public void tempUpPa14stMax(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void tempDow25nPastMin(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
+		}
+	}
+	
+	//verified
+	@Test
+	public void tempUpPa4stMax(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void tempDownPastM23in(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
+		}
+	}
+	
+	//verified
+	@Test
+	public void tempUpPastMa2x(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp up past MAX");
+			test.tempUpPastMax();
+			//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void tempDownPastMin1(){
+		if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+			test.printStartTest("Temp Down past MIN");
+			test.tempDownPastMin();
+		}
+	}
+	
 //	//DEPRECIATED
 //	@Test
 //	public void tempDown() 
@@ -147,53 +261,52 @@ public class StromboliTest extends Base
 //		}
 //	}
 	
-	//functional and passing
-	@Test
-	public void modeUp() 
-	{
-		//TODO add test case that verifies that each mode was found
-		//Cycles through all modes
-		//Only need to run this test once
-		if(targetMode == Appliance.Modes.COOL) {
-			test.printStartTest("Mode Up Four Times");
-			for(int i = 0; i < 4; i++) {
-				test.modeUp();
-			}
-		}
-	}
-	
-	//verify functionality
-	@Test
-	public void modeUpDown() 
-	{
-		if(targetMode == Appliance.Modes.COOL) {
-			test.printStartTest("Mode Up");
-			test.modeUp();
-			test.printStartTest("Mode Down");
-			test.modeDown();
-		}
-	}
-
-	//functional and passing
-	@Test 
-	public void speedUp() 
-	{
-		if(targetMode != Appliance.Modes.DRY) {
-			test.printStartTest("Speed Up Four Times");
-			for(int i = 0; i < 4; i++) {
-				test.speedUp(targetAppliance, targetMode);
-			}
-		}
-	}
-
-	//verify functionality
-	@Test 
-	public void speedDown() 
-	{
-		if(targetMode != Appliance.Modes.DRY) {
-			test.printStartTest("Speed Down");
-			test.speedDown(targetAppliance, targetMode);
-		}
-	}
+//	//functional and passing
+//	@Test
+//	public void modeUp() 
+//	{
+//		//TODO add test case that verifies that each mode was found
+//		//Cycles through all modes
+//		//Only need to run this test once
+//		if(targetMode == Appliance.Modes.COOL) {
+//			test.printStartTest("Mode Up Four Times");
+//			for(int i = 0; i < 4; i++) {
+//				test.modeUp();
+//			}
+//		}
+//	}
+//	
+//	//verify functionality
+//	@Test
+//	public void modeUpDown() 
+//	{
+//		test.printStartTest("Mode Up then Down");
+//		if(targetMode == Appliance.Modes.COOL) {
+//			test.modeUp();
+//			test.modeDown();
+//		}
+//	}
+//
+//	//functional and passing
+//	@Test 
+//	public void speedUp() 
+//	{
+//		if(targetMode != Appliance.Modes.DRY) {
+//			test.printStartTest("Speed Up Four Times");
+//			for(int i = 0; i < 4; i++) {
+//				test.speedUp(targetAppliance, targetMode);
+//			}
+//		}
+//	}
+//
+//	//verify functionality
+//	@Test 
+//	public void speedDown() 
+//	{
+//		if(targetMode != Appliance.Modes.DRY) {
+//			test.printStartTest("Speed Down");
+//			test.speedDown(targetAppliance, targetMode);
+//		}
+//	}
 	
 }
