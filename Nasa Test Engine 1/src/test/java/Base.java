@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -28,7 +31,7 @@ public class Base
 	public static Stromboli strombo = null;
 	public static Dehum dehum = null;
 	public static Appliance app = null;
-	public static TestFunctions test = null;	
+	public static TestFunctions test = null;
 	boolean testing = false;
 	
 	/**
@@ -88,6 +91,53 @@ public class Base
 //		frigi.takeScreenshot("C:/temp/Screenshot.jpg");
 //		Assert.fail(); 
 //	}
+
+	
+	public static boolean[] readXML(){
+		boolean[] config = new boolean[6];
+		SAXBuilder builder = new SAXBuilder();
+		try {
+			
+			// Parses the file supplied into a JDOM document			
+			Document readDoc = builder.build(new File("C:\\Users\\WoodmDav\\localDocuments\\myCode\\GIT\\Nasa Test Engine 1\\Nasa Test Engine 1\\src\\main\\resources\\config.xml"));
+			
+			// Returns the root element for the document			
+			System.out.println("Root: " + readDoc.getRootElement());
+			
+			// Gets the text found between the name tags
+			
+			System.out.println("android: " + readDoc.getRootElement().getChildText("android"));
+			System.out.println("iphone: " + readDoc.getRootElement().getChildText("iphone"));
+			System.out.println("rac: " + readDoc.getRootElement().getChildText("rac"));
+			System.out.println("strombo: " + readDoc.getRootElement().getChildText("strombo"));
+			System.out.println("dehum: " + readDoc.getRootElement().getChildText("dehum"));
+			System.out.println("sign-in: " + readDoc.getRootElement().getChildText("sign-in"));
+                        
+            boolean android = Boolean.parseBoolean(readDoc.getRootElement().getChildText("android"));
+            boolean iphone= Boolean.parseBoolean(readDoc.getRootElement().getChildText("iphone"));
+            boolean rac = Boolean.parseBoolean(readDoc.getRootElement().getChildText("rac"));
+            boolean strombo = Boolean.parseBoolean(readDoc.getRootElement().getChildText("strombo"));
+            boolean dehum = Boolean.parseBoolean(readDoc.getRootElement().getChildText("dehum"));
+            boolean signIn = Boolean.parseBoolean(readDoc.getRootElement().getChildText("sign-in"));
+            
+			config[0] = android;
+			config[1] = iphone;
+			config[2] = rac;
+			config[3] = strombo;
+			config[4] = dehum;
+			config[5] = signIn;
+		} 
+		
+		catch (JDOMException e) {
+			e.printStackTrace();
+		} 
+		
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        return config;		
+	}
 	
 	@AfterClass
 	public static void quit(){

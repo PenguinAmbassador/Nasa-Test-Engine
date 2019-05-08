@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <android>true</android>
+  <iphone>false</iphone>
+  <rac>true</rac>
+  <strombo>true</strombo>
+  <dehum>true</dehum>
+  <sign-in>false</sign-in>
+</config>
