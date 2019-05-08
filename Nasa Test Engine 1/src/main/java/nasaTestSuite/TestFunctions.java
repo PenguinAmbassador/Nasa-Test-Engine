@@ -879,7 +879,7 @@ public class TestFunctions
 	/**
 	 * Changes speed once and checks to verify result. 
 	 */
-	public void speedUp(Appliance.Types type, Appliance.Modes mode) {
+	public void speedUp(Appliance.TestType type, Appliance.Modes mode) {
 		int expectedSpeed = strombo.getNextExpectedSpeed(type, mode);
 		strombo.clickSpeedUp();
 		System.out.println("Speed: " + strombo.getSpeed());
@@ -895,7 +895,7 @@ public class TestFunctions
 	/**
 	 * Changes speed once and checks to verify result. 
 	 */
-	public void speedDown(Appliance.Types type, Appliance.Modes mode) {
+	public void speedDown(Appliance.TestType type, Appliance.Modes mode) {
 		int expectedSpeed = strombo.getPrevExpectedSpeed(type, mode);
 		strombo.clickSpeedDown();
 		int currentSpeed = strombo.getSpeed();

@@ -32,7 +32,8 @@ public class Appliance {
 	    }
 	}
 	
-	public enum Types {
+	public enum TestType {
+		SIGNIN,
 		RAC,
 		STROMBO,
 		DEHUM;
@@ -109,14 +110,14 @@ public class Appliance {
 	 * 
 	 * @param type
 	 */
-	public void openControls(Types type) {
-		if(type == Types.RAC) {
+	public void openControls(TestType type) {
+		if(type == TestType.RAC) {
 			openControls("Air Conditioner");
 		}else 			
-		if(type == Types.STROMBO) {
+		if(type == TestType.STROMBO) {
 			openControls("Strombo");			
 		}else 
-		if(type == Types.DEHUM) {
+		if(type == TestType.DEHUM) {
 			openControls("Dehum");			
 		}
 	}

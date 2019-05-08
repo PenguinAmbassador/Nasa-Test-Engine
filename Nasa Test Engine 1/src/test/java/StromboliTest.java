@@ -41,10 +41,10 @@ public class StromboliTest extends Base
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
         	//RAC
-        	{Appliance.Types.RAC, Appliance.Modes.ECON}, {Appliance.Types.RAC, Appliance.Modes.COOL}, {Appliance.Types.RAC, Appliance.Modes.FAN}
+        	{Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}
         	,
         	//STROMBO
-        	{Appliance.Types.STROMBO, Appliance.Modes.ECON}, {Appliance.Types.STROMBO, Appliance.Modes.DRY}, {Appliance.Types.STROMBO, Appliance.Modes.FAN}, {Appliance.Types.STROMBO, Appliance.Modes.COOL}
+        	{Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}
         	
 //        	//test 
 //        	{Appliance.Types.RAC, Appliance.Modes.ECON}, {Appliance.Types.RAC, Appliance.Modes.COOL}, {Appliance.Types.RAC, Appliance.Modes.FAN}, {Appliance.Types.STROMBO, Appliance.Modes.DRY}       	
@@ -56,7 +56,7 @@ public class StromboliTest extends Base
     }
 
     @Parameter(0) // first data value 
-    public /* NOT private */ Appliance.Types targetAppliance;
+    public /* NOT private */ Appliance.TestType targetAppliance;
 
     @Parameter(1) //Second data value
     public /* NOT private */ Appliance.Modes targetMode;
@@ -65,12 +65,10 @@ public class StromboliTest extends Base
 	public static void launchMyTest()
 	{
 		System.out.println("StromboliTest");//delete later
-		System.out.println("WARN: RAC will need to adjust mode num and speed num tests");
 		setupApp("eluxtester1@gmail.com", "1234567");	
-//		strombo.openControls(Appliance.Types.STROMBO);
 		if(!strombo.isPowerOn()) {
 			//if power is off, turn on
-			frigi.tapByXPath(XPath.plainPowerButton); //todo remove power assumption
+			frigi.tapByXPath(XPath.plainPowerButton); 
 		}
 	}
 	

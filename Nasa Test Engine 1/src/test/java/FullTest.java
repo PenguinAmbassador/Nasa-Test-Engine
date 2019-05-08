@@ -36,12 +36,19 @@ import main.java.nasaTestSuite.XPath;
 
 @RunWith(Parameterized.class)
 public class FullTest extends Base{
-	public static boolean fakeNotify = false;
+
+	
+	private static boolean phoneConfig;
+	private static boolean androidConfig;
+	private static boolean racConfig;
+	private static boolean stromboConfig;
+	private static boolean dehumConfig;
+	private static boolean signInConfig;
 
     @Parameters
-    public static Collection<Object[]> data() throws InterruptedException {
+    public static Collection<Object[]> data() throws InterruptedException {	
         //default Parameters
-    	Collection<Object[]> result = Arrays.asList(new Object[][] {{Appliance.Types.RAC, Appliance.Modes.ECON}});
+    	Collection<Object[]> result = Arrays.asList(new Object[][] {{Appliance.TestType.RAC, Appliance.Modes.ECON}});
     	
     	GUI gui = new GUI();
     	gui.setVisible(true);
@@ -50,40 +57,51 @@ public class FullTest extends Base{
     		System.out.println("Running: " + gui.isRunning());
     		Thread.sleep(200);
     	}
-    	fakeNotify = true;
     	
     	System.out.println("Running: " + gui.isRunning());
     	boolean[] config = readXML();
 
 		System.out.println("Config loaded");
     	
-    	boolean phoneConfig = config[0];
-    	boolean androidConfig = config[1];
-    	boolean racConfig = config[2];
-    	boolean stromboConfig = config[3];
-    	boolean dehumConfig = config[4];
-    	boolean signInConfig = config[5];
+    	phoneConfig = config[0];
+    	androidConfig = config[1];
+    	racConfig = config[2];
+    	stromboConfig = config[3];
+    	dehumConfig = config[4];
+    	signInConfig = config[5];
     	
     	if(racConfig && stromboConfig){
     		System.out.println("rac and strombo params loaded");
     		result = Arrays.asList(new Object[][] {
-    	        	//RAC
-    	        	{Appliance.Types.RAC, Appliance.Modes.ECON}, {Appliance.Types.RAC, Appliance.Modes.COOL}, {Appliance.Types.RAC, Appliance.Modes.FAN}
-    	        	,
-    	        	//STROMBO
-    	        	{Appliance.Types.STROMBO, Appliance.Modes.ECON}, {Appliance.Types.STROMBO, Appliance.Modes.DRY}, {Appliance.Types.STROMBO, Appliance.Modes.FAN}, {Appliance.Types.STROMBO, Appliance.Modes.COOL}
-    	           });
+				//SIGNIN
+				{Appliance.TestType.SIGNIN, null},
+				//DEHUM
+				{Appliance.TestType.DEHUM, null},
+	        	//RAC
+	        	{Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}
+	        	,
+	        	//STROMBO
+	        	{Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}
+	           });
     	}else if(racConfig){
     		System.out.println("rac params loaded");
        		result = Arrays.asList(new Object[][] {
-       	        	//RAC
-       	        	{Appliance.Types.RAC, Appliance.Modes.ECON}, {Appliance.Types.RAC, Appliance.Modes.COOL}, {Appliance.Types.RAC, Appliance.Modes.FAN}
-       	           });
+				//SIGNIN
+				{Appliance.TestType.SIGNIN, null},
+				//DEHUM
+				{Appliance.TestType.DEHUM, null},
+   	        	//RAC
+   	        	{Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}
+   	           });
     	}else if(stromboConfig) {
     		System.out.println("strombo params loaded");
     		result = Arrays.asList(new Object[][] {
+				//SIGNIN
+				{Appliance.TestType.SIGNIN, null},
+				//DEHUM
+				{Appliance.TestType.DEHUM, null},
 	        	//STROMBO
-	        	{Appliance.Types.STROMBO, Appliance.Modes.ECON}, {Appliance.Types.STROMBO, Appliance.Modes.DRY}, {Appliance.Types.STROMBO, Appliance.Modes.FAN}, {Appliance.Types.STROMBO, Appliance.Modes.COOL}
+	        	{Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}
 	           });
     	}
     	
@@ -98,7 +116,7 @@ public class FullTest extends Base{
 
 
     @Parameter(0) // first data value 
-    public /* NOT private */ Appliance.Types targetAppliance;
+    public /* NOT private */ Appliance.TestType targetAppliance;
 
     @Parameter(1) //Second data value
     public /* NOT private */ Appliance.Modes targetMode;
@@ -106,16 +124,35 @@ public class FullTest extends Base{
 	@BeforeClass//("^This code opens the app$")
 	public static void launchMyTest()
 	{
-//		add later
-		System.out.println("Launch Test");
+		System.out.println("Full Test");
+    	
+		setupApp("eluxtester1@gmail.com", "1234567");	
+		if(!strombo.isPowerOn()) {
+			//if power is off, turn on
+			frigi.tapByXPath(XPath.plainPowerButton); 
+		}
 	}
 	
 	@Before
 	public void changeMode() {
 		long startTime = System.currentTimeMillis();
 		
-//		strombo.openControls(targetAppliance);
-//		strombo.modeTo(targetMode);
+		if(targetAppliance == Appliance.TestType.SIGNIN) {
+			//Tried to change to click backbutton, try again with more specific xpath. 
+			System.out.println("--------------------------------------------------------------------------");
+			System.out.println("Resetting errors before each test");
+			frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
+			frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);		
+		}else if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig) {
+			strombo.openControls(targetAppliance);
+		}else if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			strombo.openControls(targetAppliance);
+			strombo.modeTo(targetMode);	
+		}else {
+			System.out.println("Problem?");
+		}
+				
+		
 		
 		long stopTime = System.currentTimeMillis();
 		System.out.println("Time Elapsed @Before: " + ((stopTime-startTime)/1000f));
@@ -125,6 +162,5 @@ public class FullTest extends Base{
 	@Test
 	public void printParams() {
 		System.out.println("Print Param 1: " + targetAppliance);
-	}
-	
+	}	
 }

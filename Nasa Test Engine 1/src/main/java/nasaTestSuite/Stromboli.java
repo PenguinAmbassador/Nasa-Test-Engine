@@ -125,12 +125,12 @@ public class Stromboli extends Appliance
 		return nextExpectedMode;
 	}
 
-	public int getNextExpectedSpeed(Types type, Modes mode) {
+	public int getNextExpectedSpeed(TestType type, Modes mode) {
 		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		System.out.println("Speed by data value" + speed);
 		int nextExpectedSpeed = -1;
 		//These numbers are based on the HACL codes that represent each speed
-		if(type != Types.RAC || mode != Modes.FAN) {
+		if(type != TestType.RAC || mode != Modes.FAN) {
 			switch (speed) {
 		        case 1:  nextExpectedSpeed = 2;
 		        	break;
@@ -158,11 +158,11 @@ public class Stromboli extends Appliance
 		return nextExpectedSpeed;
 	}
 
-	public int getPrevExpectedSpeed(Types type, Modes mode) {
+	public int getPrevExpectedSpeed(TestType type, Modes mode) {
 		speed = Integer.parseInt(d.findByXPath(XPath.currentFanSpeed, BUTTON_WAIT).getAttribute("data-value"));
 		int prevExpectedSpeed = -1;
 		//These numbers are based on the HACL codes that represent each speed
-		if(type != Types.RAC || mode != Modes.FAN) {
+		if(type != TestType.RAC || mode != Modes.FAN) {
 			switch (speed) {
 		        case 1:  prevExpectedSpeed = 7;
 		        	break;
