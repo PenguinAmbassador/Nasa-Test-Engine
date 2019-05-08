@@ -13,6 +13,7 @@ import static org.junit.Assert.fail;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.tools.ant.util.SymbolicLinkUtils;
@@ -98,12 +99,12 @@ public class StromboliTest extends Base
 	}
 	
 	
-//	@Test
-//	public void tempUpByRandom() 
-//	{
-//		//TODO Increase by random ammount
-//		//test.tempUpBy(random);
-//	}
+	@Test
+	public void tempUpByRandom() 
+	{
+		System.out.println("Untested Temp up by Random");
+		test.tempUpBy(new Random().nextInt(10)+1);
+	}
 	
 	//verified
 	@Test
@@ -123,27 +124,6 @@ public class StromboliTest extends Base
 			test.tempDownPastMin();
 		}
 	}
-	
-//	//DEPRECIATED
-//	@Test
-//	public void tempDown() 
-//	{
-//		test.printStartTest("Temp Down");
-//		strombo.changeModeToCoolorEcon();
-//		int expectedTemp = strombo.getTargTemp();
-//		strombo.clickTempMinus();
-//		expectedTemp--;
-//		int currentTemp = strombo.getTargTemp();
-//		System.out.println("Verify expectedTemp = " + expectedTemp);
-//		System.out.println("Verify currentTemp = " + currentTemp);
-//		System.out.println("removed -1 in conditional: verify.");
-//		if(expectedTemp != currentTemp){
-//			test.printEndTest("Temp Down", "FAIL");
-//			fail();
-//		}else {
-//			test.printEndTest("Temp Down", "PASS");
-//		}
-//	}
 	
 	//functional and passing
 	@Test

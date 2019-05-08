@@ -13,6 +13,7 @@ import static org.junit.Assert.fail;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.tools.ant.util.SymbolicLinkUtils;
@@ -52,15 +53,12 @@ public class FullTest extends Base{
     	
     	GUI gui = new GUI();
     	gui.setVisible(true);
-    	System.out.println("running? : " + gui.isRunning());
     	while(gui.isRunning()) {
-    		System.out.println("Running: " + gui.isRunning());
+    		System.out.println("Waiting: " + gui.isRunning());
     		Thread.sleep(200);
-    	}
+    	}    	
     	
-    	System.out.println("Running: " + gui.isRunning());
     	boolean[] config = readXML();
-
 		System.out.println("Config loaded");
     	
     	phoneConfig = config[0];
@@ -127,26 +125,33 @@ public class FullTest extends Base{
 		System.out.println("Full Test");
     	
 		setupApp("eluxtester1@gmail.com", "1234567");	
-		if(!strombo.isPowerOn()) {
-			//if power is off, turn on
-			frigi.tapByXPath(XPath.plainPowerButton); 
-		}
 	}
 	
 	@Before
 	public void changeMode() {
 		long startTime = System.currentTimeMillis();
 		
-		if(targetAppliance == Appliance.TestType.SIGNIN) {
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.println("@Before");
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true) {
 			//Tried to change to click backbutton, try again with more specific xpath. 
-			System.out.println("--------------------------------------------------------------------------");
-			System.out.println("Resetting errors before each test");
+			System.out.println("SIGN IN: Resetting errors before each test");
 			frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
 			frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);		
-		}else if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig) {
+		}else if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			System.out.println("Opening Dehum");
 			strombo.openControls(targetAppliance);
+			if(!strombo.isPowerOn(1)) {
+				//if power is off, turn on
+				frigi.tapByXPath(XPath.plainPowerButton); 
+			}
 		}else if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			System.out.println("Opening AC Controls");
 			strombo.openControls(targetAppliance);
+			if(!strombo.isPowerOn(1)) {
+				//if power is off, turn on
+				frigi.tapByXPath(XPath.plainPowerButton); 
+			}
 			strombo.modeTo(targetMode);	
 		}else {
 			System.out.println("Problem?");
@@ -163,4 +168,222 @@ public class FullTest extends Base{
 	public void printParams() {
 		System.out.println("Print Param 1: " + targetAppliance);
 	}	
+	
+	// *************************** //	
+	// ********DEHUM TESTS******** //
+	// *************************** //	
+	
+	//functional and passing
+	@Test
+	public void powerOnOff() 
+	{
+		if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			test.testPower();			
+		}
+	}
+	
+	//functional and passing
+	@Test
+	public void Humidity_Up() 
+	{
+		if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			test.printStartTest("Humidity Up");
+			int expectedHumidity = -1;
+			int currentHumidity = dehum.getTargHumidity();
+			dehum.clickHumidPlus();
+			if(currentHumidity == 85) {
+				expectedHumidity = 30;
+			}else {
+				expectedHumidity = currentHumidity + 5;			
+			}
+			currentHumidity = dehum.getTargHumidity();
+			System.out.println("Verify expectedTemp = " + expectedHumidity);
+			System.out.println("Verify currentTemp = " + currentHumidity);
+			if(expectedHumidity != currentHumidity) 
+			{
+				test.printEndTest("Humidity Up", "FAIL");
+				fail();
+			}
+			else
+			{
+				test.printEndTest("Humidity Up", "PASS");
+			}			
+		}
+	}
+	
+	//functional and passing
+	@Test
+	public void Humidity_Down() 
+	{
+		if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			test.printStartTest("Humidity Down - WARNING possible bugs");
+			int expectedHumidity = -1;
+			int currentHumidity = dehum.getTargHumidity();
+			dehum.clickHumidMinus();
+			if(currentHumidity == 30) {
+				expectedHumidity = 85;
+			}else {
+				expectedHumidity = currentHumidity - 5;			
+			}
+			currentHumidity = dehum.getTargHumidity();
+			System.out.println("Verify expectedTemp = " + expectedHumidity);
+			System.out.println("Verify currentTemp = " + currentHumidity);
+			if(expectedHumidity != currentHumidity){
+				test.printEndTest("Humidity Down", "FAIL");
+				fail();
+			}
+			else
+			{
+				test.printEndTest("Humidity Down", "PASS");
+			}			
+		}
+	}
+	
+	//functional and passing
+	@Test 
+	public void speedUp() 
+	{
+		if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			test.printStartTest("Speed Up");
+			int expectedSpeed = dehum.getNextExpectedSpeed();
+			dehum.clickSpeedUp();
+			System.out.println("Speed: " + dehum.getSpeed());
+			System.out.println("Expected: " + expectedSpeed);
+			if(expectedSpeed == dehum.getSpeed()) 
+			{
+				test.printEndTest("Speed Up", "PASS");
+			}else 
+			{
+				test.printEndTest("Speed Up", "FAIL");
+				fail();
+			}			
+		}
+	}
+
+	//functional and passing
+	@Test 
+	public void speedDown() 
+	{
+		if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			test.printStartTest("Speed Down");
+			int expectedSpeed = dehum.getPrevExpectedSpeed();
+			dehum.clickSpeedDown();
+			int currentSpeed = dehum.getSpeed();
+			System.out.println("Speed: " + currentSpeed);
+			System.out.println("Expected: " + expectedSpeed);
+			if(expectedSpeed == currentSpeed) 
+			{
+				test.printEndTest("Speed Down", "PASS");
+			}else 
+			{
+				test.printEndTest("Speed Down", "FAIL");
+				fail();
+			}
+		}
+	}
+	
+	
+	// ************************ //	
+	// ********AC TESTS******** //
+	// ************************ //	
+	
+	
+	//functional and passing
+	@Test
+	public void AcPowerOnOff() 
+	{
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			test.testPower();			
+		}
+	}
+	
+	
+	@Test
+	public void AcTempUpByRandom() 
+	{
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			System.out.println("Untested Temp up by Random");
+			test.tempUpBy(new Random().nextInt(10)+1);
+		}
+	}
+	
+	//verified
+	@Test
+	public void AcTempUpPastMax(){
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+				test.printStartTest("Temp up past MAX");
+				test.tempUpPastMax();
+				//TODO on rare occasion the app doesn't think after 3 seconds. Lag? Wifi? Causes Fail? Ask Developer			
+			}			
+		}
+	}
+	
+	//Verified
+	@Test
+	public void AcTempDownPastMin(){
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+				test.printStartTest("Temp Down past MIN");
+				test.tempDownPastMin();
+			}			
+		}
+	}
+	
+	//functional and passing
+	@Test
+	public void AcModeUp() 
+	{
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			//TODO add test case that verifies that each mode was found
+			//Cycles through all modes
+			//Only need to run this test once
+			if(targetMode == Appliance.Modes.COOL) {
+				test.printStartTest("Mode Up Four Times");
+				for(int i = 0; i < 4; i++) {
+					test.modeUp();
+				}
+			}			
+		}
+	}
+	
+	//verify functionality
+	@Test
+	public void AcModeUpDown() 
+	{
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			if(targetMode == Appliance.Modes.COOL) {
+				test.printStartTest("Mode Up");
+				test.modeUp();
+				test.printStartTest("Mode Down");
+				test.modeDown();
+			}			
+		}
+	}
+
+	//functional and passing
+	@Test 
+	public void AcSpeedUp() 
+	{
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			if(targetMode != Appliance.Modes.DRY) {
+				test.printStartTest("Speed Up Four Times");
+				for(int i = 0; i < 4; i++) {
+					test.speedUp(targetAppliance, targetMode);
+				}
+			}			
+		}
+	}
+
+	//verify functionality
+	@Test 
+	public void AcSpeedDown() 
+	{
+		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+			if(targetMode != Appliance.Modes.DRY) {
+				test.printStartTest("Speed Down");
+				test.speedDown(targetAppliance, targetMode);
+			}						
+		}
+	}
 }

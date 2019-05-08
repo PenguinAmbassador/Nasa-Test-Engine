@@ -101,7 +101,12 @@ public class Appliance {
 
 	public boolean isPowerOn() 
 	{
-		boolean powerOn = !d.searchForText("Off", XPath.offStatus, d.TEXT_SEARCH_WAIT);
+		return isPowerOn(d.TEXT_SEARCH_WAIT);
+	}
+
+	public boolean isPowerOn(int wait) 
+	{
+		boolean powerOn = !d.searchForText("Off", XPath.offStatus, wait);
 		System.out.println("isPowerOn: " + powerOn);
 		return powerOn;
 	}
