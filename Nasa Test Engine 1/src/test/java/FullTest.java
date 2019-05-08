@@ -152,7 +152,7 @@ public class FullTest extends Base{
 				//if power is off, turn on
 				frigi.tapByXPath(XPath.plainPowerButton); 
 			}
-			strombo.modeTo(targetMode);	
+			strombo.modeTo(targetMode, 1);	
 		}else {
 			System.out.println("Problem?");
 		}
@@ -302,8 +302,11 @@ public class FullTest extends Base{
 	public void AcTempUpByRandom() 
 	{
 		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
-			System.out.println("Untested Temp up by Random");
-			test.tempUpBy(new Random().nextInt(10)+1);
+			if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
+				test.printStartTest("Temp Up Random");
+				System.out.println("Untested Temp up by Random");		
+				test.tempUpBy(new Random().nextInt(10)+1);				
+			}
 		}
 	}
 	

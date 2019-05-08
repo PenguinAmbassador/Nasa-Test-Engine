@@ -221,12 +221,19 @@ public class Stromboli extends Appliance
 	 * Changes mode once and checks to verify result. Checks mode after each tap to see if it is the target mode.
 	 */
 	public void modeTo(Appliance.Modes targetMode) {
-		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, BUTTON_WAIT);
+		modeTo(targetMode, BUTTON_WAIT);
+	}
+
+	public void modeTo(Appliance.Modes targetMode, int wait) {
+		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, wait);
 		int expectedMode = targetMode.getHaclCode();
-		while(getModeValue() != expectedMode) {
+		boolean wrongMode = getModeValue() != expectedMode;
+		while(wrongMode) {
 			modeElm.click();	
 		}
-		d.thinkWait();
+		if(wrongMode) {
+			d.thinkWait();
+		}
 		System.out.println("Switched to: " + targetMode);
 	}
 	

@@ -69,6 +69,10 @@ public class FrigiDriver extends AndroidDriver
 	private URL testServerAddress; 
 	private PhoneConfig phone;
 
+	//Coordinate vars
+	Long webviewWidth, webviewHeight;
+	float ratioWidth, ratioHeight, nativeDeviceScreenWidth, nativeDeviceScreenHeight;
+	boolean propertiesLoaded = false;
 
 	public FrigiDriver(URL remoteAddress, Capabilities desiredCapabilities) {
 		super(remoteAddress,desiredCapabilities);
@@ -509,11 +513,7 @@ public class FrigiDriver extends AndroidDriver
 		new TouchAction(mDriver).tap(PointOption.point(elementCoordinateX, elementCoordinateY)).perform();		
 		useWebContext();
 	}
-
-	//TODO - move variables to top
-	Long webviewWidth, webviewHeight;
-	float ratioWidth, ratioHeight, nativeDeviceScreenWidth, nativeDeviceScreenHeight;
-	boolean propertiesLoaded = false;
+	
 	public void loadScreenProperties(){
 		long startTime = System.currentTimeMillis();
 		JavascriptExecutor js = (JavascriptExecutor)this;
