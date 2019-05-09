@@ -228,13 +228,15 @@ public class Stromboli extends Appliance
 		WebElement modeElm = d.findByXPath(XPath.stromboModeUp, wait);
 		int expectedMode = targetMode.getHaclCode();
 		boolean wrongMode = getModeValue() != expectedMode;
-		while(wrongMode) {
+		while(getModeValue() != expectedMode) {
 			modeElm.click();	
 		}
 		if(wrongMode) {
 			d.thinkWait();
+			System.out.println("Switched to: " + targetMode);
+		}else {
+			System.out.println("Already in: " + targetMode);
 		}
-		System.out.println("Switched to: " + targetMode);
 	}
 	
 }

@@ -65,8 +65,10 @@ public class Appliance {
 		elem.sendKeys(password);
 	}
 	
-	public void signIn(String email, String password) 
-	{
+	public void signIn(String email, String password, boolean staySignedIn) {
+		if(staySignedIn) {
+			d.tapByXPath(XPath.staySignedIn);				
+		}
 		typeField(XPath.emailField, email);
 		typePassword(password);
 		d.tapByXPath(XPath.signInTwo);	
@@ -76,7 +78,7 @@ public class Appliance {
 	public void signIn()
 	{
 		//DAVID: recommend deletion, but if this is easier then just delete this comment
-		signIn("eluxtester1@gmail.com", "123456");
+		signIn("eluxtester1@gmail.com", "123456", false);
 	}
 	
 	public void signOut() 
@@ -157,7 +159,7 @@ public class Appliance {
 		} else {
 			boolean signedOut = d.xPathIsDisplayed(XPath.signInTwo, d.SHORT_WAIT) || d.xPathIsDisplayed(XPath.signInOne, d.SHORT_WAIT);
 			if(signedOut){		
-				System.out.println("Currently Signed In");
+				System.out.println("Currently Signed Out");
 				result = false;		
 			} else {
 				//if both are false then there is an unexpected screen. 

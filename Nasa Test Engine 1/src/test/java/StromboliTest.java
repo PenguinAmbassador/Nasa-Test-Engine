@@ -67,7 +67,7 @@ public class StromboliTest extends Base
 	{
 		System.out.println("StromboliTest");//delete later
 		setupApp("eluxtester1@gmail.com", "1234567");	
-		if(!strombo.isPowerOn()) {
+		if(!ac.isPowerOn()) {
 			//if power is off, turn on
 			frigi.tapByXPath(XPath.plainPowerButton); 
 		}
@@ -78,8 +78,8 @@ public class StromboliTest extends Base
 		long startTime = System.currentTimeMillis();
 		
 		
-		strombo.openControls(targetAppliance);
-		strombo.modeTo(targetMode);
+		ac.openControls(targetAppliance);
+		ac.modeTo(targetMode);
 		
 		long stopTime = System.currentTimeMillis();
 		System.out.println("Time Elapsed @Before: " + ((stopTime-startTime)/1000f));

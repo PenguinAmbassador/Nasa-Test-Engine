@@ -178,9 +178,7 @@ public class GUI extends javax.swing.JFrame {
     	System.out.println("Go Pressed");
         writeXML(jRadioAndroid.isSelected(), jRadioIphone.isSelected(), jCheckStrombo.isSelected(), jCheckRac.isSelected(), jCheckDehum.isSelected(), jCheckSignIn.isSelected());
         running = false;
-//        while(!FullTest.fakeNotify) {}
         System.out.println("Exiting GUI");
-//        System.exit(0);
         this.dispose();
         
     }                                         

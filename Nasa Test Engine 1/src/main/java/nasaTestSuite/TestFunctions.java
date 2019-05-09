@@ -449,9 +449,9 @@ public class TestFunctions
 		String actual = element.getText();
 		String expected = "Please enter a valid email.";
 		if(actual.equals(expected)) {
-			System.out.println("PASS");			
+			printEndTest("Empty Password Validation", "PASS");			
 		}else {
-			System.out.println("FAIL");
+			printEndTest("Empty Password Validation", "FAIL");
 			fail();
 		}
 	}
@@ -470,9 +470,10 @@ public class TestFunctions
 		String actual = element.getText();
 		String expected = "Please enter a valid password (6 characters or more).";
 		if(actual.equals(expected)) {
-			System.out.println("PASS");			
+			//TODO change to printEndTest
+			printEndTest("Empty Password Validation", "PASS");			
 		}else {
-			System.out.println("FAIL");
+			printEndTest("Empty Password Validation", "FAIL");
 			fail();
 		}	
 	}
@@ -504,9 +505,14 @@ public class TestFunctions
 	public void shortPasswordValidation() 
 	{
 		printStartTest("Short Pass Validation");
-		app.signIn("eluxtester1@gmail.com", "12345");
+		app.signIn("eluxtester1@gmail.com", "12345", false);
 		boolean validationErrorFound = d.searchForText("Verify your log-in information and retry.", XPath.topValidation, BUTTON_WAIT);
-		Assert.assertEquals(true, validationErrorFound);
+		if(validationErrorFound) {
+			printEndTest("Short Pass Validation", "PASS");
+		}else {
+			printEndTest("Short Pass Validation", "FAIL");
+			fail();
+		}
 	}
 	
 	/**
@@ -517,9 +523,15 @@ public class TestFunctions
 	 */
 	public void credentialValidation(String email, String password) {
 		//print start test in test class
-		app.signIn(email, password);
+		app.signIn(email, password, false);
 		boolean validationErrorFound = d.xPathIsDisplayed(XPath.findText("Verify your log-in information and retry."), BUTTON_WAIT);
 		Assert.assertEquals(true, validationErrorFound);		
+		if(validationErrorFound) {
+			System.out.println("PASS");
+		}else {
+			System.out.println("FAIL");
+			fail();
+		}
 	}
 	
 	/**
@@ -528,8 +540,15 @@ public class TestFunctions
 	public void signInSignOutValidation() 
 	{
 		printStartTest("Sign In/Sign Out Validation");
-		app.signIn("eluxtester1@gmail.com", "123456");
+		app.signIn("eluxtester1@gmail.com", "123456", false);
 		app.signOut();
+		d.thinkWait(0);
+		if(d.xPathIsDisplayed(XPath.signInTwo)) {
+			printEndTest("Sign in Sign Out", "PASS");
+		}else {
+			printEndTest("Sign in Sign Out", "FAIL");
+			fail();
+		}
 	}
 	/**
 	 * Forgot Password link from the Sign In page. 
@@ -557,9 +576,9 @@ public class TestFunctions
 		//Reseting offset to original offset
 		d.changeOffset(-50);
 		if(passing) {
-			System.out.println("PASS");
+			printEndTest("Forgot Password", "PASS");
 		}else {
-			System.out.println("FAIL");
+			printEndTest("Forgot Password", "FAIL");
 			fail();
 		}
 	}
@@ -622,7 +641,7 @@ public class TestFunctions
 		d.tapByXPath(XPath.backButton);	
 		passing = passing && d.xPathIsDisplayed(XPath.forgotPasswordButton);	
 		if(passing) {
-			System.out.println("First back button PASS");
+			printEndTest("First back button", "PASS");
 		}
 	}
 	
@@ -643,11 +662,6 @@ public class TestFunctions
 		int expectedTemp = -1;
 		//Change mode until you reach a mode that can change the temperature
 		int tempMode = strombo.getModeValue();
-		while(tempMode==3 || tempMode==5) 
-		{
-			strombo.clickModeUp();
-			tempMode = strombo.getModeValue();
-		}
 		int currentTemp = strombo.getTargTemp();
 		
 		if(currentTemp > cMaxTemp) {

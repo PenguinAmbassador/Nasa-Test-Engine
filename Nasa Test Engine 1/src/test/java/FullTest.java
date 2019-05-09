@@ -39,18 +39,24 @@ import main.java.nasaTestSuite.XPath;
 public class FullTest extends Base{
 
 	
-	private static boolean phoneConfig;
+	private static boolean iphoneConfig;
 	private static boolean androidConfig;
 	private static boolean racConfig;
 	private static boolean stromboConfig;
 	private static boolean dehumConfig;
 	private static boolean signInConfig;
 
+	private static boolean racQueued;
+	private static boolean stromboQueued;
+	private static boolean dehumQueued;
+	private static boolean signInQueued;
+
     @Parameters
     public static Collection<Object[]> data() throws InterruptedException {	
         //default Parameters
-    	Collection<Object[]> result = Arrays.asList(new Object[][] {{Appliance.TestType.RAC, Appliance.Modes.ECON}});
+    	Collection<Object[]> result = Arrays.asList(new Object[][] {{Appliance.TestType.SIGNIN, null}, {Appliance.TestType.DEHUM, null}});
     	
+    	//Set up configs based on user input via GUI
     	GUI gui = new GUI();
     	gui.setVisible(true);
     	while(gui.isRunning()) {
@@ -58,16 +64,25 @@ public class FullTest extends Base{
     		Thread.sleep(200);
     	}    	
     	
+    	//Read user input via XML
     	boolean[] config = readXML();
 		System.out.println("Config loaded");
     	
-    	phoneConfig = config[0];
+		//Control which tests are run
+    	iphoneConfig = config[0];
     	androidConfig = config[1];
     	racConfig = config[2];
     	stromboConfig = config[3];
     	dehumConfig = config[4];
     	signInConfig = config[5];
     	
+    	//Used to limit openControls() checks and shorten runtime
+    	racQueued = racConfig;
+    	stromboQueued = stromboConfig;
+    	dehumQueued = dehumConfig;
+    	signInQueued= signInConfig;
+    	
+    	//Parameterized test configurations. The entire test class will re-run for each parameter set, however depending on the parameters certain tests get skipped until they are relevant to the parameter set. 
     	if(racConfig && stromboConfig){
     		System.out.println("rac and strombo params loaded");
     		result = Arrays.asList(new Object[][] {
@@ -105,6 +120,11 @@ public class FullTest extends Base{
     	
     	if(dehumConfig){
     		System.out.println("dehum params loaded");
+    		boolean dehumStressConfig = false;
+    		if(dehumStressConfig) {
+        		System.out.println(" - WARNING fake dehum stress config");
+            	result = Arrays.asList(new Object[][] {{Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null}});    			
+    		}
     	}
     	if(signInConfig){
     		System.out.println("sign in params loaded");        		
@@ -120,41 +140,77 @@ public class FullTest extends Base{
     public /* NOT private */ Appliance.Modes targetMode;
 
 	@BeforeClass//("^This code opens the app$")
-	public static void launchMyTest()
+	public static void BeforeClass()
 	{
 		System.out.println("Full Test");
-    	
-		setupApp("eluxtester1@gmail.com", "1234567");	
+    	if(signInConfig) {
+    		setupApp();
+    		if(app.isSignedIn()) {
+    			app.signOut();
+    		}
+    		System.out.println("SignIn Test - START");    		
+    	}else {
+    		setupApp("eluxtester1@gmail.com", "123456");	
+    	}
 	}
 	
 	@Before
-	public void changeMode() {
+	public void BeforeTest() {
 		long startTime = System.currentTimeMillis();
 		
 		System.out.println("--------------------------------------------------------------------------");
 		System.out.println("@Before");
+		System.out.println("TestType: " + targetAppliance);
+		System.out.println("TargetMode: " + targetMode);
+				
+		if(targetAppliance != Appliance.TestType.SIGNIN && signInQueued== true){
+			System.out.println("Signing in after \"SIGN IN TESTS\"");
+			app.signIn("eluxtester1@gmail.com", "123456", true);
+			signInQueued = false;			
+		}
 		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true) {
-			//Tried to change to click backbutton, try again with more specific xpath. 
-			System.out.println("SIGN IN: Resetting errors before each test");
-			frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
-			frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);		
-		}else if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
+			//nothing
+		}else if(targetAppliance == Appliance.TestType.DEHUM && dehumQueued == true) {		
 			System.out.println("Opening Dehum");
-			strombo.openControls(targetAppliance);
-			if(!strombo.isPowerOn(1)) {
+			ac.openControls(targetAppliance);
+			if(!ac.isPowerOn(SHORT_WAIT)) {
 				//if power is off, turn on
 				frigi.tapByXPath(XPath.plainPowerButton); 
 			}
-		}else if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
-			System.out.println("Opening AC Controls");
-			strombo.openControls(targetAppliance);
-			if(!strombo.isPowerOn(1)) {
-				//if power is off, turn on
-				frigi.tapByXPath(XPath.plainPowerButton); 
-			}
-			strombo.modeTo(targetMode, 1);	
+			//Only need to switch to dehum once
+			dehumQueued = false;
+		}else if(targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true){
+			if(stromboQueued) {
+				System.out.println("Opening AC Controls");
+				ac.openControls(targetAppliance);
+				if(!ac.isPowerOn(SHORT_WAIT)) {
+					//if power is off, turn on
+					frigi.tapByXPath(XPath.plainPowerButton); 
+				}
+				//Only need to switch to AC once 
+				stromboQueued = false;
+			}else {
+				ac.modeTo(targetMode, SHORT_WAIT);				
+			}	
+		}else if(targetAppliance == Appliance.TestType.RAC && racConfig == true){
+			if(racQueued) {
+				System.out.println("Opening AC Controls");
+				ac.openControls(targetAppliance);
+				if(!ac.isPowerOn(SHORT_WAIT)) {
+					//if power is off, turn on
+					frigi.tapByXPath(XPath.plainPowerButton); 
+				}
+				//Only need to switch to AC once 
+				racQueued = false;
+			}else {
+				ac.modeTo(targetMode, SHORT_WAIT);				
+			}	
 		}else {
-			System.out.println("Problem?");
+			if(signInConfig || dehumConfig) {
+				System.out.println("Problem?");
+			}else {
+				System.out.println("Skipping AC Tests");				
+			}
 		}
 				
 		
@@ -216,7 +272,7 @@ public class FullTest extends Base{
 	public void Humidity_Down() 
 	{
 		if(targetAppliance == Appliance.TestType.DEHUM && dehumConfig == true) {
-			test.printStartTest("Humidity Down - WARNING possible bugs");
+			test.printStartTest("Humidity Down");
 			int expectedHumidity = -1;
 			int currentHumidity = dehum.getTargHumidity();
 			dehum.clickHumidMinus();
@@ -292,7 +348,7 @@ public class FullTest extends Base{
 	@Test
 	public void AcPowerOnOff() 
 	{
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			test.testPower();			
 		}
 	}
@@ -301,7 +357,7 @@ public class FullTest extends Base{
 	@Test
 	public void AcTempUpByRandom() 
 	{
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig== true)){
 			if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
 				test.printStartTest("Temp Up Random");
 				System.out.println("Untested Temp up by Random");		
@@ -313,7 +369,7 @@ public class FullTest extends Base{
 	//verified
 	@Test
 	public void AcTempUpPastMax(){
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
 				test.printStartTest("Temp up past MAX");
 				test.tempUpPastMax();
@@ -325,7 +381,7 @@ public class FullTest extends Base{
 	//Verified
 	@Test
 	public void AcTempDownPastMin(){
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			if(targetMode != Appliance.Modes.FAN && targetMode != Appliance.Modes.DRY) {
 				test.printStartTest("Temp Down past MIN");
 				test.tempDownPastMin();
@@ -337,7 +393,7 @@ public class FullTest extends Base{
 	@Test
 	public void AcModeUp() 
 	{
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			//TODO add test case that verifies that each mode was found
 			//Cycles through all modes
 			//Only need to run this test once
@@ -354,7 +410,7 @@ public class FullTest extends Base{
 	@Test
 	public void AcModeUpDown() 
 	{
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			if(targetMode == Appliance.Modes.COOL) {
 				test.printStartTest("Mode Up");
 				test.modeUp();
@@ -368,7 +424,7 @@ public class FullTest extends Base{
 	@Test 
 	public void AcSpeedUp() 
 	{
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			if(targetMode != Appliance.Modes.DRY) {
 				test.printStartTest("Speed Up Four Times");
 				for(int i = 0; i < 4; i++) {
@@ -382,11 +438,115 @@ public class FullTest extends Base{
 	@Test 
 	public void AcSpeedDown() 
 	{
-		if((targetAppliance == Appliance.TestType.RAC && racConfig == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
+		if((targetAppliance == Appliance.TestType.RAC && racQueued == true) || (targetAppliance == Appliance.TestType.STROMBO && stromboConfig == true)){
 			if(targetMode != Appliance.Modes.DRY) {
 				test.printStartTest("Speed Down");
 				test.speedDown(targetAppliance, targetMode);
 			}						
+		}
+	}
+
+
+// ***************************** //	
+// ********SIGN-IN TESTS******** //
+// ***************************** //	
+
+	@Test
+	public void Sign_In_Sign_Out() 
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.signInSignOutValidation();
+		}
+	}
+	
+	@Test
+	public void Empty_Email_Validation()
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.emptyEmailValidation();	
+			resetErrors();
+		}
+	}
+	
+	@Test
+	public void Empty_Password_Validation()
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.emptyPasswordValidation();
+			resetErrors();
+		}
+	}
+	
+	@Test
+	public void Invalid_Email_Validation() 
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.printStartTest("Invalid Email Validation");
+			test.invalidEmailValidation("eluxtester1@gmail.");
+			resetErrors();
+			test.invalidEmailValidation("eluxtester1@.com");
+			resetErrors();
+			test.invalidEmailValidation("eluxtester1@gmail.c om");
+			test.printEndTest("Invalid Email Validation", "PASS");
+			
+			resetErrors();
+		}
+	}
+	
+	@Test
+	public void Short_Password_Validation()
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.shortPasswordValidation();
+			resetErrors();
+		}
+	}
+	
+	@Test
+	public void Credential_Validation()
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.printStartTest("Credential Validation");
+			test.credentialValidation("eluxtester1@gmail.com", "12345");
+			resetErrors();
+			test.credentialValidation("wrongemail@gmail.com", "123456");
+			test.printEndTest("Invalid Email Validation", "PASS");
+
+			resetErrors();
+		}
+	}
+	
+	@Test
+	public void Forgot_Password() 
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.forgotPass("eluxtester1@gmail.com");
+		}
+	}
+	
+	@Test
+	public void Show_Password() 
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.showPass();
+			resetErrors();
+		}
+	}
+	
+	@Test
+	public void Stay_Signed_In()
+	{
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.staySignedIn();
+		}
+	}
+	//TODO forgot pass Back button
+	
+	//untested
+	@Test
+	public void Forgot_Pass_Back_Button() {
+		if(targetAppliance == Appliance.TestType.SIGNIN && signInConfig == true){
+			test.forgotPassBackButton();
 		}
 	}
 }

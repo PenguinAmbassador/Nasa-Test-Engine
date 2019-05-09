@@ -199,7 +199,7 @@ public class FrigiDriver extends AndroidDriver
 	//default silentmode false
 	public boolean xPathIsDisplayed(String xPath, int waitSecs) 
 	{
-		return xPathIsDisplayed(xPath, BUTTON_WAIT, false);
+		return xPathIsDisplayed(xPath, waitSecs, false);
 	}
 	
 	public void myWaitText(String text, int waitSecs) 
@@ -485,7 +485,7 @@ public class FrigiDriver extends AndroidDriver
 		} else {
 			System.out.println("Problem tapping xpath: " + xPath);
 		}
-		thinkWait();
+		thinkWait(0);
 	}
 	
 	/**

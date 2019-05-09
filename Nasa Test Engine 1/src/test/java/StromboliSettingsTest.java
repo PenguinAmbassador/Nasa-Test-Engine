@@ -42,14 +42,14 @@ public class StromboliSettingsTest extends Base
 		System.out.println("PASS: Sign In");
 	    System.out.println("App Launched");
 	    System.out.println();
-		strombo.openControls("Strombo");
+		ac.openControls("Strombo");
 		System.out.println("Goal: POWERED ON WITH ECON/COOL SETTINGS MODE");
-		if(!strombo.isPowerOn()) {
+		if(!ac.isPowerOn()) {
 			System.out.println("Turning on appliance");
 			frigi.tapByXPath(XPath.plainPowerButton, frigi.BUTTON_WAIT);
 		}
-		strombo.changeModeToCoolorEcon();
-		strombo.openSettings();
+		ac.changeModeToCoolorEcon();
+		ac.openSettings();
 	}
 	
 	//functional and passing

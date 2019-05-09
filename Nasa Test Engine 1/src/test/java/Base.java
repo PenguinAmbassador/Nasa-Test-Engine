@@ -28,11 +28,20 @@ public class Base
 	private int screenshotCount = 0;
 
 	public static FrigiDriver frigi = null;
-	public static Stromboli strombo = null;
+	public static Stromboli ac = null;
 	public static Dehum dehum = null;
 	public static Appliance app = null;
 	public static TestFunctions test = null;
 	boolean testing = false;
+	
+
+	public final int OPEN_WAIT = 120;
+	public final int UPDATE_WAIT = 240;
+	public final int POWER_SECS = 20;
+	public final int BUTTON_WAIT = 5;
+	public final int SIGN_IN_WAIT = 120;
+	public final int TOGGLE_SECS = 2000;//ms
+	public final int SHORT_WAIT = 1;
 	
 	/**
 	 * Launch appium, Frigidaire app, and tap the first sign in button. 
@@ -50,7 +59,7 @@ public class Base
 			frigi = new FrigiDriver(TestServers.LocalServer(), capabilities.AssignAppiumCapabilities(), phone); //was from 540-890
 			frigi.useWebContext(); //required for hybrid apps
 			app = new Appliance(frigi);
-			strombo = new Stromboli(frigi);
+			ac = new Stromboli(frigi); //TODO change name to rac?
 			dehum = new Dehum(frigi);
 			test = new TestFunctions(frigi, app);	
 			if(!app.isSignedIn()) {
@@ -79,7 +88,7 @@ public class Base
 		setupApp();
 
 		if(!app.isSignedIn()) {
-			app.signIn(email, password);
+			app.signIn(email, password, true);
 		}
 	}
 	
@@ -138,6 +147,14 @@ public class Base
 		} 
         return config;		
 	}
+
+	public void resetErrors() {
+		//Tried to change to click backbutton, try again with more specific xpath. 
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.println("Resetting errors before each test");
+		frigi.tapByXPath(XPath.backButton, frigi.BUTTON_WAIT);
+		frigi.tapByXPath(XPath.signInOne, frigi.BUTTON_WAIT);		
+	}
 	
 	@AfterClass
 	public static void quit(){
@@ -145,4 +162,5 @@ public class Base
 		frigi.quit();
 		System.out.println("Driver shut down!");
 	}
+	
 }
