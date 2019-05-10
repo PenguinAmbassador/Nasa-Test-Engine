@@ -573,7 +573,7 @@ public class FrigiDriver extends AndroidDriver
 		}	
 
 		long stopTime = System.currentTimeMillis();
-		System.out.println("Seconds to tap by coordinates: " + ((stopTime - startTime)/1000));
+		System.out.println("Seconds to tap by coordinates: " + (((float)stopTime - (float)startTime)/1000f));
 		return elementLocation;
 	}
 	

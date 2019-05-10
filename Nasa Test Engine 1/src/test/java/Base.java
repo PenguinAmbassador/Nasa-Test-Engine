@@ -103,12 +103,12 @@ public class Base
 
 	
 	public static boolean[] readXML(){
-		boolean[] config = new boolean[6];
+		boolean[] config = new boolean[9];
 		SAXBuilder builder = new SAXBuilder();
 		try {
 			
 			// Parses the file supplied into a JDOM document			
-			Document readDoc = builder.build(new File("C:\\Users\\WoodmDav\\localDocuments\\myCode\\GIT\\Nasa Test Engine 1\\Nasa Test Engine 1\\src\\main\\resources\\config.xml"));
+			Document readDoc = builder.build(new File(".\\src\\main\\resources\\config.xml"));
 			
 			// Returns the root element for the document			
 			System.out.println("Root: " + readDoc.getRootElement());
@@ -121,6 +121,9 @@ public class Base
 			System.out.println("strombo: " + readDoc.getRootElement().getChildText("strombo"));
 			System.out.println("dehum: " + readDoc.getRootElement().getChildText("dehum"));
 			System.out.println("sign-in: " + readDoc.getRootElement().getChildText("sign-in"));
+			System.out.println("racStress: " + readDoc.getRootElement().getChildText("racStress"));
+			System.out.println("stromboStress: " + readDoc.getRootElement().getChildText("stromboStress"));
+			System.out.println("dehumStress: " + readDoc.getRootElement().getChildText("dehumStress"));
                         
             boolean android = Boolean.parseBoolean(readDoc.getRootElement().getChildText("android"));
             boolean iphone= Boolean.parseBoolean(readDoc.getRootElement().getChildText("iphone"));
@@ -128,6 +131,9 @@ public class Base
             boolean strombo = Boolean.parseBoolean(readDoc.getRootElement().getChildText("strombo"));
             boolean dehum = Boolean.parseBoolean(readDoc.getRootElement().getChildText("dehum"));
             boolean signIn = Boolean.parseBoolean(readDoc.getRootElement().getChildText("sign-in"));
+            boolean racStress = Boolean.parseBoolean(readDoc.getRootElement().getChildText("racStress"));
+            boolean stromboStress = Boolean.parseBoolean(readDoc.getRootElement().getChildText("stromboStress"));
+            boolean dehumStress = Boolean.parseBoolean(readDoc.getRootElement().getChildText("dehumStress"));
             
 			config[0] = android;
 			config[1] = iphone;
@@ -135,6 +141,9 @@ public class Base
 			config[3] = strombo;
 			config[4] = dehum;
 			config[5] = signIn;
+			config[6] = racStress;
+			config[7] = stromboStress;
+			config[8] = dehumStress;
 		} 
 		
 		catch (JDOMException e) {

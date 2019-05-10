@@ -2,17 +2,12 @@ package main.java.nasaTestSuite;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.Text;
-import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-
-import test.java.FullTest;
 
 /**
  *
@@ -25,12 +20,26 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
+        //DEFAULT SELECTED
         jRadioAndroid.setSelected(true);
-        jCheckRac.setSelected(true);
-        jCheckStrombo.setSelected(true);
         jCheckDehum.setSelected(true);
+                
+        jCheckRac.setSelected(true);
+        jCheckRacMode.setSelected(true);
+        jCheckRacTemp.setSelected(true);
+        jCheckRacSpeed.setSelected(true);        
         
-        //Generated:
+        jCheckStrombo.setSelected(true);
+        jCheckStromboMode.setSelected(true);
+        jCheckStromboTemp.setSelected(true);
+        jCheckStromboSpeed.setSelected(true);
+        //RADIO BUTTON GROUPS
+        radioGroupPhone.add(jRadioIphone);
+        radioGroupPhone.add(jRadioAndroid);
+//        radioGroupStress.add(jRadioRacStress);
+//        radioGroupStress.add(jRadioStromboStress);
+//        radioGroupStress.add(jRadioDehumStress);
+        
     }
 
     /**
@@ -42,25 +51,232 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        jCheckRac = new javax.swing.JCheckBox();
-        jCheckStrombo = new javax.swing.JCheckBox();
-        jCheckDehum = new javax.swing.JCheckBox();
-        jRadioAndroid = new javax.swing.JRadioButton();
-        jRadioIphone = new javax.swing.JRadioButton();
-        jCheckSignIn = new javax.swing.JCheckBox();
+        radioGroupPhone = new javax.swing.ButtonGroup();
+        radioGroupStress = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jButtonGo = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jCheckRac = new javax.swing.JCheckBox();
+        jCheckRacSpeed = new javax.swing.JCheckBox();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jCheckRacMode = new javax.swing.JCheckBox();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jCheckRacTemp = new javax.swing.JCheckBox();
+        jRadioRacStress = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jCheckStromboSpeed = new javax.swing.JCheckBox();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton9 = new javax.swing.JRadioButton();
+        jCheckStromboMode = new javax.swing.JCheckBox();
+        jRadioButton10 = new javax.swing.JRadioButton();
+        jCheckStromboTemp = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jRadioStromboStress = new javax.swing.JRadioButton();
+        jCheckStrombo = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        jCheckDehum = new javax.swing.JCheckBox();
+        jCheckSignIn = new javax.swing.JCheckBox();
+        jRadioDehumStress = new javax.swing.JRadioButton();
+        jCheckProvision = new javax.swing.JCheckBox();
+        jPanel4 = new javax.swing.JPanel();
+        jRadioAndroid = new javax.swing.JRadioButton();
+        jRadioIphone = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("NASA Automated Mobile App Test");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Automated Testing Configuration");
+
+        jButtonGo.setText("GO");
+        jButtonGo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGoActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jCheckRac.setText("RAC");
         jCheckRac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckRacActionPerformed(evt);
+            }
+        });
+
+        jCheckRacSpeed.setText("Speed");
+        jCheckRacSpeed.setEnabled(false);
+        jCheckRacSpeed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckRacSpeedActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText("Temp Stress Test");
+        jRadioButton3.setEnabled(false);
+
+        jRadioButton2.setText("Speed Stress Test");
+        jRadioButton2.setEnabled(false);
+
+        jCheckRacMode.setText("Mode");
+        jCheckRacMode.setEnabled(false);
+        jCheckRacMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckRacModeActionPerformed(evt);
+            }
+        });
+
+        jRadioButton1.setText("Mode Stress Test");
+        jRadioButton1.setEnabled(false);
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jCheckRacTemp.setText("Temp");
+        jCheckRacTemp.setEnabled(false);
+        jCheckRacTemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckRacTempActionPerformed(evt);
+            }
+        });
+
+        jRadioRacStress.setText("General Stress Test");
+        jRadioRacStress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioRacStressActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("A");
+
+        jLabel3.setText("B");
+
+        jLabel4.setText("C");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckRacTemp)
+                            .addComponent(jCheckRacSpeed)
+                            .addComponent(jCheckRacMode)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioRacStress))
+                            .addComponent(jRadioButton3))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(88, 88, 88))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckRac)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckRac)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioRacStress))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jCheckRacMode)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckRacTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckRacSpeed)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jCheckStromboSpeed.setText("Speed");
+        jCheckStromboSpeed.setEnabled(false);
+        jCheckStromboSpeed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckStromboSpeedActionPerformed(evt);
+            }
+        });
+
+        jRadioButton4.setText("Temp Stress Test");
+        jRadioButton4.setEnabled(false);
+
+        jRadioButton9.setText("Speed Stress Test");
+        jRadioButton9.setEnabled(false);
+
+        jCheckStromboMode.setText("Mode");
+        jCheckStromboMode.setEnabled(false);
+        jCheckStromboMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckStromboModeActionPerformed(evt);
+            }
+        });
+
+        jRadioButton10.setText("Mode Stress Test");
+        jRadioButton10.setEnabled(false);
+        jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton10ActionPerformed(evt);
+            }
+        });
+
+        jCheckStromboTemp.setText("Temp");
+        jCheckStromboTemp.setEnabled(false);
+        jCheckStromboTemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckStromboTempActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("A");
+
+        jLabel6.setText("B");
+
+        jLabel7.setText("C");
+
+        jRadioStromboStress.setText("General Stress Test");
+        jRadioStromboStress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioStromboStressActionPerformed(evt);
             }
         });
 
@@ -71,12 +287,123 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckStromboTemp)
+                            .addComponent(jCheckStromboSpeed)
+                            .addComponent(jCheckStromboMode)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel5)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton9)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioStromboStress))
+                            .addComponent(jRadioButton4))
+                        .addContainerGap(34, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(89, 89, 89))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckStrombo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckStrombo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton10)
+                            .addComponent(jRadioStromboStress))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton9))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jCheckStromboMode)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckStromboTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckStromboSpeed)))
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jCheckDehum.setText("Dehumidifier");
         jCheckDehum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckDehumActionPerformed(evt);
             }
         });
+
+        jCheckSignIn.setText("Sign In");
+
+        jRadioDehumStress.setText("Dehum Stress Test");
+        jRadioDehumStress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioDehumStressActionPerformed(evt);
+            }
+        });
+
+        jCheckProvision.setText("Provision");
+        jCheckProvision.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jRadioDehumStress))
+                    .addComponent(jCheckProvision)
+                    .addComponent(jCheckSignIn)
+                    .addComponent(jCheckDehum))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jCheckDehum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioDehumStress)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckSignIn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckProvision)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jRadioAndroid.setText("Android");
         jRadioAndroid.addActionListener(new java.awt.event.ActionListener() {
@@ -86,73 +413,73 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jRadioIphone.setText("iPhone");
+        jRadioIphone.setEnabled(false);
         jRadioIphone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioIphoneActionPerformed(evt);
             }
         });
 
-        jCheckSignIn.setText("Sign In");
-
-        jLabel1.setText("Automated Testing Configuration");
-
-        jButtonGo.setText("GO");
-        jButtonGo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGoActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioAndroid)
+                    .addComponent(jRadioIphone))
+                .addContainerGap(173, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jRadioAndroid)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioIphone)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioAndroid)
-                            .addComponent(jRadioIphone))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckRac)
-                            .addComponent(jCheckStrombo)
-                            .addComponent(jCheckDehum)
-                            .addComponent(jCheckSignIn)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonGo)
-                        .addGap(26, 26, 26)))
-                .addGap(56, 56, 56))
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(jLabel1)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonGo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(jLabel1)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(59, 59, 59)
-                .addComponent(jCheckRac)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckStrombo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckDehum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckSignIn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addComponent(jButtonGo)
-                        .addGap(46, 46, 46))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioAndroid)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioIphone)
-                        .addContainerGap(168, Short.MAX_VALUE))))
+                .addComponent(jButtonGo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,128 +490,236 @@ public class GUI extends javax.swing.JFrame {
     }                                           
 
     private void jCheckStromboActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
+        if(jCheckStrombo.isSelected()){
+            jCheckStromboMode.setSelected(true);
+            jCheckStromboTemp.setSelected(true);
+            jCheckStromboSpeed.setSelected(true);
+        }else{
+            jCheckStromboMode.setSelected(false);
+            jCheckStromboTemp.setSelected(false);
+            jCheckStromboSpeed.setSelected(false);            
+        }
     }                                             
 
     private void jCheckRacActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+        if(jCheckRac.isSelected()){
+            jCheckRacMode.setSelected(true);
+            jCheckRacTemp.setSelected(true);
+            jCheckRacSpeed.setSelected(true);
+        }else{
+            jCheckRacMode.setSelected(false);
+            jCheckRacTemp.setSelected(false);
+            jCheckRacSpeed.setSelected(false);            
+        }
     }                                         
 
     private void jRadioAndroidActionPerformed(java.awt.event.ActionEvent evt) {                                              
         jRadioIphone.setSelected(false);
     }                                             
 
-    private void jButtonGoActionPerformed(java.awt.event.ActionEvent evt) {      
-    	System.out.println("Go Pressed");
-        writeXML(jRadioAndroid.isSelected(), jRadioIphone.isSelected(), jCheckStrombo.isSelected(), jCheckRac.isSelected(), jCheckDehum.isSelected(), jCheckSignIn.isSelected());
+    private void jButtonGoActionPerformed(java.awt.event.ActionEvent evt) {
+    	System.out.println("GO PRESSED");    	
+        writeXML(jRadioAndroid.isSelected(), jRadioIphone.isSelected(), jCheckStrombo.isSelected(), jCheckRac.isSelected(), jCheckDehum.isSelected(), jCheckSignIn.isSelected(), jRadioRacStress.isSelected(), jRadioStromboStress.isSelected(), jRadioDehumStress.isSelected());
         running = false;
         System.out.println("Exiting GUI");
         this.dispose();
-        
     }                                         
 
     private void jRadioIphoneActionPerformed(java.awt.event.ActionEvent evt) {                                             
         jRadioAndroid.setSelected(false);
     }                                            
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUI().setVisible(true);
-//            }
-//        });
-//    }
+    private void jCheckRacModeActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void jCheckRacTempActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void jCheckRacSpeedActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        // TODO add your handling code here:
+    }                                              
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void jCheckStromboSpeedActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        // TODO add your handling code here:
+    }                                                  
+
+    private void jCheckStromboModeActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        // TODO add your handling code here:
+    }                                                 
+
+    private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        // TODO add your handling code here:
+    }                                              
+
+    private void jCheckStromboTempActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        // TODO add your handling code here:
+    }                                                 
+
+    private void jRadioStromboStressActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        if(jRadioStromboStress.isSelected()){
+            jCheckStrombo.setSelected(true);
+            jCheckStromboMode.setSelected(true);
+            jCheckStromboTemp.setSelected(true);
+            jCheckStromboSpeed.setSelected(true);
+        }
+        jRadioRacStress.setSelected(false);
+        jRadioDehumStress.setSelected(false);
+    }                                                   
+
+    private void jRadioRacStressActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        if(jRadioRacStress.isSelected()){
+            jCheckRac.setSelected(true);
+            jCheckRacMode.setSelected(true);
+            jCheckRacTemp.setSelected(true);
+            jCheckRacSpeed.setSelected(true);
+        }
+        jRadioStromboStress.setSelected(false);
+        jRadioDehumStress.setSelected(false);
+    }                                               
+
+    private void jRadioDehumStressActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        if(jRadioDehumStress.isSelected()){
+            jCheckDehum.setSelected(true);
+        }
+        jRadioRacStress.setSelected(false);
+        jRadioStromboStress.setSelected(false);
+    }                                                 
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GUI().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify                     
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton jButtonGo;
     private javax.swing.JCheckBox jCheckDehum;
+    private javax.swing.JCheckBox jCheckProvision;
     private javax.swing.JCheckBox jCheckRac;
+    private javax.swing.JCheckBox jCheckRacMode;
+    private javax.swing.JCheckBox jCheckRacSpeed;
+    private javax.swing.JCheckBox jCheckRacTemp;
     private javax.swing.JCheckBox jCheckSignIn;
     private javax.swing.JCheckBox jCheckStrombo;
+    private javax.swing.JCheckBox jCheckStromboMode;
+    private javax.swing.JCheckBox jCheckStromboSpeed;
+    private javax.swing.JCheckBox jCheckStromboTemp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioAndroid;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton10;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton9;
+    private javax.swing.JRadioButton jRadioDehumStress;
     private javax.swing.JRadioButton jRadioIphone;
+    private javax.swing.JRadioButton jRadioRacStress;
+    private javax.swing.JRadioButton jRadioStromboStress;
+    private javax.swing.ButtonGroup radioGroupPhone;
+    private javax.swing.ButtonGroup radioGroupStress;
     // End of variables declaration                   
 
-    //Eclipse
+	public static void writeXML(boolean isAndroid, boolean isIphone, boolean stromboChecked, boolean racChecked, boolean dehumChecked, boolean signInChecked, boolean racStressChecked, boolean stromboStressChecked, boolean dehumStressChecked){
+            try{	
+                Document doc = new Document();				
+                Element theRoot = new Element("config");
+                doc.setRootElement(theRoot);
 
-	
-	private static void writeXML(boolean isAndroid, boolean isIphone, boolean stromboChecked, boolean racChecked, boolean dehumChecked, boolean signInChecked){
-        try{	
-            Document doc = new Document();				
-            Element theRoot = new Element("config");
-            doc.setRootElement(theRoot);
+                Element iphone= new Element("iphone");
+                Element android= new Element("android");
+                Element rac = new Element("rac");
+                Element strombo = new Element("strombo");
+                Element dehum = new Element("dehum");
+                Element signIn = new Element("sign-in");
+                
+                Element racStress = new Element("racStress");
+                Element stromboStress = new Element("stromboStress");
+                Element dehumStress = new Element("dehumStress");
+                //text within
+                iphone.addContent(new Text(String.valueOf(isIphone)));
+                android.addContent(new Text(String.valueOf(isAndroid)));
+                rac.addContent(new Text(String.valueOf(racChecked)));
+                strombo.addContent(new Text(String.valueOf(stromboChecked)));
+                dehum.addContent(new Text(String.valueOf(dehumChecked)));
+                signIn.addContent(new Text(String.valueOf(signInChecked)));
+                
+                racStress.addContent(new Text(String.valueOf(racStressChecked)));
+                stromboStress.addContent(new Text(String.valueOf(stromboStressChecked)));
+                dehumStress.addContent(new Text(String.valueOf(dehumStressChecked)));
+                //Add to root		
+                theRoot.addContent(android);
+                theRoot.addContent(iphone);
+                theRoot.addContent(rac);
+                theRoot.addContent(strombo);
+                theRoot.addContent(dehum);
+                theRoot.addContent(signIn);
+                theRoot.addContent(racStress);
+                theRoot.addContent(stromboStress);
+                theRoot.addContent(dehumStress);
 
-            Element iphone= new Element("iphone");
-            Element android= new Element("android");
-            Element rac = new Element("rac");
-            Element strombo = new Element("strombo");
-            Element dehum = new Element("dehum");
-            Element signIn = new Element("sign-in");
-            //text within
-            iphone.addContent(new Text(String.valueOf(isIphone)));
-            android.addContent(new Text(String.valueOf(isAndroid)));
-            rac.addContent(new Text(String.valueOf(racChecked)));
-            strombo.addContent(new Text(String.valueOf(stromboChecked)));
-            dehum.addContent(new Text(String.valueOf(dehumChecked)));
-            signIn.addContent(new Text(String.valueOf(signInChecked)));
-            //Add to root		
-            theRoot.addContent(android);
-            theRoot.addContent(iphone);
-            theRoot.addContent(rac);
-            theRoot.addContent(strombo);
-            theRoot.addContent(dehum);
-            theRoot.addContent(signIn);
+                // Uses indenting with pretty format
+                XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
 
-            // Uses indenting with pretty format
-            XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
+                // Create a new file and write XML to it
 
-            // Create a new file and write XML to it
+                xmlOutput.output(doc, new FileOutputStream(new File(".\\src\\main\\resources\\config.xml")));
 
-//            xmlOutput.output(doc, new FileOutputStream(new File("/src/main/resources/config2.xml")));
+                System.out.println("Wrote to file");
 
-            xmlOutput.output(doc, new FileOutputStream(new File("C:\\Users\\WoodmDav\\localDocuments\\myCode\\GIT\\Nasa Test Engine 1\\Nasa Test Engine 1\\src\\main\\resources\\config.xml")));
+            }catch (Exception e) {
 
-            
-            System.out.println("Wrote to file");
-
-        }catch (Exception e) {
-
-            System.out.println(e);
-        }
+                e.printStackTrace();
+            }
 	}
-	public boolean isRunning() {
-		return running;
-	}
+
+    public boolean isRunning(){
+        return running;
+    }    
 }

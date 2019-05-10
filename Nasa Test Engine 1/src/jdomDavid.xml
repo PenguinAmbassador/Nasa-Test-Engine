@@ -2,11 +2,11 @@
 <config>
   <android>true</android>
   <iphone>false</iphone>
-  <rac>false</rac>
-  <strombo>false</strombo>
+  <rac>true</rac>
+  <strombo>true</strombo>
   <dehum>true</dehum>
   <sign-in>false</sign-in>
-  <racStress>false</racStress>
+  <racStress>true</racStress>
   <stromboStress>false</stromboStress>
-  <dehumStress>true</dehumStress>
+  <dehumStress>false</dehumStress>
 </config>

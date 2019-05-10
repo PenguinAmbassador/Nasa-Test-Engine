@@ -45,6 +45,9 @@ public class FullTest extends Base{
 	private static boolean stromboConfig;
 	private static boolean dehumConfig;
 	private static boolean signInConfig;
+	private static boolean racStressConfig;
+	private static boolean stromboStressConfig;
+	private static boolean dehumStressConfig;
 
 	private static boolean racQueued;
 	private static boolean stromboQueued;
@@ -75,6 +78,9 @@ public class FullTest extends Base{
     	stromboConfig = config[3];
     	dehumConfig = config[4];
     	signInConfig = config[5];
+    	racStressConfig = config[6];
+    	stromboStressConfig = config[7];
+    	dehumStressConfig = config[8];
     	
     	//Used to limit openControls() checks and shorten runtime
     	racQueued = racConfig;
@@ -120,14 +126,40 @@ public class FullTest extends Base{
     	
     	if(dehumConfig){
     		System.out.println("dehum params loaded");
-    		boolean dehumStressConfig = false;
-    		if(dehumStressConfig) {
-        		System.out.println(" - WARNING fake dehum stress config");
-            	result = Arrays.asList(new Object[][] {{Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null},{Appliance.TestType.DEHUM, null}});    			
-    		}
     	}
     	if(signInConfig){
     		System.out.println("sign in params loaded");        		
+    	}
+    	
+    	//STRESS CONFIG
+    	if(racStressConfig) {
+    		System.out.println("Rac stress override");
+       		result = Arrays.asList(new Object[][] {
+				//SIGNIN
+				{Appliance.TestType.SIGNIN, null},
+				//DEHUM
+				{Appliance.TestType.DEHUM, null},
+	        	//RAC 10x
+       			{Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}, {Appliance.TestType.RAC, Appliance.Modes.ECON}, {Appliance.TestType.RAC, Appliance.Modes.COOL}, {Appliance.TestType.RAC, Appliance.Modes.FAN}
+   	           });
+    	}else if(stromboStressConfig) {
+    		System.out.println("Strombo stress override");
+       		result = Arrays.asList(new Object[][] {
+				//SIGNIN
+				{Appliance.TestType.SIGNIN, null},
+				//DEHUM
+				{Appliance.TestType.DEHUM, null},
+	        	//Strombo 10x
+				{Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}, {Appliance.TestType.STROMBO, Appliance.Modes.ECON}, {Appliance.TestType.STROMBO, Appliance.Modes.DRY}, {Appliance.TestType.STROMBO, Appliance.Modes.FAN}, {Appliance.TestType.STROMBO, Appliance.Modes.COOL}
+   	           });    		
+    	}else if(dehumStressConfig) {
+    		System.out.println("Dehum stress override");
+       		result = Arrays.asList(new Object[][] {
+				//SIGNIN
+				{Appliance.TestType.SIGNIN, null},
+				//DEHUM
+				{Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}, {Appliance.TestType.DEHUM, null}
+   	           });
     	}
     	return result;
     }
